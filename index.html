@@ -78,6 +78,13 @@
       </article>
 
       <article class="metric-card">
+        <h3>Marea</h3>
+        <p class="metric-big"><span id="tideHeight">--</span> <small>m</small></p>
+        <p class="metric-sub" id="tideTrend">—</p>
+        <p class="metric-sub" id="tideNext">—</p>
+      </article>
+
+      <article class="metric-card">
         <h3>Agua</h3>
         <p class="metric-big"><span id="waterTemp">--</span>°C</p>
         <p class="metric-sub">Temperatura del mar</p>
@@ -116,11 +123,12 @@
   <!-- DEPORTES -->
   <section class="tab-panel" id="panel-deportes" data-panel="deportes">
     <h2 class="section-title">🏄 Informe de surf — La Barra / El Confital</h2>
-    <p class="section-hint">Lectura detallada del oleaje pensada para surfistas: altura y periodo del mar de fondo, potencia estimada de la ola y tipo de viento.</p>
+    <p class="section-hint">Mejores franjas horarias, mar de fondo, potencia de la ola y viento, pensado para decidir cuándo remar hacia La Barra.</p>
+    <div class="surf-windows" id="surfWindows"></div>
     <div class="surf-report" id="surfReport"></div>
 
-    <h2 class="section-title">🌊 Tabla de mareas — Puerto de la Luz</h2>
-    <p class="section-hint">La Barra es sensible a la marea: en bajamar la ola rompe más hueca y sobre menos fondo. Predicción con motor armónico de código abierto (Foreman 1977, datos CC-BY).</p>
+    <h2 class="section-title">🌊 Marea — Puerto de la Luz</h2>
+    <p class="section-hint">La Barra es sensible a la marea: en bajamar la ola rompe más hueca y sobre menos fondo. Calculada a partir del modelo de nivel del mar de Open-Meteo.</p>
     <div class="marea-panel" id="mareaPanel"></div>
 
     <h2 class="section-title">Aptitud por deporte acuático</h2>

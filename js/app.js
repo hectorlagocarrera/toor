@@ -76,6 +76,26 @@ function renderCurrent(forecast, marine) {
       setText(id, "--")
     );
   }
+
+  if (marine?.hourly?.sea_level_height_msl) {
+    const mh = marine.hourly;
+    const tideNowIdx = findNearestHourIndex(mh.time);
+    const tide = computeTideInfo(mh.time, mh.sea_level_height_msl, tideNowIdx);
+    if (tide) {
+      setText("tideHeight", tide.nowHeight.toFixed(2));
+      setText("tideTrend", tide.trend === "subiendo" ? "⬆ Subiendo" : tide.trend === "bajando" ? "⬇ Bajando" : "—");
+      const next = tide.extremes[0];
+      setText("tideNext", next ? `Próx. ${next.type}: ${formatHour(next.time)} (${next.height.toFixed(2)} m)` : "—");
+    } else {
+      setText("tideHeight", "--");
+      setText("tideTrend", "—");
+      setText("tideNext", "—");
+    }
+  } else {
+    setText("tideHeight", "--");
+    setText("tideTrend", "—");
+    setText("tideNext", "—");
+  }
 }
 
 function findNearestHourIndex(timeArray) {
@@ -184,21 +204,90 @@ function renderSurfReport(forecast, marine) {
   `;
 }
 
-function renderMareaPanel() {
+function renderMareaPanel(forecast, marine) {
   const container = els("mareaPanel");
   if (!container) return;
+
+  const mh = marine?.hourly;
+  if (!mh?.sea_level_height_msl) {
+    container.innerHTML = `
+      <p class="section-hint">Sin datos de marea disponibles ahora mismo.</p>
+      <div class="marea-links">
+        <a class="btn-link" href="${MAREA_URL}" target="_blank" rel="noopener noreferrer">Ver tabla completa (marea.ooo) ↗</a>
+        <a class="btn-link btn-link-secondary" href="${TIDE_INFO_URL}" target="_blank" rel="noopener noreferrer">Predicción oficial IHM ↗</a>
+      </div>
+    `;
+    return;
+  }
+
+  const nowIdx = findNearestHourIndex(mh.time);
+  const tide = computeTideInfo(mh.time, mh.sea_level_height_msl, nowIdx);
+
+  const extremesHtml = tide?.extremes.length
+    ? tide.extremes
+        .map((ex) => `<li><strong>${ex.type === "pleamar" ? "Pleamar" : "Bajamar"}</strong> ${formatHour(ex.time)} · ${ex.height.toFixed(2)} m</li>`)
+        .join("")
+    : "<li>Sin próximos cambios de marea en el rango de datos.</li>";
+
   container.innerHTML = `
-    <div class="embed-frame-wrap marea-frame-wrap">
-      <iframe
-        src="${MAREA_URL}"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        title="Tabla de mareas de Las Palmas / Puerto de la Luz"
-      ></iframe>
+    <div class="marea-now">
+      <div class="marea-now-value">${tide ? tide.nowHeight.toFixed(2) : "--"} <small>m sobre el nivel medio</small></div>
+      <div class="marea-now-trend">${tide?.trend === "subiendo" ? "⬆ Subiendo" : tide?.trend === "bajando" ? "⬇ Bajando" : "—"}</div>
     </div>
+    <ul class="marea-extremes">${extremesHtml}</ul>
     <div class="marea-links">
-      <a class="btn-link" href="${MAREA_URL}" target="_blank" rel="noopener noreferrer">Ver tabla completa (marea.ooo) ↗</a>
+      <a class="btn-link" href="${MAREA_URL}" target="_blank" rel="noopener noreferrer">Ver gráfico completo (marea.ooo) ↗</a>
       <a class="btn-link btn-link-secondary" href="${TIDE_INFO_URL}" target="_blank" rel="noopener noreferrer">Predicción oficial IHM ↗</a>
+    </div>
+    <p class="marea-note">Calculada con el nivel del mar (incluye marea) del modelo marino de Open-Meteo, ~8 km de resolución: útil para hacerse una idea, pero no reemplaza la predicción oficial para navegación.</p>
+  `;
+}
+
+function renderSurfWindows(forecast, marine) {
+  const container = els("surfWindows");
+  if (!container) return;
+  const mh = marine?.hourly;
+  const fh = forecast.hourly;
+  if (!mh?.wave_height || !fh?.wind_speed_10m) {
+    container.innerHTML = "";
+    return;
+  }
+
+  const nowIdx = findNearestHourIndex(mh.time);
+  const windows = computeBestSurfWindows(
+    mh.time,
+    mh.wave_height,
+    mh.wave_period,
+    fh.time,
+    fh.wind_speed_10m,
+    fh.wind_direction_10m,
+    nowIdx,
+    30
+  );
+
+  if (!windows.length) {
+    container.innerHTML = `<div class="surf-window-empty">No se esperan condiciones especialmente buenas para surfear en las próximas horas. Revisa la previsión de los próximos días.</div>`;
+    return;
+  }
+
+  container.innerHTML = `
+    <p class="surf-window-title">🕐 Mejores franjas para surfear (próximas horas)</p>
+    <div class="surf-window-list">
+      ${windows
+        .map((w) => {
+          const ratingIdx = Math.max(0, Math.min(3, Math.round(w.avgScore)));
+          const ratingKey = RATING_ORDER[ratingIdx];
+          const endDate = new Date(w.end);
+          endDate.setHours(endDate.getHours() + 1);
+          const endLabel = endDate.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+          return `
+            <div class="surf-window">
+              <span class="surf-window-time">${formatHour(w.start)} – ${endLabel}</span>
+              <span class="badge badge-${ratingKey}">${RATING_LABEL[ratingKey]}</span>
+            </div>
+          `;
+        })
+        .join("")}
     </div>
   `;
 }
@@ -307,6 +396,8 @@ async function loadAll() {
     renderDaily(forecast);
     renderSports(forecast, marine);
     renderSurfReport(forecast, marine);
+    renderSurfWindows(forecast, marine);
+    renderMareaPanel(forecast, marine);
     setText("lastUpdated", new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" }));
     if (marineError) {
       showBanner("No se han podido obtener los datos de oleaje en este momento. El resto de datos meteorológicos son correctos.");
@@ -322,7 +413,6 @@ function init() {
   renderEmbedWebcams();
   renderWebcams();
   renderZones();
-  renderMareaPanel();
   loadAll();
   els("refreshBtn")?.addEventListener("click", loadAll);
   setInterval(loadAll, AUTO_REFRESH_MINUTES * 60 * 1000);

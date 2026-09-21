@@ -63,20 +63,26 @@ const MARINE_PARAMS = {
     "swell_wave_period",
     "swell_wave_direction",
     "sea_surface_temperature",
+    "sea_level_height_msl",
   ].join(","),
-  hourly: ["wave_height", "wave_period", "wave_direction", "sea_surface_temperature"].join(","),
+  hourly: [
+    "wave_height",
+    "wave_period",
+    "wave_direction",
+    "sea_surface_temperature",
+    "sea_level_height_msl",
+  ].join(","),
   timezone: "Atlantic/Canary",
   forecast_days: 7,
 };
 
 const AUTO_REFRESH_MINUTES = 10;
 
-// Predicción de mareas para Las Palmas / Puerto de la Luz.
-// Motor armónico validado (Foreman 1977, constantes TICON-4, dato CC-BY) del proyecto
-// open-source Mareia, desplegado en marea.ooo. No calculamos la marea nosotros mismos:
-// requiere astronomía de precisión que no vamos a improvisar en el cliente.
+// La marea "actual" y la próxima pleamar/bajamar se calculan a partir de sea_level_height_msl
+// (nivel del mar, incluida marea) que devuelve la propia API de oleaje de Open-Meteo: nada que
+// insertar ni que calcular con astronomía propia. Estos enlaces son solo para quien quiera el
+// gráfico completo o la predicción oficial certificada.
 const MAREA_URL = "https://marea.ooo/es/28.142/-15.413";
-// Predicción oficial alternativa (Instituto Hidrográfico de la Marina).
 const TIDE_INFO_URL = "https://armada.defensa.gob.es/ihm/Aplicaciones/Mareas/puerto_mareas.html?puerto=56";
 
 const ZONES = [
