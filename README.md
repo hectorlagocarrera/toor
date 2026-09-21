@@ -68,9 +68,13 @@ CanariasLife) no permiten insertar su vídeo en otra página, así que se muestr
 directo a su web.
 
 La potencia de ola del informe de surf es una estimación orientativa con la fórmula habitual de
-previsión de surf P ≈ 0.5 · Hs² · Tp (kW/m). Las mejores franjas horarias para surfear se calculan
-puntuando cada hora de las próximas ~30h con los mismos criterios que la tarjeta de Surf (altura y
-periodo del oleaje, y si el viento es de cara) y agrupando las horas seguidas con buena puntuación.
+previsión de surf P ≈ 0.5 · Hs² · Tp (kW/m), calculada sobre el **mar de fondo** (`swell_wave_height`
+/ `swell_wave_period`), no sobre el oleaje total. Las mejores franjas horarias para surfear usan
+ese mismo dato hora a hora (con el oleaje total como reserva si no hay swell disponible), para que
+nunca puedan salir descoordinados: si la potencia estimada es "plana", esa hora no puede aparecer
+como una franja recomendada. El oleaje total (`wave_height`, que sí incluye el chop de viento) es
+lo que se usa para Bodyboard y para la tabla de previsión, ya que ahí sí importa el tamaño de ola
+en general y no solo el mar de fondo organizado.
 
 La marea actual, su tendencia y la próxima pleamar/bajamar se calculan directamente a partir de
 `sea_level_height_msl` (nivel del mar horario, que ya incluye la marea) de la propia API de

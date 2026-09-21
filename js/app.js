@@ -362,6 +362,8 @@ function renderSurfWindows(forecast, marine) {
     mh.time,
     mh.wave_height,
     mh.wave_period,
+    mh.swell_wave_height,
+    mh.swell_wave_period,
     fh.time,
     fh.wind_speed_10m,
     fh.wind_direction_10m,

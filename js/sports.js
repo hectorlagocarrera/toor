@@ -194,9 +194,25 @@ function isDaylight(timeStr, dailyTime, sunrise, sunset) {
 
 // Serie hora a hora (oleaje + viento + puntuación) de las próximas horas: es la base tanto del
 // mini-gráfico como de las franjas recomendadas, para que ambos cuenten la misma historia.
+// Usa el mar de fondo (swell) cuando hay dato y si no cae al oleaje total, exactamente igual que
+// el informe de surf y la tarjeta de aptitud: así la potencia estimada y la franja recomendada
+// hablan siempre de la misma ola, y no puede salir "excelente para surfear" con la potencia en
+// "plana" porque una mire el oleaje total (incluye chop de viento) y la otra solo el swell.
 // Las horas sin luz solar quedan sin puntuación: nunca se recomienda surfear de noche por muy
 // bueno que esté el oleaje sobre el papel.
-function buildSurfHourlySeries(marineTimes, waveHeights, wavePeriods, windTimes, windSpeeds, windDirs, startIndex, hoursAhead, daylight) {
+function buildSurfHourlySeries(
+  marineTimes,
+  waveHeights,
+  wavePeriods,
+  swellHeights,
+  swellPeriods,
+  windTimes,
+  windSpeeds,
+  windDirs,
+  startIndex,
+  hoursAhead,
+  daylight
+) {
   const windByTime = {};
   windTimes.forEach((t, i) => {
     windByTime[t] = { speed: windSpeeds[i], dir: windDirs[i] };
@@ -206,8 +222,8 @@ function buildSurfHourlySeries(marineTimes, waveHeights, wavePeriods, windTimes,
   const endIndex = Math.min(startIndex + hoursAhead, marineTimes.length);
   for (let i = startIndex; i < endIndex; i++) {
     const wind = windByTime[marineTimes[i]] || {};
-    const waveH = waveHeights[i] ?? null;
-    const wavePer = wavePeriods[i] ?? null;
+    const waveH = swellHeights?.[i] ?? waveHeights[i] ?? null;
+    const wavePer = swellPeriods?.[i] ?? wavePeriods[i] ?? null;
     const hasDaylight = isDaylight(marineTimes[i], daylight?.time, daylight?.sunrise, daylight?.sunset);
     series.push({
       time: marineTimes[i],

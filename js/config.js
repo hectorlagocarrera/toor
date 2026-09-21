@@ -69,6 +69,8 @@ const MARINE_PARAMS = {
     "wave_height",
     "wave_period",
     "wave_direction",
+    "swell_wave_height",
+    "swell_wave_period",
     "sea_surface_temperature",
     "sea_level_height_msl",
   ].join(","),
