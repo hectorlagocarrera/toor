@@ -78,10 +78,10 @@ const I18N = {
     "sports.windows.empty":
       "No se esperan condiciones especialmente buenas para surfear en las próximas horas. Revisa la previsión de los próximos días.",
     "sports.heatmap.title": "Hora a hora (próximas {n}h)",
-    "sports.heatmap.caption":
-      "Las barras azul oscuro son horas de noche: nunca se recomiendan, aunque el oleaje sea bueno sobre el papel.",
+    "sports.heatmap.caption": "Las horas de noche nunca se recomiendan, aunque el oleaje sea bueno sobre el papel.",
     "sports.heatmap.night": "de noche, sin luz",
     "sports.heatmap.noData": "Sin datos",
+    "sports.heatmap.legendNight": "Noche",
 
     "surf.swellHeight": "Mar de fondo",
     "surf.swellType": "Tipo de swell",
@@ -207,10 +207,10 @@ const I18N = {
     "sports.windows.empty":
       "No particularly good surf conditions expected in the coming hours. Check the forecast for the next few days.",
     "sports.heatmap.title": "Hour by hour (next {n}h)",
-    "sports.heatmap.caption":
-      "The dark blue bars are night-time hours: never recommended, even if the swell looks good on paper.",
+    "sports.heatmap.caption": "Night-time hours are never recommended, even if the swell looks good on paper.",
     "sports.heatmap.night": "night, no daylight",
     "sports.heatmap.noData": "No data",
+    "sports.heatmap.legendNight": "Night",
 
     "surf.swellHeight": "Swell",
     "surf.swellType": "Swell type",

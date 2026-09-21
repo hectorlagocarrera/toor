@@ -379,7 +379,6 @@ function renderSurfWindows(forecast, marine) {
     .map((rec) => {
       const ratingKey = rec.score === null ? null : RATING_ORDER[rec.score];
       const barClass = ratingKey ? `surf-heat-${ratingKey}` : rec.daylight ? "surf-heat-na" : "surf-heat-night";
-      const barHeight = rec.score === null ? 14 : 18 + rec.score * 10;
       const dayKey = rec.time.slice(0, 10);
       const isNewDay = dayKey !== lastHeatDay;
       lastHeatDay = dayKey;
@@ -396,16 +395,30 @@ function renderSurfWindows(forecast, marine) {
           : `${formatHour(rec.time)}: ${describeSurfMoment(rec)}`;
       return `
         <div class="surf-heat-col ${isNewDay ? "surf-heat-newday" : ""}" title="${title}">
-          <div class="surf-heat-bar ${barClass}" style="height:${barHeight}px"></div>
+          <div class="surf-heat-bar ${barClass}"></div>
           <span class="surf-heat-hour">${showLabel ? hourLabel : ""}</span>
         </div>
       `;
     })
     .join("");
 
+  const heatLegendItems = [
+    ["excelente", ratingLabel("excelente")],
+    ["bueno", ratingLabel("bueno")],
+    ["regular", ratingLabel("regular")],
+    ["malo", ratingLabel("malo")],
+    ["night", t("sports.heatmap.legendNight")],
+  ];
+  const heatLegend = heatLegendItems
+    .map(([key, label]) => `<span class="surf-heat-legend-item"><i class="surf-heat-legend-swatch surf-heat-${key === "night" ? "night" : key}"></i>${label}</span>`)
+    .join("");
+
   const heatmapBlock = `
     <p class="surf-window-title">${icon("chart", "icon-sm")} ${t("sports.heatmap.title", { n: series.length })}</p>
-    <div class="surf-heatmap"><div class="surf-heatmap-track">${heatmapHtml}</div></div>
+    <div class="surf-heatmap">
+      <div class="surf-heat-legend">${heatLegend}</div>
+      <div class="surf-heatmap-track">${heatmapHtml}</div>
+    </div>
     <p class="surf-heatmap-caption">${t("sports.heatmap.caption")}</p>
   `;
 

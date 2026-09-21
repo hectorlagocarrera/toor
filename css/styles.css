@@ -7,8 +7,8 @@
   --color-primary-dark: #073c4d;
   --color-accent: #e2924e;
   --color-border: #dee8ed;
-  --color-excellent: #12805a;
-  --color-good: #4f9d56;
+  --color-excellent: #0e7c4a;
+  --color-good: #8aac2e;
   --color-fair: #c8912c;
   --color-poor: #c14f49;
   --radius: 14px;
@@ -386,7 +386,7 @@ main#app {
   white-space: nowrap;
 }
 .badge-excelente { background: var(--color-excellent); }
-.badge-bueno { background: var(--color-good); }
+.badge-bueno { background: var(--color-good); color: #1e2c08; }
 .badge-regular { background: var(--color-fair); color: #3a2c00; }
 .badge-malo { background: var(--color-poor); }
 .sport-why { font-size: 0.85rem; color: var(--color-text-mute); margin: 0; }
@@ -547,27 +547,42 @@ main#app {
   border-radius: var(--radius);
   background: var(--color-surface);
   box-shadow: var(--shadow-card);
-  padding: 10px 12px 6px;
+  padding: 12px 12px 10px;
 }
+.surf-heat-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.72rem;
+  color: var(--color-text-mute);
+}
+.surf-heat-legend-item { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.surf-heat-legend-swatch { width: 10px; height: 10px; border-radius: 3px; display: inline-block; flex-shrink: 0; }
 .surf-heatmap-track {
   display: flex;
-  align-items: flex-end;
-  gap: 4px;
-  height: 56px;
+  align-items: stretch;
+  gap: 3px;
 }
 .surf-heat-col {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 4px;
+  align-items: stretch;
+  gap: 5px;
   flex: 0 0 auto;
-  width: 16px;
-  height: 100%;
+  width: 18px;
 }
-.surf-heat-bar { width: 10px; border-radius: 3px 3px 0 0; }
-.surf-heat-hour { font-size: 0.6rem; color: var(--color-text-mute); white-space: nowrap; transform: translateY(2px); }
-.surf-heat-newday { border-left: 1px dashed var(--color-border); padding-left: 6px; margin-left: 2px; }
+.surf-heat-bar { height: 26px; border-radius: 5px; }
+.surf-heat-hour {
+  font-size: 0.62rem;
+  color: var(--color-text-mute);
+  white-space: nowrap;
+  transform: rotate(0deg);
+  text-align: center;
+}
+.surf-heat-newday { border-left: 1px dashed var(--color-border); padding-left: 7px; margin-left: 3px; }
 .surf-heat-newday .surf-heat-hour { font-weight: 700; color: var(--color-text); text-transform: capitalize; }
 .surf-heat-malo { background: var(--color-poor); }
 .surf-heat-regular { background: var(--color-fair); }
