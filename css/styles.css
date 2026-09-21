@@ -241,6 +241,61 @@ main#app {
 .hour-card .wind { font-size: 0.76rem; color: var(--color-text-mute); margin-top: 4px; }
 .hour-card .wave { font-size: 0.76rem; color: var(--color-primary); margin-top: 2px; }
 
+.wg-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  background: var(--color-surface);
+}
+.wg-table {
+  border-collapse: collapse;
+  font-size: 0.76rem;
+  white-space: nowrap;
+}
+.wg-table th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--color-surface);
+  text-align: left;
+  padding: 7px 10px;
+  font-weight: 600;
+  color: var(--color-text-mute);
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+}
+.wg-cell {
+  padding: 7px 8px;
+  text-align: center;
+  min-width: 44px;
+  border-bottom: 1px solid var(--color-border);
+  color: #1a2b33;
+}
+.wg-day-cell { font-weight: 700; font-size: 0.72rem; text-transform: capitalize; color: var(--color-text); background: none; }
+.wg-arrow { display: inline-block; }
+.wg-wind-0 { background: transparent; color: var(--color-text); }
+.wg-wind-1 { background: #d9f2d0; }
+.wg-wind-2 { background: #fff3b0; }
+.wg-wind-3 { background: #ffcf8a; }
+.wg-wind-4 { background: #ff9d9d; }
+.wg-wave-0 { background: #eaf6fb; }
+.wg-wave-1 { background: #cdeaf7; }
+.wg-wave-2 { background: #9ed4ee; }
+.wg-wave-3 { background: #5fb3de; color: #06222c; }
+.wg-wave-4 { background: #c98cff; }
+
+.wg-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin: 10px 0 24px;
+  font-size: 0.74rem;
+  color: var(--color-text-mute);
+}
+.wg-legend-item { display: inline-flex; align-items: center; gap: 5px; }
+.wg-swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
 .daily-list { display: flex; flex-direction: column; gap: 10px; }
 .day-row {
   display: grid;

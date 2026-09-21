@@ -74,6 +74,9 @@ const MARINE_PARAMS = {
   ].join(","),
   timezone: "Atlantic/Canary",
   forecast_days: 7,
+  // Las Canteras está muy pegada a la costa: sin esto, la API puede coger una celda de rejilla
+  // de "tierra" para este punto y devolver null en variables marinas (incluida la marea).
+  cell_selection: "sea",
 };
 
 const AUTO_REFRESH_MINUTES = 10;

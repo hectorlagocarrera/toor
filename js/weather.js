@@ -70,6 +70,25 @@ function formatDayName(isoString) {
   return d.toLocaleDateString("es-ES", { weekday: "short", day: "numeric", month: "short" });
 }
 
+// Bandas de color al estilo Windguru: de un vistazo, sin tener que leer cada número.
+function windBand(speedKmh) {
+  if (speedKmh === null || speedKmh === undefined) return null;
+  if (speedKmh < 10) return 0;
+  if (speedKmh < 20) return 1;
+  if (speedKmh < 29) return 2;
+  if (speedKmh < 39) return 3;
+  return 4;
+}
+
+function waveBand(heightM) {
+  if (heightM === null || heightM === undefined) return null;
+  if (heightM < 0.5) return 0;
+  if (heightM < 1) return 1;
+  if (heightM < 2) return 2;
+  if (heightM < 3) return 3;
+  return 4;
+}
+
 async function fetchJson(url) {
   const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) throw new Error(`HTTP ${res.status} al consultar ${url}`);

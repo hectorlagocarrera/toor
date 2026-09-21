@@ -77,24 +77,17 @@ function renderCurrent(forecast, marine) {
     );
   }
 
-  if (marine?.hourly?.sea_level_height_msl) {
-    const mh = marine.hourly;
-    const tideNowIdx = findNearestHourIndex(mh.time);
-    const tide = computeTideInfo(mh.time, mh.sea_level_height_msl, tideNowIdx);
-    if (tide) {
-      setText("tideHeight", tide.nowHeight.toFixed(2));
-      setText("tideTrend", tide.trend === "subiendo" ? "⬆ Subiendo" : tide.trend === "bajando" ? "⬇ Bajando" : "—");
-      const next = tide.extremes[0];
-      setText("tideNext", next ? `Próx. ${next.type}: ${formatHour(next.time)} (${next.height.toFixed(2)} m)` : "—");
-    } else {
-      setText("tideHeight", "--");
-      setText("tideTrend", "—");
-      setText("tideNext", "—");
-    }
+  const mh = marine?.hourly;
+  const tide = mh?.sea_level_height_msl ? computeTideInfo(mh.time, mh.sea_level_height_msl, findNearestHourIndex(mh.time)) : null;
+  if (tide) {
+    setText("tideHeight", tide.nowHeight.toFixed(2));
+    setText("tideTrend", tide.trend === "subiendo" ? "⬆ Subiendo" : tide.trend === "bajando" ? "⬇ Bajando" : "—");
+    const next = tide.extremes[0];
+    setText("tideNext", next ? `Próx. ${next.type}: ${formatHour(next.time)} (${next.height.toFixed(2)} m)` : "—");
   } else {
     setText("tideHeight", "--");
-    setText("tideTrend", "—");
-    setText("tideNext", "—");
+    setText("tideTrend", "Sin datos de marea");
+    setText("tideNext", "para este punto ahora mismo");
   }
 }
 
@@ -137,6 +130,94 @@ function renderHourly(forecast, marine) {
     `;
     container.appendChild(card);
   }
+}
+
+function renderWindguruTable(forecast, marine) {
+  const container = els("windguruTable");
+  if (!container) return;
+  const fh = forecast.hourly;
+  const mh = marine?.hourly;
+  if (!fh?.time || !mh?.wave_height) {
+    container.innerHTML = `<p class="section-hint">Sin datos suficientes para la tabla ahora mismo.</p>`;
+    return;
+  }
+
+  const marineByTime = {};
+  mh.time.forEach((t, i) => {
+    marineByTime[t] = { height: mh.wave_height[i], period: mh.wave_period[i], dir: mh.wave_direction[i] };
+  });
+
+  const startIdx = findNearestHourIndex(fh.time);
+  const step = 3;
+  const totalColumns = 20;
+  const slots = [];
+  for (let i = startIdx; i < fh.time.length && slots.length < totalColumns; i += step) {
+    slots.push(i);
+  }
+
+  const arrow = (deg) => (deg === null || deg === undefined ? "--" : `<span class="wg-arrow" style="transform:rotate(${deg}deg)">↓</span>`);
+  const cell = (value, extraClass = "") => `<td class="wg-cell ${extraClass}">${value === null || value === undefined ? "--" : value}</td>`;
+
+  let lastDayKey = null;
+  const dayRow = slots
+    .map((i) => {
+      const dayKey = fh.time[i].slice(0, 10);
+      const isNewDay = dayKey !== lastDayKey;
+      lastDayKey = dayKey;
+      const label = isNewDay ? new Date(fh.time[i]).toLocaleDateString("es-ES", { weekday: "short", day: "numeric" }) : "";
+      return `<td class="wg-cell wg-day-cell">${label}</td>`;
+    })
+    .join("");
+
+  const hourRow = slots.map((i) => cell(formatHour(fh.time[i]))).join("");
+  const windRow = slots
+    .map((i) => {
+      const v = fh.wind_speed_10m[i];
+      const band = windBand(v);
+      return cell(v != null ? Math.round(v) : null, band !== null ? `wg-wind-${band}` : "");
+    })
+    .join("");
+  const gustRow = slots.map((i) => cell(fh.wind_gusts_10m[i] != null ? Math.round(fh.wind_gusts_10m[i]) : null)).join("");
+  const windDirRow = slots.map((i) => cell(arrow(fh.wind_direction_10m[i]))).join("");
+  const waveRow = slots
+    .map((i) => {
+      const m = marineByTime[fh.time[i]];
+      const h = m?.height;
+      const band = waveBand(h);
+      return cell(h != null ? h.toFixed(1) : null, band !== null ? `wg-wave-${band}` : "");
+    })
+    .join("");
+  const periodRow = slots
+    .map((i) => {
+      const m = marineByTime[fh.time[i]];
+      return cell(m?.period != null ? Math.round(m.period) : null);
+    })
+    .join("");
+  const waveDirRow = slots
+    .map((i) => {
+      const m = marineByTime[fh.time[i]];
+      return cell(arrow(m?.dir));
+    })
+    .join("");
+  const tempRow = slots.map((i) => cell(fh.temperature_2m[i] != null ? Math.round(fh.temperature_2m[i]) : null)).join("");
+
+  container.innerHTML = `
+    <div class="wg-scroll">
+      <table class="wg-table">
+        <tbody>
+          <tr><th>Día</th>${dayRow}</tr>
+          <tr><th>Hora</th>${hourRow}</tr>
+          <tr><th>Viento km/h</th>${windRow}</tr>
+          <tr><th>Rachas km/h</th>${gustRow}</tr>
+          <tr><th>Dir. viento</th>${windDirRow}</tr>
+          <tr><th>Oleaje m</th>${waveRow}</tr>
+          <tr><th>Periodo s</th>${periodRow}</tr>
+          <tr><th>Dir. oleaje</th>${waveDirRow}</tr>
+          <tr><th>Temp °C</th>${tempRow}</tr>
+        </tbody>
+      </table>
+    </div>
+  `;
 }
 
 function renderDaily(forecast) {
@@ -209,9 +290,11 @@ function renderMareaPanel(forecast, marine) {
   if (!container) return;
 
   const mh = marine?.hourly;
-  if (!mh?.sea_level_height_msl) {
+  const tide = mh?.sea_level_height_msl ? computeTideInfo(mh.time, mh.sea_level_height_msl, findNearestHourIndex(mh.time)) : null;
+
+  if (!tide) {
     container.innerHTML = `
-      <p class="section-hint">Sin datos de marea disponibles ahora mismo.</p>
+      <p class="section-hint">Sin datos de marea disponibles para este punto ahora mismo.</p>
       <div class="marea-links">
         <a class="btn-link" href="${MAREA_URL}" target="_blank" rel="noopener noreferrer">Ver tabla completa (marea.ooo) ↗</a>
         <a class="btn-link btn-link-secondary" href="${TIDE_INFO_URL}" target="_blank" rel="noopener noreferrer">Predicción oficial IHM ↗</a>
@@ -220,10 +303,7 @@ function renderMareaPanel(forecast, marine) {
     return;
   }
 
-  const nowIdx = findNearestHourIndex(mh.time);
-  const tide = computeTideInfo(mh.time, mh.sea_level_height_msl, nowIdx);
-
-  const extremesHtml = tide?.extremes.length
+  const extremesHtml = tide.extremes.length
     ? tide.extremes
         .map((ex) => `<li><strong>${ex.type === "pleamar" ? "Pleamar" : "Bajamar"}</strong> ${formatHour(ex.time)} · ${ex.height.toFixed(2)} m</li>`)
         .join("")
@@ -231,8 +311,8 @@ function renderMareaPanel(forecast, marine) {
 
   container.innerHTML = `
     <div class="marea-now">
-      <div class="marea-now-value">${tide ? tide.nowHeight.toFixed(2) : "--"} <small>m sobre el nivel medio</small></div>
-      <div class="marea-now-trend">${tide?.trend === "subiendo" ? "⬆ Subiendo" : tide?.trend === "bajando" ? "⬇ Bajando" : "—"}</div>
+      <div class="marea-now-value">${tide.nowHeight.toFixed(2)} <small>m sobre el nivel medio</small></div>
+      <div class="marea-now-trend">${tide.trend === "subiendo" ? "⬆ Subiendo" : tide.trend === "bajando" ? "⬇ Bajando" : "—"}</div>
     </div>
     <ul class="marea-extremes">${extremesHtml}</ul>
     <div class="marea-links">
@@ -393,6 +473,7 @@ async function loadAll() {
     const { forecast, marine, marineError } = await fetchWeatherData();
     renderCurrent(forecast, marine);
     renderHourly(forecast, marine);
+    renderWindguruTable(forecast, marine);
     renderDaily(forecast);
     renderSports(forecast, marine);
     renderSurfReport(forecast, marine);
