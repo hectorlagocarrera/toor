@@ -490,20 +490,59 @@ main#app {
 .btn-link-secondary:hover { border-color: var(--color-primary); background: var(--color-bg); }
 
 .surf-windows { margin-bottom: 18px; }
-.surf-window-title { font-weight: 700; margin: 0 0 10px; font-size: 0.95rem; }
+.surf-window-title { font-weight: 700; margin: 16px 0 10px; font-size: 0.95rem; }
+.surf-window-title:first-child { margin-top: 0; }
 .surf-window-list { display: flex; flex-direction: column; gap: 8px; }
 .surf-window {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
   background: linear-gradient(90deg, var(--color-surface), var(--color-bg));
   border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 10px 14px;
   box-shadow: var(--shadow-card);
 }
+.surf-window-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
 .surf-window-time { font-weight: 700; font-size: 0.92rem; }
+.surf-window-why { margin: 6px 0 0; font-size: 0.82rem; color: var(--color-text-mute); }
+
+.surf-heatmap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  padding: 10px 12px 6px;
+}
+.surf-heatmap-track {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 56px;
+}
+.surf-heat-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  flex: 0 0 auto;
+  width: 16px;
+  height: 100%;
+}
+.surf-heat-bar { width: 10px; border-radius: 3px 3px 0 0; }
+.surf-heat-hour { font-size: 0.6rem; color: var(--color-text-mute); white-space: nowrap; transform: translateY(2px); }
+.surf-heat-newday { border-left: 1px dashed var(--color-border); padding-left: 6px; margin-left: 2px; }
+.surf-heat-newday .surf-heat-hour { font-weight: 700; color: var(--color-text); text-transform: capitalize; }
+.surf-heat-malo { background: var(--color-poor); }
+.surf-heat-regular { background: var(--color-fair); }
+.surf-heat-bueno { background: var(--color-good); }
+.surf-heat-excelente { background: var(--color-excellent); }
+.surf-heat-na { background: var(--color-border); }
+
 .surf-window-empty {
   background: var(--color-surface);
   border: 1px solid var(--color-border);

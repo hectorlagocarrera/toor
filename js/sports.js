@@ -127,46 +127,79 @@ function scoreSurfHour(waveH, wavePer, windSpeed, windDir) {
   return score;
 }
 
-// Agrupa las horas siguientes en franjas continuas de buenas condiciones (score >= 2) y devuelve
-// las mejores, para responder directamente "¿cuándo me meto al agua?".
-function computeBestSurfWindows(marineTimes, waveHeights, wavePeriods, windTimes, windSpeeds, windDirs, startIndex, hoursAhead) {
+// Serie hora a hora (oleaje + viento + puntuación) de las próximas horas: es la base tanto del
+// mini-gráfico como de las franjas recomendadas, para que ambos cuenten la misma historia.
+function buildSurfHourlySeries(marineTimes, waveHeights, wavePeriods, windTimes, windSpeeds, windDirs, startIndex, hoursAhead) {
   const windByTime = {};
   windTimes.forEach((t, i) => {
     windByTime[t] = { speed: windSpeeds[i], dir: windDirs[i] };
   });
 
-  const records = [];
+  const series = [];
   const endIndex = Math.min(startIndex + hoursAhead, marineTimes.length);
   for (let i = startIndex; i < endIndex; i++) {
     const wind = windByTime[marineTimes[i]] || {};
-    records.push({ time: marineTimes[i], score: scoreSurfHour(waveHeights[i], wavePeriods[i], wind.speed, wind.dir) });
+    const waveH = waveHeights[i] ?? null;
+    const wavePer = wavePeriods[i] ?? null;
+    series.push({
+      time: marineTimes[i],
+      waveH,
+      wavePer,
+      windSpeed: wind.speed ?? null,
+      windDir: wind.dir ?? null,
+      score: scoreSurfHour(waveH, wavePer, wind.speed, wind.dir),
+    });
   }
+  return series;
+}
 
+// Agrupa las horas seguidas de buenas condiciones (score >= 2) en franjas, y dentro de cada una
+// identifica la hora "pico" (la de mejor puntuación) para poder justificar la recomendación con
+// datos concretos en vez de solo un rango horario.
+function groupSurfWindows(series) {
   const windows = [];
   let current = null;
-  records.forEach((rec) => {
-    if (rec.score !== null && rec.score >= 2) {
-      if (!current) current = { start: rec.time, end: rec.time, scores: [rec.score] };
-      else {
-        current.end = rec.time;
-        current.scores.push(rec.score);
-      }
-    } else if (current) {
-      windows.push(current);
-      current = null;
+  series.forEach((rec) => {
+    const sameDayAsCurrent = current && rec.time.slice(0, 10) === current[0].time.slice(0, 10);
+    if (rec.score !== null && rec.score >= 2 && (!current || sameDayAsCurrent)) {
+      if (!current) current = [rec];
+      else current.push(rec);
+    } else {
+      if (current) windows.push(current);
+      // Si cambia el día pero esta hora también es buena, empieza ya la franja del día siguiente
+      // en vez de descartarla.
+      current = rec.score !== null && rec.score >= 2 ? [rec] : null;
     }
   });
   if (current) windows.push(current);
 
   return windows
-    .map((w) => ({
-      start: w.start,
-      end: w.end,
-      avgScore: w.scores.reduce((a, b) => a + b, 0) / w.scores.length,
-      hours: w.scores.length,
-    }))
+    .map((records) => {
+      const avgScore = records.reduce((a, r) => a + r.score, 0) / records.length;
+      const peak = records.reduce((best, r) => (r.score > best.score ? r : best), records[0]);
+      return {
+        start: records[0].time,
+        end: records[records.length - 1].time,
+        hours: records.length,
+        avgScore,
+        peak,
+      };
+    })
     .sort((a, b) => b.avgScore - a.avgScore || b.hours - a.hours)
     .slice(0, 2);
+}
+
+// Frase corta con los datos concretos de una hora, para explicar "por qué" es un buen momento.
+function describeSurfMoment(rec) {
+  const parts = [];
+  if (rec.waveH !== null) {
+    parts.push(`oleaje de ${rec.waveH.toFixed(1)} m${rec.wavePer ? ` y periodo ${Math.round(rec.wavePer)} s` : ""}`);
+  }
+  if (rec.windSpeed !== null) {
+    const windDesc = isOffshoreWind(rec.windDir) ? "de tierra (limpia la ola)" : isOnshoreWind(rec.windDir) ? "de cara" : "cruzado";
+    parts.push(`viento ${windDesc} de ${Math.round(rec.windSpeed)} km/h`);
+  }
+  return parts.length ? parts.join(", ") : "sin datos suficientes para justificarlo";
 }
 
 function computeSportRatings(d) {

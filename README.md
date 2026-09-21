@@ -13,15 +13,18 @@ de la playa.
   bajando, con la próxima pleamar o bajamar), temperatura del agua, índice UV, humedad,
   visibilidad y lluvia.
 - **Previsión**: una **tabla compacta al estilo Windguru** (viento, rachas y dirección, oleaje,
-  periodo y dirección, y temperatura cada 3 horas, con celdas coloreadas por intensidad), además
-  de las próximas 24 horas en tarjetas y los próximos 7 días.
-- **Deportes**: incluye las **mejores franjas horarias para surfear** en las próximas horas, un
-  **informe de surf detallado** (altura y periodo del mar de fondo, tipo de swell, potencia
-  estimada de la ola en kW/m, orientación respecto a La Barra/El Confital y tipo de viento
-  —terral/de cara/cruzado—), una **tabla de mareas** (altura actual, tendencia y próximos
-  cambios), y una valoración orientativa (Excelente / Bueno / Regular / Malo) por deporte —surf,
-  bodyboard, paddle surf, natación y buceo/snorkel; no se incluyen windsurf, kitesurf ni vela
-  porque no se practican en esta playa— calculada a partir del viento y el oleaje actuales.
+  periodo y dirección, y temperatura del aire **y del agua** cada 3 horas, con celdas coloreadas
+  por intensidad), además de las próximas 24 horas en tarjetas y los próximos 7 días.
+- **Deportes**: incluye las **mejores franjas horarias para surfear**, calculadas por día (nunca
+  cruzan la medianoche) con la hora "pico" de cada una justificada con datos concretos de oleaje
+  y viento, más un **mini-gráfico hora a hora** de las próximas ~30h para ver la evolución dentro
+  de cada franja; un **informe de surf detallado** (altura y periodo del mar de fondo, tipo de
+  swell, potencia estimada de la ola en kW/m, orientación respecto a La Barra/El Confital y tipo
+  de viento —terral/de cara/cruzado—); una **tabla de mareas** (altura actual, tendencia y
+  próximos cambios); y una valoración orientativa (Excelente / Bueno / Regular / Malo) por
+  deporte —surf, bodyboard, paddle surf, natación y buceo/snorkel; no se incluyen windsurf,
+  kitesurf ni vela porque no se practican en esta playa— calculada a partir del viento y el
+  oleaje actuales.
 - **Cámaras**: vídeo en directo insertado en la propia página (vía el reproductor público de
   Windy.com) más una amplia lista de enlaces a otras cámaras web de distintos proveedores que no
   permiten insertar su vídeo en otras páginas.

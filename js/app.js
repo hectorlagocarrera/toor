@@ -144,7 +144,12 @@ function renderWindguruTable(forecast, marine) {
 
   const marineByTime = {};
   mh.time.forEach((t, i) => {
-    marineByTime[t] = { height: mh.wave_height[i], period: mh.wave_period[i], dir: mh.wave_direction[i] };
+    marineByTime[t] = {
+      height: mh.wave_height[i],
+      period: mh.wave_period[i],
+      dir: mh.wave_direction[i],
+      sst: mh.sea_surface_temperature?.[i],
+    };
   });
 
   const startIdx = findNearestHourIndex(fh.time);
@@ -200,6 +205,12 @@ function renderWindguruTable(forecast, marine) {
     })
     .join("");
   const tempRow = slots.map((i) => cell(fh.temperature_2m[i] != null ? Math.round(fh.temperature_2m[i]) : null)).join("");
+  const waterTempRow = slots
+    .map((i) => {
+      const m = marineByTime[fh.time[i]];
+      return cell(m?.sst != null ? m.sst.toFixed(1) : null);
+    })
+    .join("");
 
   container.innerHTML = `
     <div class="wg-scroll">
@@ -213,7 +224,8 @@ function renderWindguruTable(forecast, marine) {
           <tr><th>Oleaje m</th>${waveRow}</tr>
           <tr><th>Periodo s</th>${periodRow}</tr>
           <tr><th>Dir. oleaje</th>${waveDirRow}</tr>
-          <tr><th>Temp °C</th>${tempRow}</tr>
+          <tr><th>Temp. aire °C</th>${tempRow}</tr>
+          <tr><th>Temp. agua °C</th>${waterTempRow}</tr>
         </tbody>
       </table>
     </div>
@@ -334,7 +346,7 @@ function renderSurfWindows(forecast, marine) {
   }
 
   const nowIdx = findNearestHourIndex(mh.time);
-  const windows = computeBestSurfWindows(
+  const series = buildSurfHourlySeries(
     mh.time,
     mh.wave_height,
     mh.wave_period,
@@ -344,31 +356,68 @@ function renderSurfWindows(forecast, marine) {
     nowIdx,
     30
   );
+  const windows = groupSurfWindows(series);
+
+  let lastHeatDay = null;
+  const heatmapHtml = series
+    .map((rec, idx) => {
+      const ratingKey = rec.score === null ? null : RATING_ORDER[rec.score];
+      const barHeight = rec.score === null ? 6 : 10 + rec.score * 10;
+      const dayKey = rec.time.slice(0, 10);
+      const isNewDay = dayKey !== lastHeatDay;
+      lastHeatDay = dayKey;
+      const showLabel = isNewDay || idx % 3 === 0;
+      const hourLabel = isNewDay
+        ? `${new Date(rec.time).toLocaleDateString("es-ES", { weekday: "short" })} ${formatHour(rec.time)}`
+        : formatHour(rec.time);
+      const title = rec.score === null ? "Sin datos" : `${formatHour(rec.time)}: ${describeSurfMoment(rec)}`;
+      return `
+        <div class="surf-heat-col ${isNewDay ? "surf-heat-newday" : ""}" title="${title}">
+          <div class="surf-heat-bar ${ratingKey ? `surf-heat-${ratingKey}` : "surf-heat-na"}" style="height:${barHeight}px"></div>
+          <span class="surf-heat-hour">${showLabel ? hourLabel : ""}</span>
+        </div>
+      `;
+    })
+    .join("");
+
+  const heatmapBlock = `
+    <p class="surf-window-title">📈 Hora a hora (próximas ${series.length}h)</p>
+    <div class="surf-heatmap"><div class="surf-heatmap-track">${heatmapHtml}</div></div>
+  `;
 
   if (!windows.length) {
-    container.innerHTML = `<div class="surf-window-empty">No se esperan condiciones especialmente buenas para surfear en las próximas horas. Revisa la previsión de los próximos días.</div>`;
+    container.innerHTML = `
+      ${heatmapBlock}
+      <div class="surf-window-empty">No se esperan condiciones especialmente buenas para surfear en las próximas horas. Revisa la previsión de los próximos días.</div>
+    `;
     return;
   }
 
+  const todayKey = series[0]?.time.slice(0, 10);
+  const windowsHtml = windows
+    .map((w) => {
+      const ratingKey = RATING_ORDER[Math.max(0, Math.min(3, Math.round(w.avgScore)))];
+      const endDate = new Date(w.end);
+      endDate.setHours(endDate.getHours() + 1);
+      const endLabel = endDate.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+      const dayKey = w.start.slice(0, 10);
+      const dayLabel = dayKey === todayKey ? "Hoy" : new Date(w.start).toLocaleDateString("es-ES", { weekday: "long" });
+      return `
+        <div class="surf-window">
+          <div class="surf-window-top">
+            <span class="surf-window-time">${dayLabel}, ${formatHour(w.start)} – ${endLabel}</span>
+            <span class="badge badge-${ratingKey}">${RATING_LABEL[ratingKey]}</span>
+          </div>
+          <p class="surf-window-why">Mejor momento sobre las <strong>${formatHour(w.peak.time)}</strong>: ${describeSurfMoment(w.peak)}.</p>
+        </div>
+      `;
+    })
+    .join("");
+
   container.innerHTML = `
-    <p class="surf-window-title">🕐 Mejores franjas para surfear (próximas horas)</p>
-    <div class="surf-window-list">
-      ${windows
-        .map((w) => {
-          const ratingIdx = Math.max(0, Math.min(3, Math.round(w.avgScore)));
-          const ratingKey = RATING_ORDER[ratingIdx];
-          const endDate = new Date(w.end);
-          endDate.setHours(endDate.getHours() + 1);
-          const endLabel = endDate.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
-          return `
-            <div class="surf-window">
-              <span class="surf-window-time">${formatHour(w.start)} – ${endLabel}</span>
-              <span class="badge badge-${ratingKey}">${RATING_LABEL[ratingKey]}</span>
-            </div>
-          `;
-        })
-        .join("")}
-    </div>
+    <p class="surf-window-title">🕐 Mejores franjas para surfear</p>
+    <div class="surf-window-list">${windowsHtml}</div>
+    ${heatmapBlock}
   `;
 }
 
