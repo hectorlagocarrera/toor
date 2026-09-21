@@ -26,6 +26,10 @@ const ICON_PATHS = {
   refresh: '<path d="M4 4v5h5"/><path d="M20 20v-5h-5"/><path d="M5 15a8 8 0 0 0 13.7 3.8M19 9A8 8 0 0 0 5.3 5.2"/>',
   shield: '<path d="M12 2.5 5 5.5v5.5c0 5 3 8.5 7 10.5 4-2 7-5.5 7-10.5V5.5Z"/><path d="m9 12 2 2 4-4.5"/>',
   info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/>',
+  moon: '<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/>',
+  share: '<circle cx="18" cy="5" r="2.3"/><circle cx="6" cy="12" r="2.3"/><circle cx="18" cy="19" r="2.3"/><path d="m8.1 10.8 7.8-4.6M8.1 13.2l7.8 4.6"/>',
+  flag: '<path d="M5 21V4"/><path d="M5 4h13l-3 4 3 4H5"/>',
+  wetsuit: '<path d="M9 3h6l1.5 4-2 2v12h-3V9l-2-2Z"/><path d="M9 3 6 9l2 2M15 3l3 6-2 2"/>',
 };
 
 function icon(name, cls = "") {

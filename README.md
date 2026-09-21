@@ -22,15 +22,22 @@ de la playa.
   hora a hora** de las próximas ~30h para ver la evolución dentro de cada franja; un **informe de surf detallado** (altura y periodo del mar de fondo, tipo de
   swell, potencia estimada de la ola en kW/m, orientación respecto a La Barra/El Confital y tipo
   de viento —terral/de cara/cruzado—); una **tabla de mareas** (altura actual, tendencia y
-  próximos cambios); y una valoración orientativa (Excelente / Bueno / Regular / Malo) por
-  deporte —surf, bodyboard, paddle surf, natación y buceo/snorkel; no se incluyen windsurf,
-  kitesurf ni vela porque no se practican en esta playa— calculada a partir del viento y el
-  oleaje actuales.
+  próximos cambios, y una **curva de marea en SVG** con sombreado de noche/día y marcador de
+  "ahora"); un **aviso propio de riesgo de corriente** (orientativo, a partir de oleaje/marea/
+  viento, inspirado en los factores del modelo de la NOAA pero muy simplificado); y una
+  valoración orientativa (Excelente / Bueno / Regular / Malo) por deporte —surf, bodyboard,
+  paddle surf, natación y buceo/snorkel; no se incluyen windsurf, kitesurf ni vela porque no se
+  practican en esta playa— calculada a partir del viento y el oleaje actuales.
 - **Cámaras**: vídeo en directo insertado en la propia página (vía el reproductor público de
   Windy.com) más una amplia lista de enlaces a otras cámaras web de distintos proveedores que no
   permiten insertar su vídeo en otras páginas.
-- **Playa**: descripción de las zonas de la playa (La Cícer, Peña La Vieja, playa central, La
-  Puntilla, La Barra/El Confital) y qué deporte se practica habitualmente en cada una.
+- **Playa**: qué significa cada color de la **bandera de baño oficial** (verde/amarilla/roja/
+  morada) y enlaces para consultarla en directo (esta app no tiene un dato en vivo fiable propio);
+  descripción de las zonas de la playa (La Cícer, Peña La Vieja, playa central, La Puntilla, La
+  Barra/El Confital) y qué deporte se practica habitualmente en cada una.
+- **Recomendación de neopreno** en la tarjeta de Agua (Ahora), según la temperatura del mar.
+- **Modo oscuro manual** (botón en la cabecera, además del automático según el sistema) y
+  **botón de compartir** el estado actual (Web Share API, con copia al portapapeles como reserva).
 
 ## Idioma e iconos
 
@@ -85,6 +92,17 @@ de la Marina, además del gráfico del proyecto open-source [Mareia](https://git
 en [marea.ooo](https://marea.ooo) (motor armónico validado específicamente para Las Palmas /
 Puerto de la Luz).
 
+El riesgo de corriente es una estimación propia y deliberadamente simple (no el modelo
+estadístico certificado que usa la NOAA en EE. UU.): suma puntos por oleaje moderado/grande,
+nivel del mar por debajo de la media (aproximación a bajamar) y viento fuerte de cara, y lo
+traduce a Bajo/Moderado/Alto. Se explica así en la propia app para no dar una falsa sensación de
+precisión oficial.
+
+No existe una fuente pública y gratuita fiable con la bandera de baño en directo de Las Canteras
+(el sistema municipal "LPA Beach" es la fuente oficial, pero es una app/sensores propios sin API
+pública documentada), así que en vez de inventar un dato la app explica qué significa cada
+bandera y enlaza a dónde consultarla ahora mismo.
+
 ## Ejecutar en local
 
 No requiere instalación. Basta con servir la carpeta como sitio estático, por ejemplo:
@@ -108,7 +126,8 @@ Vercel, Cloudflare Pages, etc. Solo hay que subir el contenido de esta carpeta.
 - Coordenadas y parámetros de las APIs: `js/config.js` (`BEACH_LOCATION`, `FORECAST_PARAMS`,
   `MARINE_PARAMS`).
 - Bandas de color de la tabla de previsión: `windBand` / `waveBand` en `js/weather.js`.
-- Umbrales de aptitud por deporte, informe de surf, franjas horarias y marea: `js/sports.js`.
+- Umbrales de aptitud por deporte, informe de surf, franjas horarias, marea, neopreno y riesgo
+  de corriente: `js/sports.js`.
 - Lista de cámaras: `js/config.js` (`EMBED_WEBCAMS` para las insertadas, `WEBCAMS` para las de solo enlace).
 - Enlaces de marea: `js/config.js` (`MAREA_URL`, `TIDE_INFO_URL`).
 - Zonas de la playa: `js/config.js` (`ZONES`).

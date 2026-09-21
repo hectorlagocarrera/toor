@@ -8,6 +8,10 @@ const I18N = {
       "Meteorología, oleaje y mareas en tiempo real de la Playa de Las Canteras (Las Palmas de Gran Canaria) para surf, bodyboard, paddle surf, natación y buceo. Incluye cámaras en directo.",
     "brand.subtitle": "Playa de Las Canteras · Las Palmas de Gran Canaria",
     "refresh.label": "Actualizar datos",
+    "theme.label": "Cambiar tema (claro/oscuro)",
+    "share.label": "Compartir",
+    "share.text": "MeteoCanteras — ahora en Las Canteras: {temp}°C, viento {wind} km/h, oleaje {wave} m, agua {water}°C.",
+    "share.copied": "Copiado al portapapeles",
 
     "nav.now": "Ahora",
     "nav.forecast": "Previsión",
@@ -89,6 +93,25 @@ const I18N = {
     "surf.direction": "Orientación del swell",
     "surf.wind": "Viento",
 
+    "wetsuit.none": "Bañador, sin neopreno",
+    "wetsuit.shorty": "Shorty 2 mm (opcional)",
+    "wetsuit.32": "Neopreno 3/2 mm",
+    "wetsuit.43": "Neopreno 4/3 mm + botas",
+    "wetsuit.54": "Neopreno 5/4 mm + botas y guantes",
+    "wetsuit.54hood": "Neopreno 5/4 mm + capucha, botas y guantes",
+
+    "riprisk.title": "Riesgo de corriente (orientativo)",
+    "riprisk.hint":
+      "Estimación propia y simplificada a partir del oleaje, la marea y el viento — no es el aviso oficial de socorristas ni un modelo certificado como el de la NOAA.",
+    "riprisk.bajo": "Bajo",
+    "riprisk.moderado": "Moderado",
+    "riprisk.alto": "Alto",
+    "riprisk.reason.wave": "oleaje considerable",
+    "riprisk.reason.tide": "marea baja",
+    "riprisk.reason.wind": "viento fuerte de cara",
+    "riprisk.reasonPrefix": "Por:",
+    "riprisk.noReasons": "Sin factores destacados ahora mismo.",
+
     "tide.above": "m sobre el nivel medio",
     "tide.highTide": "Pleamar",
     "tide.lowTide": "Bajamar",
@@ -98,6 +121,7 @@ const I18N = {
     "tide.official": "Predicción oficial IHM",
     "tide.note":
       "Calculada con el nivel del mar (incluye marea) del modelo marino de Open-Meteo, ~8 km de resolución: útil para hacerse una idea, pero no reemplaza la predicción oficial para navegación.",
+    "tide.now": "Ahora",
 
     "cameras.liveTitle": "Vídeo en directo",
     "cameras.liveHint": "Cámara insertada desde Windy.com. Si deja de emitir, usa el enlace de debajo del vídeo.",
@@ -107,6 +131,15 @@ const I18N = {
     "cameras.viewLive": "Ver en directo",
     "cameras.notLoading": "¿No carga el vídeo? Verla en Windy.com",
 
+    "beach.flagTitle": "Bandera de baño hoy",
+    "beach.flagHint":
+      "Las Canteras usa el sistema oficial de banderas del Ayuntamiento (verde, amarilla, roja y morada). Esta app no tiene acceso a un dato en directo fiable, así que aquí tienes qué significa cada una y dónde consultarla ahora mismo.",
+    "beach.flagGreen": "Verde — baño permitido, mar en condiciones normales.",
+    "beach.flagYellow": "Amarilla — baño con precaución (oleaje, corrientes o algas).",
+    "beach.flagRed": "Roja — baño prohibido, condiciones peligrosas.",
+    "beach.flagPurple": "Morada — riesgo añadido: medusas, contaminación u otro aviso sanitario.",
+    "beach.flagCheck": "Ver la bandera de hoy (Canarias.app)",
+    "beach.flagOfficial": "App oficial del Ayuntamiento: LPA Beach",
     "beach.zonesTitle": "Zonas de la playa",
     "beach.aboutTitle": "Sobre esta app",
     "beach.aboutText":
@@ -137,6 +170,10 @@ const I18N = {
       "Live weather, swell and tide data for Las Canteras Beach (Las Palmas de Gran Canaria) for surfing, bodyboarding, paddleboarding, swimming and diving. Includes live webcams.",
     "brand.subtitle": "Las Canteras Beach · Las Palmas de Gran Canaria",
     "refresh.label": "Refresh data",
+    "theme.label": "Toggle light/dark theme",
+    "share.label": "Share",
+    "share.text": "MeteoCanteras — right now at Las Canteras: {temp}°C, {wind} km/h wind, {wave} m waves, {water}°C water.",
+    "share.copied": "Copied to clipboard",
 
     "nav.now": "Now",
     "nav.forecast": "Forecast",
@@ -218,6 +255,25 @@ const I18N = {
     "surf.direction": "Swell direction fit",
     "surf.wind": "Wind",
 
+    "wetsuit.none": "Swimsuit, no wetsuit",
+    "wetsuit.shorty": "2 mm shorty (optional)",
+    "wetsuit.32": "3/2 mm wetsuit",
+    "wetsuit.43": "4/3 mm wetsuit + boots",
+    "wetsuit.54": "5/4 mm wetsuit + boots and gloves",
+    "wetsuit.54hood": "5/4 mm wetsuit + hood, boots and gloves",
+
+    "riprisk.title": "Rip current risk (estimate)",
+    "riprisk.hint":
+      "Our own simplified estimate from swell, tide and wind — not the official lifeguard warning, and not a certified model like NOAA's.",
+    "riprisk.bajo": "Low",
+    "riprisk.moderado": "Moderate",
+    "riprisk.alto": "High",
+    "riprisk.reason.wave": "sizeable swell",
+    "riprisk.reason.tide": "low tide",
+    "riprisk.reason.wind": "strong onshore wind",
+    "riprisk.reasonPrefix": "Because of:",
+    "riprisk.noReasons": "No notable factors right now.",
+
     "tide.above": "m above mean sea level",
     "tide.highTide": "High tide",
     "tide.lowTide": "Low tide",
@@ -227,6 +283,7 @@ const I18N = {
     "tide.official": "Official IHM prediction",
     "tide.note":
       "Calculated from the sea level (tide included) of Open-Meteo's marine model, ~8 km resolution: good for a general idea, but not a substitute for the official prediction for navigation.",
+    "tide.now": "Now",
 
     "cameras.liveTitle": "Live video",
     "cameras.liveHint": "Camera embedded from Windy.com. If it stops streaming, use the link below the video.",
@@ -236,6 +293,15 @@ const I18N = {
     "cameras.viewLive": "Watch live",
     "cameras.notLoading": "Video not loading? Watch it on Windy.com",
 
+    "beach.flagTitle": "Today's swimming flag",
+    "beach.flagHint":
+      "Las Canteras uses the City Council's official flag system (green, yellow, red and purple). This app has no reliable live feed for it, so here's what each colour means and where to check it right now.",
+    "beach.flagGreen": "Green — swimming allowed, normal sea conditions.",
+    "beach.flagYellow": "Yellow — swim with caution (swell, currents or algae).",
+    "beach.flagRed": "Red — swimming banned, hazardous conditions.",
+    "beach.flagPurple": "Purple — extra hazard: jellyfish, pollution or another health notice.",
+    "beach.flagCheck": "Check today's flag (Canarias.app)",
+    "beach.flagOfficial": "Official City Council app: LPA Beach",
     "beach.zonesTitle": "Beach areas",
     "beach.aboutTitle": "About this app",
     "beach.aboutText":

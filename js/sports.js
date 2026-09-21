@@ -17,6 +17,51 @@ function clampRatingIndex(idx) {
   return Math.max(0, Math.min(RATING_ORDER.length - 1, idx));
 }
 
+// Guía orientativa de grosor de neopreno según la temperatura del agua. Umbrales típicos usados
+// por escuelas de surf/buceo, pensados para clima templado-cálido como el de Canarias.
+function wetsuitRecommendationKey(waterTempC) {
+  if (waterTempC === null || waterTempC === undefined) return null;
+  if (waterTempC >= 24) return "wetsuit.none";
+  if (waterTempC >= 22) return "wetsuit.shorty";
+  if (waterTempC >= 19) return "wetsuit.32";
+  if (waterTempC >= 17) return "wetsuit.43";
+  if (waterTempC >= 15) return "wetsuit.54";
+  return "wetsuit.54hood";
+}
+
+// Estimación propia y simplificada del riesgo de corriente de resaca, inspirada en los factores
+// que usa el modelo estadístico de la NOAA (oleaje moderado/grande, nivel del mar bajo, viento
+// fuerte de cara) pero sin pretender ser un modelo certificado: es solo una orientación adicional
+// para La Barra, no un aviso oficial.
+function computeRipRisk({ waveHeight, tideHeight, windSpeed, windDir }) {
+  let score = 0;
+  const reasons = [];
+
+  if (waveHeight !== null && waveHeight !== undefined) {
+    if (waveHeight >= 1.5) {
+      score += 2;
+      reasons.push("riprisk.reason.wave");
+    } else if (waveHeight >= 1.0) {
+      score += 1;
+      reasons.push("riprisk.reason.wave");
+    }
+  }
+
+  if (tideHeight !== null && tideHeight !== undefined && tideHeight < -0.2) {
+    score += 1;
+    reasons.push("riprisk.reason.tide");
+  }
+
+  if (windSpeed !== null && windSpeed !== undefined && windSpeed >= 25 && isOnshoreWind(windDir)) {
+    score += 1;
+    reasons.push("riprisk.reason.wind");
+  }
+
+  const level = score >= 4 ? "alto" : score >= 2 ? "moderado" : "bajo";
+  const badgeClass = level === "alto" ? "malo" : level === "moderado" ? "regular" : "bueno";
+  return { level, badgeClass, reasons: [...new Set(reasons)] };
+}
+
 // Potencia de ola aproximada (fórmula estándar de previsión de surf): P ≈ 0.5 · Hs² · Tp, en kW/m.
 function estimateWavePowerKw(heightM, periodS) {
   if (heightM === null || heightM === undefined || periodS === null || periodS === undefined) return null;
@@ -162,6 +207,24 @@ function computeTideInfo(times, heights, nowIndex) {
   }
 
   return { nowHeight, trend, extremes };
+}
+
+// Todos los extremos (pleamar/bajamar) dentro de un rango de índices, para dibujar la curva de
+// marea completa (a diferencia de computeTideInfo, que solo busca los dos próximos desde ahora).
+function findExtremesInRange(times, heights, startIdx, endIdx) {
+  const extremes = [];
+  let prevSign = null;
+  for (let i = Math.max(0, startIdx); i < Math.min(endIdx, heights.length - 1); i++) {
+    if (heights[i] === null || heights[i + 1] === null || heights[i] === undefined || heights[i + 1] === undefined) continue;
+    const diff = heights[i + 1] - heights[i];
+    if (diff === 0) continue;
+    const sign = diff > 0 ? 1 : -1;
+    if (prevSign !== null && sign !== prevSign) {
+      extremes.push({ type: prevSign > 0 ? "pleamar" : "bajamar", index: i, time: times[i], height: heights[i] });
+    }
+    prevSign = sign;
+  }
+  return extremes;
 }
 
 // Puntuación horaria simplificada de surf (mismos criterios que la tarjeta de Surf) para poder

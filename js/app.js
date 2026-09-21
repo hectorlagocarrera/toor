@@ -38,6 +38,66 @@ function initLangSwitcher() {
   });
 }
 
+function applyTheme(theme) {
+  const root = document.documentElement;
+  if (theme === "light" || theme === "dark") root.setAttribute("data-theme", theme);
+  else root.removeAttribute("data-theme");
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const effective = theme || (prefersDark ? "dark" : "light");
+  const btn = els("themeBtn");
+  if (btn) btn.innerHTML = icon(effective === "dark" ? "sun" : "moon");
+}
+
+function initThemeToggle() {
+  let theme = null;
+  try {
+    theme = localStorage.getItem("mc_theme");
+  } catch (e) {
+    /* localStorage puede estar bloqueado */
+  }
+  applyTheme(theme);
+  els("themeBtn")?.addEventListener("click", () => {
+    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const current = document.documentElement.getAttribute("data-theme") || (prefersDark ? "dark" : "light");
+    const next = current === "dark" ? "light" : "dark";
+    applyTheme(next);
+    try {
+      localStorage.setItem("mc_theme", next);
+    } catch (e) {
+      /* no pasa nada si no se puede persistir */
+    }
+  });
+}
+
+function initShareButton() {
+  const btn = els("shareBtn");
+  if (!btn) return;
+  btn.addEventListener("click", async () => {
+    const text = t("share.text", {
+      temp: els("airTemp")?.textContent ?? "--",
+      wind: els("windSpeed")?.textContent ?? "--",
+      wave: els("waveHeight")?.textContent ?? "--",
+      water: els("waterTemp")?.textContent ?? "--",
+    });
+    const shareData = { title: "MeteoCanteras", text, url: window.location.href };
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (e) {
+        /* el usuario canceló el diálogo de compartir */
+      }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(`${text} ${window.location.href}`);
+      showBanner(t("share.copied"));
+      setTimeout(hideBanner, 2500);
+    } catch (e) {
+      /* sin API de portapapeles disponible, no hacemos nada más */
+    }
+  });
+}
+
 function renderCurrent(forecast, marine) {
   const cur = forecast.current || {};
   setText("airTemp", cur.temperature_2m?.toFixed(1) ?? "--");
@@ -78,10 +138,13 @@ function renderCurrent(forecast, marine) {
     setText("swellPeriod", mc.swell_wave_period?.toFixed(0) ?? "--");
     setText("swellDir", degreesToCompass(mc.swell_wave_direction));
     setText("waterTemp", mc.sea_surface_temperature?.toFixed(1) ?? "--");
+    const wetsuitKey = wetsuitRecommendationKey(mc.sea_surface_temperature);
+    setText("wetsuitHint", wetsuitKey ? t(wetsuitKey) : "—");
   } else {
     ["waveHeight", "wavePeriod", "waveDir", "swellHeight", "swellPeriod", "swellDir", "waterTemp"].forEach((id) =>
       setText(id, "--")
     );
+    setText("wetsuitHint", "—");
   }
 
   const mh = marine?.hourly;
@@ -305,6 +368,126 @@ function renderSurfReport(forecast, marine) {
   `;
 }
 
+// Curva de marea en SVG: sin librerías, un polyline suavizado con sombreado de noche, marcador de
+// "ahora" y las pleamares/bajamares del rango marcadas.
+function buildTideChartSvg(times, heights, nowIdx, daily) {
+  const width = 320;
+  const height = 96;
+  const padTop = 20;
+  const padBottom = 16;
+  const plotH = height - padTop - padBottom;
+
+  const startIdx = Math.max(0, nowIdx - 6);
+  const endIdx = Math.min(times.length - 1, nowIdx + 24);
+  const idxs = [];
+  for (let i = startIdx; i <= endIdx; i++) {
+    if (heights[i] !== null && heights[i] !== undefined) idxs.push(i);
+  }
+  if (idxs.length < 2) return "";
+
+  const vals = idxs.map((i) => heights[i]);
+  const minH = Math.min(...vals);
+  const maxH = Math.max(...vals);
+  const range = Math.max(0.2, maxH - minH);
+
+  const xAt = (pos) => (pos / (idxs.length - 1)) * width;
+  const yAt = (h) => padTop + plotH - ((h - minH) / range) * plotH;
+
+  const points = idxs.map((i, pos) => ({ x: xAt(pos), y: yAt(heights[i]), i }));
+
+  // Sombreado de horas sin luz solar, agrupando tramos contiguos.
+  let nightRects = "";
+  if (daily?.time && daily?.sunrise && daily?.sunset) {
+    let runStart = null;
+    points.forEach((p, pos) => {
+      const dark = !isDaylight(times[p.i], daily.time, daily.sunrise, daily.sunset);
+      if (dark && runStart === null) runStart = p.x;
+      if (!dark && runStart !== null) {
+        nightRects += `<rect x="${runStart.toFixed(1)}" y="0" width="${(p.x - runStart).toFixed(1)}" height="${height}" class="tide-chart-night"/>`;
+        runStart = null;
+      }
+      if (dark && pos === points.length - 1) {
+        nightRects += `<rect x="${runStart.toFixed(1)}" y="0" width="${(width - runStart).toFixed(1)}" height="${height}" class="tide-chart-night"/>`;
+      }
+    });
+  }
+
+  // Curva suavizada: L al primer punto medio, luego una Q por punto usando el siguiente punto
+  // medio como destino (evita tener que implementar Catmull-Rom completo).
+  let path = `M ${points[0].x.toFixed(1)} ${points[0].y.toFixed(1)}`;
+  for (let k = 0; k < points.length - 1; k++) {
+    const mx = (points[k].x + points[k + 1].x) / 2;
+    const my = (points[k].y + points[k + 1].y) / 2;
+    path += ` Q ${points[k].x.toFixed(1)} ${points[k].y.toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`;
+  }
+  path += ` L ${points[points.length - 1].x.toFixed(1)} ${points[points.length - 1].y.toFixed(1)}`;
+
+  const areaPath = `${path} L ${points[points.length - 1].x.toFixed(1)} ${height - padBottom} L ${points[0].x.toFixed(1)} ${height - padBottom} Z`;
+
+  const extremes = findExtremesInRange(times, heights, startIdx, endIdx);
+  const extremeMarks = extremes
+    .map((ex) => {
+      const pos = idxs.indexOf(ex.index);
+      if (pos === -1) return "";
+      const x = xAt(pos);
+      const y = yAt(ex.height);
+      const labelY = ex.type === "pleamar" ? y - 8 : y + 16;
+      return `
+        <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" class="tide-chart-dot"/>
+        <text x="${x.toFixed(1)}" y="${labelY.toFixed(1)}" class="tide-chart-label" text-anchor="middle">${formatHour(ex.time)}</text>
+      `;
+    })
+    .join("");
+
+  const nowPos = idxs.indexOf(nowIdx);
+  const nowMark =
+    nowPos !== -1
+      ? `
+        <line x1="${points[nowPos].x.toFixed(1)}" y1="0" x2="${points[nowPos].x.toFixed(1)}" y2="${height}" class="tide-chart-now-line"/>
+        <circle cx="${points[nowPos].x.toFixed(1)}" cy="${points[nowPos].y.toFixed(1)}" r="4" class="tide-chart-now-dot"/>
+      `
+      : "";
+
+  return `
+    <svg class="tide-chart" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" role="img" aria-label="${t("card.tide")}">
+      ${nightRects}
+      <path d="${areaPath}" class="tide-chart-area"/>
+      <path d="${path}" class="tide-chart-line"/>
+      ${extremeMarks}
+      ${nowMark}
+    </svg>
+  `;
+}
+
+function renderRipRisk(forecast, marine) {
+  const container = els("ripRisk");
+  if (!container) return;
+  const mc = marine?.current;
+  const cur = forecast.current || {};
+  const mh = marine?.hourly;
+  const tide = mh?.sea_level_height_msl ? computeTideInfo(mh.time, mh.sea_level_height_msl, findNearestHourIndex(mh.time)) : null;
+
+  const risk = computeRipRisk({
+    waveHeight: mc?.wave_height ?? null,
+    tideHeight: tide?.nowHeight ?? null,
+    windSpeed: cur.wind_speed_10m ?? null,
+    windDir: cur.wind_direction_10m ?? null,
+  });
+
+  const reasonsText = risk.reasons.length ? `${t("riprisk.reasonPrefix")} ${risk.reasons.map((r) => t(r)).join(", ")}.` : t("riprisk.noReasons");
+
+  container.innerHTML = `
+    <div class="riprisk-card">
+      <div class="riprisk-top">
+        <span class="riprisk-title">${icon("lifebuoy", "icon-sm")} ${t("riprisk.title")}</span>
+        <span class="badge badge-${risk.badgeClass}">${t(`riprisk.${risk.level}`)}</span>
+      </div>
+      <p class="riprisk-reasons">${reasonsText}</p>
+      <p class="riprisk-hint">${t("riprisk.hint")}</p>
+    </div>
+  `;
+}
+
 function renderMareaPanel(forecast, marine) {
   const container = els("mareaPanel");
   if (!container) return;
@@ -332,11 +515,16 @@ function renderMareaPanel(forecast, marine) {
         .join("")
     : `<li>${t("tide.noExtremes")}</li>`;
 
+  const nowIdx = findNearestHourIndex(mh.time);
+  const daily = forecast.daily;
+  const chartSvg = buildTideChartSvg(mh.time, mh.sea_level_height_msl, nowIdx, daily ? { time: daily.time, sunrise: daily.sunrise, sunset: daily.sunset } : null);
+
   container.innerHTML = `
     <div class="marea-now">
       <div class="marea-now-value">${tide.nowHeight.toFixed(2)} <small>${t("tide.above")}</small></div>
       <div class="marea-now-trend">${tide.trend === "subiendo" ? `↑ ${t("tide.rising")}` : tide.trend === "bajando" ? `↓ ${t("tide.falling")}` : "—"}</div>
     </div>
+    ${chartSvg}
     <ul class="marea-extremes">${extremesHtml}</ul>
     <div class="marea-links">
       <a class="btn-link" href="${MAREA_URL}" target="_blank" rel="noopener noreferrer">${t("tide.fullChart")} ↗</a>
@@ -567,6 +755,7 @@ async function loadAll() {
     renderSurfReport(forecast, marine);
     renderSurfWindows(forecast, marine);
     renderMareaPanel(forecast, marine);
+    renderRipRisk(forecast, marine);
     setText("lastUpdated", new Date().toLocaleTimeString(getLocale(), { hour: "2-digit", minute: "2-digit" }));
     if (marineError) {
       showBanner(t("error.marine"));
@@ -581,6 +770,8 @@ function init() {
   applyStaticI18n();
   initTabs();
   initLangSwitcher();
+  initThemeToggle();
+  initShareButton();
   renderEmbedWebcams();
   renderWebcams();
   renderZones();
