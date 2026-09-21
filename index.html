@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MeteoCanteras · Meteo y mar en Las Canteras</title>
+<meta name="description" content="Meteorología y estado del mar en tiempo real de la Playa de Las Canteras (Las Palmas de Gran Canaria), pensado para surf, windsurf, kitesurf, paddle surf, natación y buceo. Incluye cámaras web en directo.">
+<meta name="theme-color" content="#0b6e8f">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+<link rel="apple-touch-icon" href="assets/icon.svg">
+<link rel="preconnect" href="https://api.open-meteo.com">
+<link rel="preconnect" href="https://marine-api.open-meteo.com">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="brand">
+    <img src="assets/icon.svg" alt="" class="brand-icon">
+    <div>
+      <h1>MeteoCanteras</h1>
+      <p class="brand-sub">Playa de Las Canteras · Las Palmas de Gran Canaria</p>
+    </div>
+  </div>
+  <button id="refreshBtn" class="icon-btn" title="Actualizar datos" aria-label="Actualizar datos">⟳</button>
+</header>
+
+<nav class="tabbar" id="tabbar">
+  <button class="tab-btn is-active" data-tab="ahora">Ahora</button>
+  <button class="tab-btn" data-tab="prevision">Previsión</button>
+  <button class="tab-btn" data-tab="deportes">Deportes</button>
+  <button class="tab-btn" data-tab="camaras">Cámaras</button>
+  <button class="tab-btn" data-tab="info">Playa</button>
+</nav>
+
+<main id="app">
+
+  <div id="statusBanner" class="status-banner" hidden></div>
+
+  <!-- AHORA -->
+  <section class="tab-panel is-active" id="panel-ahora" data-panel="ahora">
+    <p class="updated-line">Última actualización: <span id="lastUpdated">—</span></p>
+
+    <div class="card-grid">
+      <article class="metric-card">
+        <h3>Aire</h3>
+        <p class="metric-big"><span id="airTemp">--</span>°C</p>
+        <p class="metric-sub">Sensación <span id="feelsLike">--</span>°C</p>
+        <p class="metric-sub" id="weatherDesc">—</p>
+      </article>
+
+      <article class="metric-card">
+        <h3>Viento</h3>
+        <p class="metric-big"><span id="windSpeed">--</span> <small>km/h</small></p>
+        <p class="metric-sub">Rachas <span id="windGust">--</span> km/h</p>
+        <p class="metric-sub"><span id="windArrow" class="wind-arrow">↑</span> <span id="windDir">--</span></p>
+      </article>
+
+      <article class="metric-card">
+        <h3>Oleaje</h3>
+        <p class="metric-big"><span id="waveHeight">--</span> <small>m</small></p>
+        <p class="metric-sub">Periodo <span id="wavePeriod">--</span> s</p>
+        <p class="metric-sub">Dirección <span id="waveDir">--</span></p>
+      </article>
+
+      <article class="metric-card">
+        <h3>Mar de fondo</h3>
+        <p class="metric-big"><span id="swellHeight">--</span> <small>m</small></p>
+        <p class="metric-sub">Periodo <span id="swellPeriod">--</span> s</p>
+        <p class="metric-sub">Dirección <span id="swellDir">--</span></p>
+      </article>
+
+      <article class="metric-card">
+        <h3>Agua</h3>
+        <p class="metric-big"><span id="waterTemp">--</span>°C</p>
+        <p class="metric-sub">Temperatura del mar</p>
+      </article>
+
+      <article class="metric-card">
+        <h3>Sol / UV</h3>
+        <p class="metric-big"><span id="uvIndex">--</span></p>
+        <p class="metric-sub" id="uvLabel">—</p>
+        <p class="metric-sub">Amanecer <span id="sunrise">--</span> · Ocaso <span id="sunset">--</span></p>
+      </article>
+
+      <article class="metric-card">
+        <h3>Humedad</h3>
+        <p class="metric-big"><span id="humidity">--</span>%</p>
+        <p class="metric-sub">Visibilidad <span id="visibility">--</span> km</p>
+      </article>
+
+      <article class="metric-card">
+        <h3>Lluvia</h3>
+        <p class="metric-big"><span id="precip">--</span> <small>mm</small></p>
+        <p class="metric-sub">Prob. próxima hora <span id="precipProb">--</span>%</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- PREVISION -->
+  <section class="tab-panel" id="panel-prevision" data-panel="prevision">
+    <h2 class="section-title">Próximas 24 horas</h2>
+    <div class="hourly-scroll" id="hourlyList" aria-label="Previsión horaria"></div>
+
+    <h2 class="section-title">Próximos días</h2>
+    <div class="daily-list" id="dailyList"></div>
+  </section>
+
+  <!-- DEPORTES -->
+  <section class="tab-panel" id="panel-deportes" data-panel="deportes">
+    <h2 class="section-title">Aptitud por deporte acuático</h2>
+    <p class="section-hint">Orientación general a partir del viento y el oleaje actuales. No sustituye la señalización de socorristas ni el sentido común en el agua.</p>
+    <div class="sport-grid" id="sportGrid"></div>
+  </section>
+
+  <!-- CAMARAS -->
+  <section class="tab-panel" id="panel-camaras" data-panel="camaras">
+    <h2 class="section-title">Cámaras web en directo</h2>
+    <p class="section-hint">Enlaces a cámaras públicas que retransmiten la playa. Se abren en la web del proveedor porque no todas permiten insertarse dentro de otras páginas.</p>
+    <div class="webcam-grid" id="webcamGrid"></div>
+  </section>
+
+  <!-- INFO -->
+  <section class="tab-panel" id="panel-info" data-panel="info">
+    <h2 class="section-title">Zonas de la playa</h2>
+    <div class="zone-list" id="zoneList"></div>
+    <h2 class="section-title">Sobre esta app</h2>
+    <p class="about-text">
+      MeteoCanteras reúne en un mismo sitio los datos meteorológicos y de oleaje de Las Canteras
+      para quienes practican deportes acuáticos: surf, bodyboard, windsurf, kitesurf, paddle surf,
+      natación en aguas abiertas, buceo y vela ligera. Los datos meteorológicos y de oleaje proceden
+      de <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a> (modelos
+      públicos de agencias meteorológicas), y las cámaras pertenecen a sus proveedores respectivos.
+    </p>
+    <p class="about-text disclaimer">
+      ⚠️ Esta aplicación tiene fines informativos y no constituye un aviso oficial de seguridad.
+      Respeta siempre las banderas y las indicaciones de Cruz Roja / socorrismo en la playa.
+    </p>
+  </section>
+
+</main>
+
+<footer class="app-footer">
+  <p>MeteoCanteras · Datos: Open-Meteo · Hecho para la comunidad de deportes acuáticos de Las Canteras 🌊</p>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/weather.js"></script>
+<script src="js/sports.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

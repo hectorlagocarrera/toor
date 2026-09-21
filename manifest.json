@@ -1,0 +1,18 @@
+{
+  "name": "MeteoCanteras",
+  "short_name": "MeteoCanteras",
+  "description": "Meteorología y estado del mar de la Playa de Las Canteras para deportes acuáticos, con cámaras web en directo.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f3f8fb",
+  "theme_color": "#0b6e8f",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
