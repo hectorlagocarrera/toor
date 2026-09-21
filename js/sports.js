@@ -18,6 +18,68 @@ function clampRatingIndex(idx) {
   return Math.max(0, Math.min(RATING_ORDER.length - 1, idx));
 }
 
+// Potencia de ola aproximada (fórmula estándar de previsión de surf): P ≈ 0.5 · Hs² · Tp, en kW/m.
+function estimateWavePowerKw(heightM, periodS) {
+  if (heightM === null || heightM === undefined || periodS === null || periodS === undefined) return null;
+  return 0.5 * heightM * heightM * periodS;
+}
+
+function wavePowerLabel(kw) {
+  if (kw === null) return { label: "Sin datos", cls: "regular" };
+  if (kw < 3) return { label: "Plana / muy pequeña", cls: "malo" };
+  if (kw < 8) return { label: "Suave", cls: "regular" };
+  if (kw < 15) return { label: "Con fuerza", cls: "bueno" };
+  if (kw < 25) return { label: "Potente", cls: "excelente" };
+  return { label: "Muy potente (peligrosa)", cls: "malo" };
+}
+
+function swellPeriodType(periodS) {
+  if (periodS === null || periodS === undefined) return "Sin datos";
+  if (periodS < 8) return "Swell de viento (corto, más desordenado)";
+  if (periodS <= 12) return "Periodo medio";
+  return "Mar de fondo (groundswell, olas más limpias y potentes)";
+}
+
+function swellDirectionMatch(dirDeg) {
+  if (dirDeg === null || dirDeg === undefined) return "Sin datos de dirección.";
+  // La Barra / El Confital reciben mejor los swells de componente N a NE.
+  const goodMatch = dirDeg >= 300 || dirDeg <= 60;
+  return goodMatch
+    ? "Buena orientación para romper en La Barra / El Confital."
+    : "Orientación menos habitual para las rompientes de Las Canteras.";
+}
+
+function windTypeLabel(dirDeg) {
+  if (dirDeg === null || dirDeg === undefined) return "Sin datos";
+  if (isOffshoreWind(dirDeg)) return "Terral (offshore) — limpia la ola";
+  if (isOnshoreWind(dirDeg)) return "De cara (onshore) — desordena la ola";
+  return "Cruzado (cross-shore)";
+}
+
+function computeSurfReport(d) {
+  const waveH = d.waveHeight ?? null;
+  const wavePer = d.wavePeriod ?? null;
+  const swellH = d.swellHeight ?? waveH;
+  const swellPer = d.swellPeriod ?? wavePer;
+  const swellDir = d.swellDir ?? d.waveDir ?? null;
+  const power = estimateWavePowerKw(swellH, swellPer);
+  const powerInfo = wavePowerLabel(power);
+
+  return {
+    swellHeight: swellH,
+    swellPeriod: swellPer,
+    periodType: swellPeriodType(swellPer),
+    power,
+    powerLabel: powerInfo.label,
+    powerClass: powerInfo.cls,
+    directionMatch: swellDirectionMatch(swellDir),
+    windType: windTypeLabel(d.windDir),
+    windSpeed: d.windSpeed ?? null,
+    windGust: d.windGust ?? null,
+    windDir: d.windDir ?? null,
+  };
+}
+
 function computeSportRatings(d) {
   const wind = d.windSpeed ?? 0;
   const gust = d.windGust ?? wind;

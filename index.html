@@ -11,6 +11,9 @@
 <link rel="apple-touch-icon" href="assets/icon.svg">
 <link rel="preconnect" href="https://api.open-meteo.com">
 <link rel="preconnect" href="https://marine-api.open-meteo.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -24,6 +27,9 @@
     </div>
   </div>
   <button id="refreshBtn" class="icon-btn" title="Actualizar datos" aria-label="Actualizar datos">⟳</button>
+  <svg class="header-wave" viewBox="0 0 500 40" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 20 C 60 40, 110 0, 170 18 S 290 38, 340 18 S 460 0, 500 20 V40 H0 Z" fill="var(--color-bg)"/>
+  </svg>
 </header>
 
 <nav class="tabbar" id="tabbar">
@@ -109,6 +115,10 @@
 
   <!-- DEPORTES -->
   <section class="tab-panel" id="panel-deportes" data-panel="deportes">
+    <h2 class="section-title">🏄 Informe de surf — La Barra / El Confital</h2>
+    <p class="section-hint">Lectura detallada del oleaje pensada para surfistas: altura y periodo del mar de fondo, potencia estimada de la ola y tipo de viento.</p>
+    <div class="surf-report" id="surfReport"></div>
+
     <h2 class="section-title">Aptitud por deporte acuático</h2>
     <p class="section-hint">Orientación general a partir del viento y el oleaje actuales. No sustituye la señalización de socorristas ni el sentido común en el agua.</p>
     <div class="sport-grid" id="sportGrid"></div>
@@ -116,8 +126,12 @@
 
   <!-- CAMARAS -->
   <section class="tab-panel" id="panel-camaras" data-panel="camaras">
-    <h2 class="section-title">Cámaras web en directo</h2>
-    <p class="section-hint">Enlaces a cámaras públicas que retransmiten la playa. Se abren en la web del proveedor porque no todas permiten insertarse dentro de otras páginas.</p>
+    <h2 class="section-title">Cámaras en directo</h2>
+    <p class="section-hint">Vídeo en directo insertado desde Windy.com (su reproductor está pensado para insertarse en otras webs). Si alguna no carga, usa el enlace de debajo del vídeo.</p>
+    <div class="embed-grid" id="embedGrid"></div>
+
+    <h2 class="section-title">Más cámaras de la playa</h2>
+    <p class="section-hint">Estos proveedores no permiten insertar su vídeo en otras páginas, así que se abren en su propia web.</p>
     <div class="webcam-grid" id="webcamGrid"></div>
   </section>
 

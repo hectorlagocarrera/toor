@@ -71,6 +71,10 @@ const MARINE_PARAMS = {
 
 const AUTO_REFRESH_MINUTES = 10;
 
+// Predicción oficial de mareas del Puerto de la Luz (Instituto Hidrográfico de la Marina).
+// No la calculamos aquí: es un dato armónico que requiere fuentes oficiales, así que enlazamos.
+const TIDE_INFO_URL = "https://armada.defensa.gob.es/ihm/Aplicaciones/Mareas/puerto_mareas.html?puerto=56";
+
 const ZONES = [
   {
     name: "La Cícer",
@@ -96,6 +100,28 @@ const ZONES = [
     name: "La Barra / El Confital",
     desc: "Extremo norte, donde la barra rocosa rompe el oleaje de fondo llegado del Atlántico. La rompiente de referencia para surfistas y bodyboarders en Las Canteras.",
     tags: ["Surf", "Bodyboard"],
+  },
+];
+
+// Cámaras que Windy.com permite insertar directamente (reproductor público pensado para embeberse).
+const EMBED_WEBCAMS = [
+  {
+    name: "La Cícer (Playa de Las Canteras) - El Burro",
+    zone: "La Cícer",
+    id: "1687952153",
+    pageUrl: "https://webcams.windy.com/webcams/public/view/1687952153",
+  },
+  {
+    name: "Las Canteras beach",
+    zone: "Playa de Las Canteras",
+    id: "1429130108",
+    pageUrl: "https://www.windy.com/webcams/1429130108",
+  },
+  {
+    name: "Beach de Las Canteras",
+    zone: "Playa de Las Canteras",
+    id: "1397657523",
+    pageUrl: "https://www.windy.com/webcams/1397657523",
   },
 ];
 

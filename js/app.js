@@ -137,6 +137,82 @@ function renderDaily(forecast) {
   });
 }
 
+function renderSurfReport(forecast, marine) {
+  const container = els("surfReport");
+  if (!container) return;
+  const cur = forecast.current || {};
+  const mc = marine?.current;
+
+  const report = computeSurfReport({
+    waveHeight: mc?.wave_height ?? null,
+    wavePeriod: mc?.wave_period ?? null,
+    swellHeight: mc?.swell_wave_height ?? null,
+    swellPeriod: mc?.swell_wave_period ?? null,
+    swellDir: mc?.swell_wave_direction ?? null,
+    waveDir: mc?.wave_direction ?? null,
+    windSpeed: cur.wind_speed_10m ?? null,
+    windGust: cur.wind_gusts_10m ?? null,
+    windDir: cur.wind_direction_10m ?? null,
+  });
+
+  const fmt = (v, decimals = 1) => (v === null || v === undefined ? "--" : v.toFixed(decimals));
+
+  container.innerHTML = `
+    <div class="surf-stat">
+      <span class="surf-stat-label">Mar de fondo</span>
+      <span class="surf-stat-value">${fmt(report.swellHeight)} m</span>
+      <span class="surf-stat-sub">Periodo ${fmt(report.swellPeriod, 0)} s</span>
+    </div>
+    <div class="surf-stat">
+      <span class="surf-stat-label">Tipo de swell</span>
+      <span class="surf-stat-value surf-stat-text">${report.periodType}</span>
+    </div>
+    <div class="surf-stat">
+      <span class="surf-stat-label">Potencia estimada</span>
+      <span class="surf-stat-value">${fmt(report.power, 1)} <small>kW/m</small></span>
+      <span class="badge badge-${report.powerClass}">${report.powerLabel}</span>
+    </div>
+    <div class="surf-stat">
+      <span class="surf-stat-label">Orientación del swell</span>
+      <span class="surf-stat-value surf-stat-text">${report.directionMatch}</span>
+    </div>
+    <div class="surf-stat">
+      <span class="surf-stat-label">Viento</span>
+      <span class="surf-stat-value">${fmt(report.windSpeed, 0)} <small>km/h</small></span>
+      <span class="surf-stat-sub">${report.windType}${report.windDir !== null ? ` · ${degreesToCompass(report.windDir)}` : ""}</span>
+    </div>
+    <div class="surf-stat surf-stat-tide">
+      <span class="surf-stat-label">Marea</span>
+      <span class="surf-stat-sub">La Barra es sensible a la marea (más hueca y peligrosa en bajamar). Consulta la predicción oficial:</span>
+      <a href="${TIDE_INFO_URL}" target="_blank" rel="noopener noreferrer" class="surf-stat-link">Ver tabla de mareas (Puerto de la Luz) ↗</a>
+    </div>
+  `;
+}
+
+function renderEmbedWebcams() {
+  const container = els("embedGrid");
+  if (!container) return;
+  container.innerHTML = "";
+  EMBED_WEBCAMS.forEach((cam) => {
+    const card = document.createElement("div");
+    card.className = "embed-card";
+    card.innerHTML = `
+      <p class="embed-name">📍 ${cam.name} <span class="embed-zone">· ${cam.zone}</span></p>
+      <div class="embed-frame-wrap">
+        <iframe
+          src="https://webcams.windy.com/webcams/public/embed/player/${cam.id}/live"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Cámara en directo: ${cam.name}"
+        ></iframe>
+      </div>
+      <a class="embed-fallback-link" href="${cam.pageUrl}" target="_blank" rel="noopener noreferrer">¿No carga el vídeo? Verla en Windy.com ↗</a>
+    `;
+    container.appendChild(card);
+  });
+}
+
 function renderSports(forecast, marine) {
   const container = els("sportGrid");
   if (!container) return;
@@ -216,6 +292,7 @@ async function loadAll() {
     renderHourly(forecast, marine);
     renderDaily(forecast);
     renderSports(forecast, marine);
+    renderSurfReport(forecast, marine);
     setText("lastUpdated", new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" }));
     if (marineError) {
       showBanner("No se han podido obtener los datos de oleaje en este momento. El resto de datos meteorológicos son correctos.");
@@ -228,6 +305,7 @@ async function loadAll() {
 
 function init() {
   initTabs();
+  renderEmbedWebcams();
   renderWebcams();
   renderZones();
   loadAll();
