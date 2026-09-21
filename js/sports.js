@@ -127,9 +127,23 @@ function scoreSurfHour(waveH, wavePer, windSpeed, windDir) {
   return score;
 }
 
+// ¿Hay luz solar a esa hora? Sin esto, el oleaje puede ser bueno a medianoche y el algoritmo lo
+// recomendaría igualmente, lo cual no tiene ningún sentido para surfear.
+function isDaylight(timeStr, dailyTime, sunrise, sunset) {
+  if (!dailyTime || !sunrise || !sunset) return true;
+  const dayIdx = dailyTime.indexOf(timeStr.slice(0, 10));
+  if (dayIdx === -1) return true;
+  const t = new Date(timeStr).getTime();
+  const sr = new Date(sunrise[dayIdx]).getTime();
+  const ss = new Date(sunset[dayIdx]).getTime();
+  return t >= sr && t <= ss;
+}
+
 // Serie hora a hora (oleaje + viento + puntuación) de las próximas horas: es la base tanto del
 // mini-gráfico como de las franjas recomendadas, para que ambos cuenten la misma historia.
-function buildSurfHourlySeries(marineTimes, waveHeights, wavePeriods, windTimes, windSpeeds, windDirs, startIndex, hoursAhead) {
+// Las horas sin luz solar quedan sin puntuación: nunca se recomienda surfear de noche por muy
+// bueno que esté el oleaje sobre el papel.
+function buildSurfHourlySeries(marineTimes, waveHeights, wavePeriods, windTimes, windSpeeds, windDirs, startIndex, hoursAhead, daylight) {
   const windByTime = {};
   windTimes.forEach((t, i) => {
     windByTime[t] = { speed: windSpeeds[i], dir: windDirs[i] };
@@ -141,13 +155,15 @@ function buildSurfHourlySeries(marineTimes, waveHeights, wavePeriods, windTimes,
     const wind = windByTime[marineTimes[i]] || {};
     const waveH = waveHeights[i] ?? null;
     const wavePer = wavePeriods[i] ?? null;
+    const hasDaylight = isDaylight(marineTimes[i], daylight?.time, daylight?.sunrise, daylight?.sunset);
     series.push({
       time: marineTimes[i],
       waveH,
       wavePer,
       windSpeed: wind.speed ?? null,
       windDir: wind.dir ?? null,
-      score: scoreSurfHour(waveH, wavePer, wind.speed, wind.dir),
+      daylight: hasDaylight,
+      score: hasDaylight ? scoreSurfHour(waveH, wavePer, wind.speed, wind.dir) : null,
     });
   }
   return series;

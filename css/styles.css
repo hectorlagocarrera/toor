@@ -542,6 +542,13 @@ main#app {
 .surf-heat-bueno { background: var(--color-good); }
 .surf-heat-excelente { background: var(--color-excellent); }
 .surf-heat-na { background: var(--color-border); }
+.surf-heat-night { background: #22344a; }
+
+.surf-heatmap-caption {
+  font-size: 0.74rem;
+  color: var(--color-text-mute);
+  margin: 6px 0 18px;
+}
 
 .surf-window-empty {
   background: var(--color-surface);

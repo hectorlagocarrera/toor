@@ -16,9 +16,10 @@ de la playa.
   periodo y dirección, y temperatura del aire **y del agua** cada 3 horas, con celdas coloreadas
   por intensidad), además de las próximas 24 horas en tarjetas y los próximos 7 días.
 - **Deportes**: incluye las **mejores franjas horarias para surfear**, calculadas por día (nunca
-  cruzan la medianoche) con la hora "pico" de cada una justificada con datos concretos de oleaje
-  y viento, más un **mini-gráfico hora a hora** de las próximas ~30h para ver la evolución dentro
-  de cada franja; un **informe de surf detallado** (altura y periodo del mar de fondo, tipo de
+  cruzan la medianoche) y **solo con luz solar** (usa el amanecer/atardecer del día para no
+  recomendar nunca surfear de noche, por bueno que esté el oleaje sobre el papel), con la hora
+  "pico" de cada una justificada con datos concretos de oleaje y viento, más un **mini-gráfico
+  hora a hora** de las próximas ~30h para ver la evolución dentro de cada franja; un **informe de surf detallado** (altura y periodo del mar de fondo, tipo de
   swell, potencia estimada de la ola en kW/m, orientación respecto a La Barra/El Confital y tipo
   de viento —terral/de cara/cruzado—); una **tabla de mareas** (altura actual, tendencia y
   próximos cambios); y una valoración orientativa (Excelente / Bueno / Regular / Malo) por

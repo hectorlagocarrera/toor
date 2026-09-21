@@ -346,6 +346,7 @@ function renderSurfWindows(forecast, marine) {
   }
 
   const nowIdx = findNearestHourIndex(mh.time);
+  const daily = forecast.daily;
   const series = buildSurfHourlySeries(
     mh.time,
     mh.wave_height,
@@ -354,7 +355,8 @@ function renderSurfWindows(forecast, marine) {
     fh.wind_speed_10m,
     fh.wind_direction_10m,
     nowIdx,
-    30
+    30,
+    daily ? { time: daily.time, sunrise: daily.sunrise, sunset: daily.sunset } : null
   );
   const windows = groupSurfWindows(series);
 
@@ -362,6 +364,7 @@ function renderSurfWindows(forecast, marine) {
   const heatmapHtml = series
     .map((rec, idx) => {
       const ratingKey = rec.score === null ? null : RATING_ORDER[rec.score];
+      const barClass = ratingKey ? `surf-heat-${ratingKey}` : rec.daylight ? "surf-heat-na" : "surf-heat-night";
       const barHeight = rec.score === null ? 6 : 10 + rec.score * 10;
       const dayKey = rec.time.slice(0, 10);
       const isNewDay = dayKey !== lastHeatDay;
@@ -370,10 +373,15 @@ function renderSurfWindows(forecast, marine) {
       const hourLabel = isNewDay
         ? `${new Date(rec.time).toLocaleDateString("es-ES", { weekday: "short" })} ${formatHour(rec.time)}`
         : formatHour(rec.time);
-      const title = rec.score === null ? "Sin datos" : `${formatHour(rec.time)}: ${describeSurfMoment(rec)}`;
+      const title =
+        rec.score === null
+          ? rec.daylight
+            ? "Sin datos"
+            : `${formatHour(rec.time)}: de noche, sin luz`
+          : `${formatHour(rec.time)}: ${describeSurfMoment(rec)}`;
       return `
         <div class="surf-heat-col ${isNewDay ? "surf-heat-newday" : ""}" title="${title}">
-          <div class="surf-heat-bar ${ratingKey ? `surf-heat-${ratingKey}` : "surf-heat-na"}" style="height:${barHeight}px"></div>
+          <div class="surf-heat-bar ${barClass}" style="height:${barHeight}px"></div>
           <span class="surf-heat-hour">${showLabel ? hourLabel : ""}</span>
         </div>
       `;
@@ -383,6 +391,7 @@ function renderSurfWindows(forecast, marine) {
   const heatmapBlock = `
     <p class="surf-window-title">📈 Hora a hora (próximas ${series.length}h)</p>
     <div class="surf-heatmap"><div class="surf-heatmap-track">${heatmapHtml}</div></div>
+    <p class="surf-heatmap-caption">Las barras azul oscuro son horas de noche: nunca se recomiendan, aunque el oleaje sea bueno sobre el papel.</p>
   `;
 
   if (!windows.length) {
