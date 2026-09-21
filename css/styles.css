@@ -1,16 +1,16 @@
 :root {
-  --color-bg: #f3f8fb;
+  --color-bg: #f2f7fa;
   --color-surface: #ffffff;
-  --color-text: #0e2a35;
-  --color-text-mute: #52707a;
-  --color-primary: #0b6e8f;
-  --color-primary-dark: #084f66;
-  --color-accent: #ff9f4a;
-  --color-border: #dfeaef;
-  --color-excellent: #1a9d5c;
-  --color-good: #4caf50;
-  --color-fair: #e0a72e;
-  --color-poor: #d9534f;
+  --color-text: #10242e;
+  --color-text-mute: #526c76;
+  --color-primary: #0a5b76;
+  --color-primary-dark: #073c4d;
+  --color-accent: #e2924e;
+  --color-border: #dee8ed;
+  --color-excellent: #12805a;
+  --color-good: #4f9d56;
+  --color-fair: #c8912c;
+  --color-poor: #c14f49;
   --radius: 14px;
   --gap: 14px;
   --header-h: 64px;
@@ -82,21 +82,53 @@ a { color: var(--color-primary); }
 
 .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .brand-icon { width: 34px; height: 34px; flex-shrink: 0; }
-.brand h1 { font-size: 1.15rem; margin: 0; line-height: 1.1; }
+.brand h1 { font-size: 1.15rem; margin: 0; line-height: 1.1; font-family: var(--font-heading); font-weight: 700; }
 .brand-sub { margin: 2px 0 0; font-size: 0.72rem; opacity: 0.85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+.lang-switch {
+  display: flex;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  padding: 2px;
+}
+.lang-btn {
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 5px 9px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.lang-btn.is-active { background: #fff; color: var(--color-primary-dark); }
 
 .icon-btn {
   background: rgba(255,255,255,0.15);
   border: none;
   color: #fff;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  font-size: 1.1rem;
   cursor: pointer;
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .icon-btn:active { transform: scale(0.92); }
+
+/* Iconos (SVG de trazo, ver js/icons.js) */
+.icon { width: 1em; height: 1em; }
+.icon-btn .icon { width: 18px; height: 18px; }
+.title-icon { width: 20px; height: 20px; vertical-align: -4px; color: var(--color-primary); }
+.card-icon { width: 15px; height: 15px; vertical-align: -2px; color: var(--card-accent, var(--color-primary)); margin-right: 1px; }
+.icon-sm { width: 17px; height: 17px; vertical-align: -3px; }
+.icon-xs { width: 13px; height: 13px; vertical-align: -2px; }
+.disclaimer-icon { width: 16px; height: 16px; vertical-align: -3px; margin-right: 2px; }
 
 .tabbar {
   position: sticky;
@@ -344,7 +376,7 @@ main#app {
   margin-bottom: 8px;
 }
 .sport-name { display: flex; align-items: center; gap: 8px; font-weight: 700; }
-.sport-emoji { font-size: 1.3rem; }
+.sport-name .icon { color: var(--color-primary); }
 .badge {
   font-size: 0.75rem;
   font-weight: 700;
@@ -592,9 +624,9 @@ main#app {
 .surf-stat-sub { font-size: 0.78rem; color: var(--color-text-mute); }
 .surf-stat .badge { align-self: flex-start; }
 .webcam-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-.webcam-emoji { font-size: 1.4rem; }
+.webcam-top .icon { color: var(--color-primary); }
 .webcam-name { font-weight: 700; }
-.webcam-zone { font-size: 0.78rem; color: var(--color-primary); margin: 0 0 4px; }
+.webcam-zone { font-size: 0.78rem; color: var(--color-primary); margin: 0 0 4px; display: flex; align-items: center; gap: 5px; }
 .webcam-desc { font-size: 0.82rem; color: var(--color-text-mute); margin: 0; }
 .webcam-link { font-size: 0.78rem; margin-top: 8px; display: inline-block; }
 

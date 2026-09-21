@@ -31,6 +31,13 @@ function initTabs() {
   });
 }
 
+function initLangSwitcher() {
+  document.querySelectorAll(".lang-btn").forEach((btn) => {
+    btn.classList.toggle("is-active", btn.dataset.lang === getLang());
+    btn.addEventListener("click", () => setLang(btn.dataset.lang));
+  });
+}
+
 function renderCurrent(forecast, marine) {
   const cur = forecast.current || {};
   setText("airTemp", cur.temperature_2m?.toFixed(1) ?? "--");
@@ -81,13 +88,14 @@ function renderCurrent(forecast, marine) {
   const tide = mh?.sea_level_height_msl ? computeTideInfo(mh.time, mh.sea_level_height_msl, findNearestHourIndex(mh.time)) : null;
   if (tide) {
     setText("tideHeight", tide.nowHeight.toFixed(2));
-    setText("tideTrend", tide.trend === "subiendo" ? "⬆ Subiendo" : tide.trend === "bajando" ? "⬇ Bajando" : "—");
+    setText("tideTrend", tide.trend === "subiendo" ? `↑ ${t("tide.rising")}` : tide.trend === "bajando" ? `↓ ${t("tide.falling")}` : "—");
     const next = tide.extremes[0];
-    setText("tideNext", next ? `Próx. ${next.type}: ${formatHour(next.time)} (${next.height.toFixed(2)} m)` : "—");
+    const nextType = next ? (next.type === "pleamar" ? t("tide.highTide") : t("tide.lowTide")) : "";
+    setText("tideNext", next ? `${t("tide.next")} ${nextType}: ${formatHour(next.time)} (${next.height.toFixed(2)} m)` : "—");
   } else {
     setText("tideHeight", "--");
-    setText("tideTrend", "Sin datos de marea");
-    setText("tideNext", "para este punto ahora mismo");
+    setText("tideTrend", t("tide.noData"));
+    setText("tideNext", t("tide.noDataSub"));
   }
 }
 
@@ -125,8 +133,8 @@ function renderHourly(forecast, marine) {
     card.innerHTML = `
       <div class="hh">${formatHour(h.time[i])}</div>
       <div class="temp">${Math.round(h.temperature_2m[i])}°</div>
-      <div class="wind">💨 ${Math.round(h.wind_speed_10m[i])} km/h</div>
-      ${wave !== undefined && wave !== null ? `<div class="wave">🌊 ${wave.toFixed(1)} m</div>` : ""}
+      <div class="wind">${icon("wind", "icon-xs")} ${Math.round(h.wind_speed_10m[i])} km/h</div>
+      ${wave !== undefined && wave !== null ? `<div class="wave">${icon("waves", "icon-xs")} ${wave.toFixed(1)} m</div>` : ""}
     `;
     container.appendChild(card);
   }
@@ -138,7 +146,7 @@ function renderWindguruTable(forecast, marine) {
   const fh = forecast.hourly;
   const mh = marine?.hourly;
   if (!fh?.time || !mh?.wave_height) {
-    container.innerHTML = `<p class="section-hint">Sin datos suficientes para la tabla ahora mismo.</p>`;
+    container.innerHTML = `<p class="section-hint">${t("forecast.tableEmpty")}</p>`;
     return;
   }
 
@@ -169,7 +177,7 @@ function renderWindguruTable(forecast, marine) {
       const dayKey = fh.time[i].slice(0, 10);
       const isNewDay = dayKey !== lastDayKey;
       lastDayKey = dayKey;
-      const label = isNewDay ? new Date(fh.time[i]).toLocaleDateString("es-ES", { weekday: "short", day: "numeric" }) : "";
+      const label = isNewDay ? new Date(fh.time[i]).toLocaleDateString(getLocale(), { weekday: "short", day: "numeric" }) : "";
       return `<td class="wg-cell wg-day-cell">${label}</td>`;
     })
     .join("");
@@ -216,16 +224,16 @@ function renderWindguruTable(forecast, marine) {
     <div class="wg-scroll">
       <table class="wg-table">
         <tbody>
-          <tr><th>Día</th>${dayRow}</tr>
-          <tr><th>Hora</th>${hourRow}</tr>
-          <tr><th>Viento km/h</th>${windRow}</tr>
-          <tr><th>Rachas km/h</th>${gustRow}</tr>
-          <tr><th>Dir. viento</th>${windDirRow}</tr>
-          <tr><th>Oleaje m</th>${waveRow}</tr>
-          <tr><th>Periodo s</th>${periodRow}</tr>
-          <tr><th>Dir. oleaje</th>${waveDirRow}</tr>
-          <tr><th>Temp. aire °C</th>${tempRow}</tr>
-          <tr><th>Temp. agua °C</th>${waterTempRow}</tr>
+          <tr><th>${t("wg.row.day")}</th>${dayRow}</tr>
+          <tr><th>${t("wg.row.hour")}</th>${hourRow}</tr>
+          <tr><th>${t("wg.row.wind")}</th>${windRow}</tr>
+          <tr><th>${t("wg.row.gusts")}</th>${gustRow}</tr>
+          <tr><th>${t("wg.row.windDir")}</th>${windDirRow}</tr>
+          <tr><th>${t("wg.row.waves")}</th>${waveRow}</tr>
+          <tr><th>${t("wg.row.period")}</th>${periodRow}</tr>
+          <tr><th>${t("wg.row.waveDir")}</th>${waveDirRow}</tr>
+          <tr><th>${t("wg.row.tempAir")}</th>${tempRow}</tr>
+          <tr><th>${t("wg.row.tempWater")}</th>${waterTempRow}</tr>
         </tbody>
       </table>
     </div>
@@ -244,7 +252,7 @@ function renderDaily(forecast) {
       <div class="day-name">${formatDayName(date)}</div>
       <div class="day-desc">${weatherCodeToText(d.weather_code[i])}</div>
       <div class="day-temps">${Math.round(d.temperature_2m_max[i])}° / ${Math.round(d.temperature_2m_min[i])}°</div>
-      <div class="day-wind">💨 ${Math.round(d.wind_speed_10m_max[i])} km/h</div>
+      <div class="day-wind">${icon("wind", "icon-xs")} ${Math.round(d.wind_speed_10m_max[i])} km/h</div>
     `;
     container.appendChild(row);
   });
@@ -272,25 +280,25 @@ function renderSurfReport(forecast, marine) {
 
   container.innerHTML = `
     <div class="surf-stat">
-      <span class="surf-stat-label">Mar de fondo</span>
+      <span class="surf-stat-label">${t("surf.swellHeight")}</span>
       <span class="surf-stat-value">${fmt(report.swellHeight)} m</span>
-      <span class="surf-stat-sub">Periodo ${fmt(report.swellPeriod, 0)} s</span>
+      <span class="surf-stat-sub">${t("card.waves.period")} ${fmt(report.swellPeriod, 0)} s</span>
     </div>
     <div class="surf-stat">
-      <span class="surf-stat-label">Tipo de swell</span>
+      <span class="surf-stat-label">${t("surf.swellType")}</span>
       <span class="surf-stat-value surf-stat-text">${report.periodType}</span>
     </div>
     <div class="surf-stat">
-      <span class="surf-stat-label">Potencia estimada</span>
+      <span class="surf-stat-label">${t("surf.power")}</span>
       <span class="surf-stat-value">${fmt(report.power, 1)} <small>kW/m</small></span>
       <span class="badge badge-${report.powerClass}">${report.powerLabel}</span>
     </div>
     <div class="surf-stat">
-      <span class="surf-stat-label">Orientación del swell</span>
+      <span class="surf-stat-label">${t("surf.direction")}</span>
       <span class="surf-stat-value surf-stat-text">${report.directionMatch}</span>
     </div>
     <div class="surf-stat">
-      <span class="surf-stat-label">Viento</span>
+      <span class="surf-stat-label">${t("surf.wind")}</span>
       <span class="surf-stat-value">${fmt(report.windSpeed, 0)} <small>km/h</small></span>
       <span class="surf-stat-sub">${report.windType}${report.windDir !== null ? ` · ${degreesToCompass(report.windDir)}` : ""}</span>
     </div>
@@ -306,10 +314,10 @@ function renderMareaPanel(forecast, marine) {
 
   if (!tide) {
     container.innerHTML = `
-      <p class="section-hint">Sin datos de marea disponibles para este punto ahora mismo.</p>
+      <p class="section-hint">${t("tide.noDataPanel")}</p>
       <div class="marea-links">
-        <a class="btn-link" href="${MAREA_URL}" target="_blank" rel="noopener noreferrer">Ver tabla completa (marea.ooo) ↗</a>
-        <a class="btn-link btn-link-secondary" href="${TIDE_INFO_URL}" target="_blank" rel="noopener noreferrer">Predicción oficial IHM ↗</a>
+        <a class="btn-link" href="${MAREA_URL}" target="_blank" rel="noopener noreferrer">${t("tide.fullChart")} ↗</a>
+        <a class="btn-link btn-link-secondary" href="${TIDE_INFO_URL}" target="_blank" rel="noopener noreferrer">${t("tide.official")} ↗</a>
       </div>
     `;
     return;
@@ -317,21 +325,24 @@ function renderMareaPanel(forecast, marine) {
 
   const extremesHtml = tide.extremes.length
     ? tide.extremes
-        .map((ex) => `<li><strong>${ex.type === "pleamar" ? "Pleamar" : "Bajamar"}</strong> ${formatHour(ex.time)} · ${ex.height.toFixed(2)} m</li>`)
+        .map(
+          (ex) =>
+            `<li><strong>${ex.type === "pleamar" ? t("tide.highTide") : t("tide.lowTide")}</strong> ${formatHour(ex.time)} · ${ex.height.toFixed(2)} m</li>`
+        )
         .join("")
-    : "<li>Sin próximos cambios de marea en el rango de datos.</li>";
+    : `<li>${t("tide.noExtremes")}</li>`;
 
   container.innerHTML = `
     <div class="marea-now">
-      <div class="marea-now-value">${tide.nowHeight.toFixed(2)} <small>m sobre el nivel medio</small></div>
-      <div class="marea-now-trend">${tide.trend === "subiendo" ? "⬆ Subiendo" : tide.trend === "bajando" ? "⬇ Bajando" : "—"}</div>
+      <div class="marea-now-value">${tide.nowHeight.toFixed(2)} <small>${t("tide.above")}</small></div>
+      <div class="marea-now-trend">${tide.trend === "subiendo" ? `↑ ${t("tide.rising")}` : tide.trend === "bajando" ? `↓ ${t("tide.falling")}` : "—"}</div>
     </div>
     <ul class="marea-extremes">${extremesHtml}</ul>
     <div class="marea-links">
-      <a class="btn-link" href="${MAREA_URL}" target="_blank" rel="noopener noreferrer">Ver gráfico completo (marea.ooo) ↗</a>
-      <a class="btn-link btn-link-secondary" href="${TIDE_INFO_URL}" target="_blank" rel="noopener noreferrer">Predicción oficial IHM ↗</a>
+      <a class="btn-link" href="${MAREA_URL}" target="_blank" rel="noopener noreferrer">${t("tide.fullChart")} ↗</a>
+      <a class="btn-link btn-link-secondary" href="${TIDE_INFO_URL}" target="_blank" rel="noopener noreferrer">${t("tide.official")} ↗</a>
     </div>
-    <p class="marea-note">Calculada con el nivel del mar (incluye marea) del modelo marino de Open-Meteo, ~8 km de resolución: útil para hacerse una idea, pero no reemplaza la predicción oficial para navegación.</p>
+    <p class="marea-note">${t("tide.note")}</p>
   `;
 }
 
@@ -374,14 +385,12 @@ function renderSurfWindows(forecast, marine) {
       // fuerce una fuera de ese ritmo.
       const showLabel = isNewDay || hoursSinceLabel >= 3;
       hoursSinceLabel = showLabel ? 0 : hoursSinceLabel + 1;
-      const hourLabel = isNewDay
-        ? `${new Date(rec.time).toLocaleDateString("es-ES", { weekday: "short" })} ${formatHour(rec.time)}`
-        : formatHour(rec.time);
+      const hourLabel = isNewDay ? `${new Date(rec.time).toLocaleDateString(getLocale(), { weekday: "short" })} ${formatHour(rec.time)}` : formatHour(rec.time);
       const title =
         rec.score === null
           ? rec.daylight
-            ? "Sin datos"
-            : `${formatHour(rec.time)}: de noche, sin luz`
+            ? t("sports.heatmap.noData")
+            : `${formatHour(rec.time)}: ${t("sports.heatmap.night")}`
           : `${formatHour(rec.time)}: ${describeSurfMoment(rec)}`;
       return `
         <div class="surf-heat-col ${isNewDay ? "surf-heat-newday" : ""}" title="${title}">
@@ -393,15 +402,15 @@ function renderSurfWindows(forecast, marine) {
     .join("");
 
   const heatmapBlock = `
-    <p class="surf-window-title">📈 Hora a hora (próximas ${series.length}h)</p>
+    <p class="surf-window-title">${icon("chart", "icon-sm")} ${t("sports.heatmap.title", { n: series.length })}</p>
     <div class="surf-heatmap"><div class="surf-heatmap-track">${heatmapHtml}</div></div>
-    <p class="surf-heatmap-caption">Las barras azul oscuro son horas de noche: nunca se recomiendan, aunque el oleaje sea bueno sobre el papel.</p>
+    <p class="surf-heatmap-caption">${t("sports.heatmap.caption")}</p>
   `;
 
   if (!windows.length) {
     container.innerHTML = `
       ${heatmapBlock}
-      <div class="surf-window-empty">No se esperan condiciones especialmente buenas para surfear en las próximas horas. Revisa la previsión de los próximos días.</div>
+      <div class="surf-window-empty">${t("sports.windows.empty")}</div>
     `;
     return;
   }
@@ -412,23 +421,23 @@ function renderSurfWindows(forecast, marine) {
       const ratingKey = RATING_ORDER[Math.max(0, Math.min(3, Math.round(w.avgScore)))];
       const endDate = new Date(w.end);
       endDate.setHours(endDate.getHours() + 1);
-      const endLabel = endDate.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+      const endLabel = endDate.toLocaleTimeString(getLocale(), { hour: "2-digit", minute: "2-digit" });
       const dayKey = w.start.slice(0, 10);
-      const dayLabel = dayKey === todayKey ? "Hoy" : new Date(w.start).toLocaleDateString("es-ES", { weekday: "long" });
+      const dayLabel = dayKey === todayKey ? t("sports.windows.today") : new Date(w.start).toLocaleDateString(getLocale(), { weekday: "long" });
       return `
         <div class="surf-window">
           <div class="surf-window-top">
             <span class="surf-window-time">${dayLabel}, ${formatHour(w.start)} – ${endLabel}</span>
-            <span class="badge badge-${ratingKey}">${RATING_LABEL[ratingKey]}</span>
+            <span class="badge badge-${ratingKey}">${ratingLabel(ratingKey)}</span>
           </div>
-          <p class="surf-window-why">Mejor momento sobre las <strong>${formatHour(w.peak.time)}</strong>: ${describeSurfMoment(w.peak)}.</p>
+          <p class="surf-window-why">${t("sports.windows.bestAround")} <strong>${formatHour(w.peak.time)}</strong>: ${describeSurfMoment(w.peak)}.</p>
         </div>
       `;
     })
     .join("");
 
   container.innerHTML = `
-    <p class="surf-window-title">🕐 Mejores franjas para surfear</p>
+    <p class="surf-window-title">${icon("clock", "icon-sm")} ${t("sports.windows.title")}</p>
     <div class="surf-window-list">${windowsHtml}</div>
     ${heatmapBlock}
   `;
@@ -442,17 +451,17 @@ function renderEmbedWebcams() {
     const card = document.createElement("div");
     card.className = "embed-card";
     card.innerHTML = `
-      <p class="embed-name">📍 ${cam.name} <span class="embed-zone">· ${cam.zone}</span></p>
+      <p class="embed-name">${icon("pin", "icon-xs")} ${cam.name} <span class="embed-zone">· ${cam.zone}</span></p>
       <div class="embed-frame-wrap">
         <iframe
           src="https://webcams.windy.com/webcams/public/embed/player/${cam.id}/live"
           loading="lazy"
           allowfullscreen
           referrerpolicy="no-referrer-when-downgrade"
-          title="Cámara en directo: ${cam.name}"
+          title="${cam.name}"
         ></iframe>
       </div>
-      <a class="embed-fallback-link" href="${cam.pageUrl}" target="_blank" rel="noopener noreferrer">¿No carga el vídeo? Verla en Windy.com ↗</a>
+      <a class="embed-fallback-link" href="${cam.pageUrl}" target="_blank" rel="noopener noreferrer">${t("cameras.notLoading")} ↗</a>
     `;
     container.appendChild(card);
   });
@@ -481,7 +490,7 @@ function renderSports(forecast, marine) {
     const badgeClass = sport.rating ? `badge-${sport.rating}` : "badge-regular";
     card.innerHTML = `
       <div class="sport-card-top">
-        <div class="sport-name"><span class="sport-emoji">${sport.emoji}</span> ${sport.name}</div>
+        <div class="sport-name">${icon(sport.icon, "icon-sm")} ${sport.name}</div>
         <span class="badge ${badgeClass}">${sport.ratingLabel}</span>
       </div>
       <p class="sport-why">${sport.why}</p>
@@ -502,12 +511,12 @@ function renderWebcams() {
     a.rel = "noopener noreferrer";
     a.innerHTML = `
       <div class="webcam-top">
-        <span class="webcam-emoji">${cam.emoji}</span>
+        ${icon(cam.icon, "icon-sm")}
         <span class="webcam-name">${cam.name}</span>
       </div>
-      <p class="webcam-zone">📍 ${cam.zone}</p>
-      <p class="webcam-desc">${cam.desc}</p>
-      <span class="webcam-link">Ver en directo ↗</span>
+      <p class="webcam-zone">${icon("pin", "icon-xs")} ${cam.zone}</p>
+      <p class="webcam-desc">${tr(cam.desc)}</p>
+      <span class="webcam-link">${t("cameras.viewLive")} ↗</span>
     `;
     container.appendChild(a);
   });
@@ -522,8 +531,10 @@ function renderZones() {
     card.className = "zone-card";
     card.innerHTML = `
       <h3>${zone.name}</h3>
-      <p>${zone.desc}</p>
-      <div class="zone-tags">${zone.tags.map((t) => `<span class="zone-tag">${t}</span>`).join("")}</div>
+      <p>${tr(zone.desc)}</p>
+      <div class="zone-tags">${tr(zone.tags)
+        .map((tag) => `<span class="zone-tag">${tag}</span>`)
+        .join("")}</div>
     `;
     container.appendChild(card);
   });
@@ -541,18 +552,20 @@ async function loadAll() {
     renderSurfReport(forecast, marine);
     renderSurfWindows(forecast, marine);
     renderMareaPanel(forecast, marine);
-    setText("lastUpdated", new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" }));
+    setText("lastUpdated", new Date().toLocaleTimeString(getLocale(), { hour: "2-digit", minute: "2-digit" }));
     if (marineError) {
-      showBanner("No se han podido obtener los datos de oleaje en este momento. El resto de datos meteorológicos son correctos.");
+      showBanner(t("error.marine"));
     }
   } catch (err) {
     console.error(err);
-    showBanner("No se han podido cargar los datos meteorológicos. Comprueba tu conexión y vuelve a intentarlo.");
+    showBanner(t("error.general"));
   }
 }
 
 function init() {
+  applyStaticI18n();
   initTabs();
+  initLangSwitcher();
   renderEmbedWebcams();
   renderWebcams();
   renderZones();

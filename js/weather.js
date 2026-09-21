@@ -6,38 +6,71 @@ function buildUrl(base, params) {
 
 // Tabla de códigos WMO usada por Open-Meteo (weather_code).
 const WEATHER_CODE_MAP = {
-  0: "Cielo despejado",
-  1: "Mayormente despejado",
-  2: "Parcialmente nublado",
-  3: "Cubierto",
-  45: "Niebla",
-  48: "Niebla helada",
-  51: "Llovizna débil",
-  53: "Llovizna moderada",
-  55: "Llovizna intensa",
-  56: "Llovizna helada débil",
-  57: "Llovizna helada intensa",
-  61: "Lluvia débil",
-  63: "Lluvia moderada",
-  65: "Lluvia intensa",
-  66: "Lluvia helada débil",
-  67: "Lluvia helada intensa",
-  71: "Nevada débil",
-  73: "Nevada moderada",
-  75: "Nevada intensa",
-  77: "Granos de nieve",
-  80: "Chubascos débiles",
-  81: "Chubascos moderados",
-  82: "Chubascos violentos",
-  85: "Chubascos de nieve débiles",
-  86: "Chubascos de nieve intensos",
-  95: "Tormenta",
-  96: "Tormenta con granizo débil",
-  99: "Tormenta con granizo fuerte",
+  es: {
+    0: "Cielo despejado",
+    1: "Mayormente despejado",
+    2: "Parcialmente nublado",
+    3: "Cubierto",
+    45: "Niebla",
+    48: "Niebla helada",
+    51: "Llovizna débil",
+    53: "Llovizna moderada",
+    55: "Llovizna intensa",
+    56: "Llovizna helada débil",
+    57: "Llovizna helada intensa",
+    61: "Lluvia débil",
+    63: "Lluvia moderada",
+    65: "Lluvia intensa",
+    66: "Lluvia helada débil",
+    67: "Lluvia helada intensa",
+    71: "Nevada débil",
+    73: "Nevada moderada",
+    75: "Nevada intensa",
+    77: "Granos de nieve",
+    80: "Chubascos débiles",
+    81: "Chubascos moderados",
+    82: "Chubascos violentos",
+    85: "Chubascos de nieve débiles",
+    86: "Chubascos de nieve intensos",
+    95: "Tormenta",
+    96: "Tormenta con granizo débil",
+    99: "Tormenta con granizo fuerte",
+  },
+  en: {
+    0: "Clear sky",
+    1: "Mostly clear",
+    2: "Partly cloudy",
+    3: "Overcast",
+    45: "Fog",
+    48: "Freezing fog",
+    51: "Light drizzle",
+    53: "Moderate drizzle",
+    55: "Dense drizzle",
+    56: "Light freezing drizzle",
+    57: "Dense freezing drizzle",
+    61: "Light rain",
+    63: "Moderate rain",
+    65: "Heavy rain",
+    66: "Light freezing rain",
+    67: "Heavy freezing rain",
+    71: "Light snow",
+    73: "Moderate snow",
+    75: "Heavy snow",
+    77: "Snow grains",
+    80: "Light showers",
+    81: "Moderate showers",
+    82: "Violent showers",
+    85: "Light snow showers",
+    86: "Heavy snow showers",
+    95: "Thunderstorm",
+    96: "Thunderstorm with light hail",
+    99: "Thunderstorm with heavy hail",
+  },
 };
 
 function weatherCodeToText(code) {
-  return WEATHER_CODE_MAP[code] ?? "—";
+  const dict = WEATHER_CODE_MAP[getLang()] || WEATHER_CODE_MAP.es;
+  return dict[code] ?? "—";
 }
 
 const COMPASS_POINTS = [
@@ -53,21 +86,21 @@ function degreesToCompass(deg) {
 
 function uvIndexLabel(uv) {
   if (uv === null || uv === undefined || Number.isNaN(uv)) return "—";
-  if (uv < 3) return "Bajo";
-  if (uv < 6) return "Moderado";
-  if (uv < 8) return "Alto";
-  if (uv < 11) return "Muy alto";
-  return "Extremo";
+  if (uv < 3) return t("uv.bajo");
+  if (uv < 6) return t("uv.moderado");
+  if (uv < 8) return t("uv.alto");
+  if (uv < 11) return t("uv.muyAlto");
+  return t("uv.extremo");
 }
 
 function formatHour(isoString) {
   const d = new Date(isoString);
-  return d.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+  return d.toLocaleTimeString(getLocale(), { hour: "2-digit", minute: "2-digit" });
 }
 
 function formatDayName(isoString) {
   const d = new Date(isoString + "T12:00:00");
-  return d.toLocaleDateString("es-ES", { weekday: "short", day: "numeric", month: "short" });
+  return d.toLocaleDateString(getLocale(), { weekday: "short", day: "numeric", month: "short" });
 }
 
 // Bandas de color al estilo Windguru: de un vistazo, sin tener que leer cada número.

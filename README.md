@@ -12,9 +12,9 @@ de la playa.
   oleaje y mar de fondo (altura, periodo, dirección), **marea actual y tendencia** (subiendo/
   bajando, con la próxima pleamar o bajamar), temperatura del agua, índice UV, humedad,
   visibilidad y lluvia.
-- **Previsión**: una **tabla compacta al estilo Windguru** (viento, rachas y dirección, oleaje,
-  periodo y dirección, y temperatura del aire **y del agua** cada 3 horas, con celdas coloreadas
-  por intensidad), además de las próximas 24 horas en tarjetas y los próximos 7 días.
+- **Previsión**: una **tabla detallada** (viento, rachas y dirección, oleaje, periodo y
+  dirección, y temperatura del aire **y del agua** cada 3 horas, con celdas coloreadas por
+  intensidad), además de las próximas 24 horas en tarjetas y los próximos 7 días.
 - **Deportes**: incluye las **mejores franjas horarias para surfear**, calculadas por día (nunca
   cruzan la medianoche) y **solo con luz solar** (usa el amanecer/atardecer del día para no
   recomendar nunca surfear de noche, por bueno que esté el oleaje sobre el papel), con la hora
@@ -31,6 +31,19 @@ de la playa.
   permiten insertar su vídeo en otras páginas.
 - **Playa**: descripción de las zonas de la playa (La Cícer, Peña La Vieja, playa central, La
   Puntilla, La Barra/El Confital) y qué deporte se practica habitualmente en cada una.
+
+## Idioma e iconos
+
+La interfaz está disponible en **español e inglés** (selector ES/EN en la cabecera). El idioma
+se detecta automáticamente del navegador la primera vez y luego se recuerda (`localStorage`);
+cambiarlo actualiza al momento todos los textos, incluidos los generados dinámicamente (la
+explicación de cada franja de surf, las descripciones de aptitud por deporte, los códigos
+meteorológicos, etc.), sin recargar la página. Los textos viven en `js/i18n.js`; añadir un
+idioma nuevo consiste en añadir una clave más a `SUPPORTED_LANGS` y su objeto de traducciones
+en `I18N`.
+
+Los iconos son un set propio en trazo (`js/icons.js`, SVG inline, sin depender de ninguna
+librería externa ni de emojis) para mantener un aspecto más cuidado y consistente en toda la app.
 
 ## Cómo funciona
 
@@ -90,11 +103,12 @@ Vercel, Cloudflare Pages, etc. Solo hay que subir el contenido de esta carpeta.
 
 - Coordenadas y parámetros de las APIs: `js/config.js` (`BEACH_LOCATION`, `FORECAST_PARAMS`,
   `MARINE_PARAMS`).
-- Bandas de color de la tabla Windguru: `windBand` / `waveBand` en `js/weather.js`.
+- Bandas de color de la tabla de previsión: `windBand` / `waveBand` en `js/weather.js`.
 - Umbrales de aptitud por deporte, informe de surf, franjas horarias y marea: `js/sports.js`.
 - Lista de cámaras: `js/config.js` (`EMBED_WEBCAMS` para las insertadas, `WEBCAMS` para las de solo enlace).
 - Enlaces de marea: `js/config.js` (`MAREA_URL`, `TIDE_INFO_URL`).
 - Zonas de la playa: `js/config.js` (`ZONES`).
+- Textos e idiomas: `js/i18n.js` (`I18N`). Iconos: `js/icons.js` (`ICON_PATHS`).
 
 ## Aviso
 

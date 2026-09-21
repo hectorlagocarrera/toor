@@ -1,6 +1,5 @@
 // Reglas de aptitud orientativas (no oficiales) para deportes acuáticos en Las Canteras.
 const RATING_ORDER = ["malo", "regular", "bueno", "excelente"];
-const RATING_LABEL = { malo: "Malo", regular: "Regular", bueno: "Bueno", excelente: "Excelente" };
 
 function isOnshoreWind(dirDeg) {
   // Las Canteras mira aprox. al N/NNE: viento de componente N-NE-E suele entrar de cara ("onshore").
@@ -25,35 +24,89 @@ function estimateWavePowerKw(heightM, periodS) {
 }
 
 function wavePowerLabel(kw) {
-  if (kw === null) return { label: "Sin datos", cls: "regular" };
-  if (kw < 3) return { label: "Plana / muy pequeña", cls: "malo" };
-  if (kw < 8) return { label: "Suave", cls: "regular" };
-  if (kw < 15) return { label: "Con fuerza", cls: "bueno" };
-  if (kw < 25) return { label: "Potente", cls: "excelente" };
-  return { label: "Muy potente (peligrosa)", cls: "malo" };
+  if (kw === null) return { key: "power.noData", cls: "regular" };
+  if (kw < 3) return { key: "power.flat", cls: "malo" };
+  if (kw < 8) return { key: "power.soft", cls: "regular" };
+  if (kw < 15) return { key: "power.firm", cls: "bueno" };
+  if (kw < 25) return { key: "power.strong", cls: "excelente" };
+  return { key: "power.hazard", cls: "malo" };
 }
 
-function swellPeriodType(periodS) {
-  if (periodS === null || periodS === undefined) return "Sin datos";
-  if (periodS < 8) return "Swell de viento (corto, más desordenado)";
-  if (periodS <= 12) return "Periodo medio";
-  return "Mar de fondo (groundswell, olas más limpias y potentes)";
+function swellPeriodTypeKey(periodS) {
+  if (periodS === null || periodS === undefined) return "period.noData";
+  if (periodS < 8) return "period.wind";
+  if (periodS <= 12) return "period.medium";
+  return "period.ground";
 }
 
-function swellDirectionMatch(dirDeg) {
-  if (dirDeg === null || dirDeg === undefined) return "Sin datos de dirección.";
+function swellDirectionMatchKey(dirDeg) {
+  if (dirDeg === null || dirDeg === undefined) return "dir.noData";
   // La Barra / El Confital reciben mejor los swells de componente N a NE.
   const goodMatch = dirDeg >= 300 || dirDeg <= 60;
-  return goodMatch
-    ? "Buena orientación para romper en La Barra / El Confital."
-    : "Orientación menos habitual para las rompientes de Las Canteras.";
+  return goodMatch ? "dir.goodFit" : "dir.lessTypical";
 }
 
-function windTypeLabel(dirDeg) {
-  if (dirDeg === null || dirDeg === undefined) return "Sin datos";
-  if (isOffshoreWind(dirDeg)) return "Terral (offshore) — limpia la ola";
-  if (isOnshoreWind(dirDeg)) return "De cara (onshore) — desordena la ola";
-  return "Cruzado (cross-shore)";
+function windTypeKey(dirDeg) {
+  if (dirDeg === null || dirDeg === undefined) return "wind.noData";
+  if (isOffshoreWind(dirDeg)) return "wind.offshore";
+  if (isOnshoreWind(dirDeg)) return "wind.onshore";
+  return "wind.cross";
+}
+
+const SPORT_STRINGS = {
+  es: {
+    "power.noData": "Sin datos",
+    "power.flat": "Plana / muy pequeña",
+    "power.soft": "Suave",
+    "power.firm": "Con fuerza",
+    "power.strong": "Potente",
+    "power.hazard": "Muy potente (peligrosa)",
+    "period.noData": "Sin datos",
+    "period.wind": "Swell de viento (corto, más desordenado)",
+    "period.medium": "Periodo medio",
+    "period.ground": "Mar de fondo (groundswell, olas más limpias y potentes)",
+    "dir.noData": "Sin datos de dirección.",
+    "dir.goodFit": "Buena orientación para romper en La Barra / El Confital.",
+    "dir.lessTypical": "Orientación menos habitual para las rompientes de Las Canteras.",
+    "wind.noData": "Sin datos",
+    "wind.offshore": "Terral (offshore) — limpia la ola",
+    "wind.onshore": "De cara (onshore) — desordena la ola",
+    "wind.cross": "Cruzado (cross-shore)",
+    "sport.surf": "Surf",
+    "sport.bodyboard": "Bodyboard",
+    "sport.sup": "Paddle surf (SUP)",
+    "sport.swim": "Natación / baño",
+    "sport.dive": "Buceo / snorkel",
+  },
+  en: {
+    "power.noData": "No data",
+    "power.flat": "Flat / very small",
+    "power.soft": "Soft",
+    "power.firm": "Firm",
+    "power.strong": "Strong",
+    "power.hazard": "Very strong (hazardous)",
+    "period.noData": "No data",
+    "period.wind": "Wind swell (short, choppier)",
+    "period.medium": "Medium period",
+    "period.ground": "Groundswell (cleaner, more powerful waves)",
+    "dir.noData": "No direction data.",
+    "dir.goodFit": "Good fit for the La Barra / El Confital break.",
+    "dir.lessTypical": "Less typical direction for the Las Canteras breaks.",
+    "wind.noData": "No data",
+    "wind.offshore": "Offshore — cleans up the wave",
+    "wind.onshore": "Onshore — messes up the wave",
+    "wind.cross": "Cross-shore",
+    "sport.surf": "Surf",
+    "sport.bodyboard": "Bodyboard",
+    "sport.sup": "Paddle surfing (SUP)",
+    "sport.swim": "Swimming",
+    "sport.dive": "Diving / snorkelling",
+  },
+};
+
+function st(key) {
+  const dict = SPORT_STRINGS[getLang()] || SPORT_STRINGS.es;
+  return dict[key] ?? SPORT_STRINGS.es[key] ?? key;
 }
 
 function computeSurfReport(d) {
@@ -68,12 +121,12 @@ function computeSurfReport(d) {
   return {
     swellHeight: swellH,
     swellPeriod: swellPer,
-    periodType: swellPeriodType(swellPer),
+    periodType: st(swellPeriodTypeKey(swellPer)),
     power,
-    powerLabel: powerInfo.label,
+    powerLabel: st(powerInfo.key),
     powerClass: powerInfo.cls,
-    directionMatch: swellDirectionMatch(swellDir),
-    windType: windTypeLabel(d.windDir),
+    directionMatch: st(swellDirectionMatchKey(swellDir)),
+    windType: st(windTypeKey(d.windDir)),
     windSpeed: d.windSpeed ?? null,
     windGust: d.windGust ?? null,
     windDir: d.windDir ?? null,
@@ -169,9 +222,9 @@ function buildSurfHourlySeries(marineTimes, waveHeights, wavePeriods, windTimes,
   return series;
 }
 
-// Agrupa las horas seguidas de buenas condiciones (score >= 2) en franjas, y dentro de cada una
-// identifica la hora "pico" (la de mejor puntuación) para poder justificar la recomendación con
-// datos concretos en vez de solo un rango horario.
+// Agrupa las horas seguidas de buenas condiciones (score >= 2) en franjas, sin cruzar nunca la
+// medianoche, y dentro de cada una identifica la hora "pico" (la de mejor puntuación) para poder
+// justificar la recomendación con datos concretos en vez de solo un rango horario.
 function groupSurfWindows(series) {
   const windows = [];
   let current = null;
@@ -206,21 +259,40 @@ function groupSurfWindows(series) {
 }
 
 // Frase corta con los datos concretos de una hora, para explicar "por qué" es un buen momento.
+// El orden de las palabras cambia entre idiomas, así que se construye la frase completa por
+// idioma en vez de traducir fragmentos sueltos.
 function describeSurfMoment(rec) {
+  const lang = getLang();
+  const hasWave = rec.waveH !== null;
+  const hasWind = rec.windSpeed !== null;
+  if (!hasWave && !hasWind) {
+    return lang === "en" ? "not enough data to explain this" : "sin datos suficientes para justificarlo";
+  }
+
+  const windKind = isOffshoreWind(rec.windDir) ? "offshore" : isOnshoreWind(rec.windDir) ? "onshore" : "cross";
+
+  if (lang === "en") {
+    const parts = [];
+    if (hasWave) parts.push(`${rec.waveH.toFixed(1)} m swell${rec.wavePer ? `, ${Math.round(rec.wavePer)} s period` : ""}`);
+    if (hasWind) {
+      const windLabel = windKind === "offshore" ? "offshore wind (cleans up the wave)" : windKind === "onshore" ? "onshore wind" : "cross-shore wind";
+      parts.push(`${Math.round(rec.windSpeed)} km/h ${windLabel}`);
+    }
+    return parts.join(", ");
+  }
+
   const parts = [];
-  if (rec.waveH !== null) {
-    parts.push(`oleaje de ${rec.waveH.toFixed(1)} m${rec.wavePer ? ` y periodo ${Math.round(rec.wavePer)} s` : ""}`);
+  if (hasWave) parts.push(`oleaje de ${rec.waveH.toFixed(1)} m${rec.wavePer ? ` y periodo ${Math.round(rec.wavePer)} s` : ""}`);
+  if (hasWind) {
+    const windLabel = windKind === "offshore" ? "de tierra (limpia la ola)" : windKind === "onshore" ? "de cara" : "cruzado";
+    parts.push(`viento ${windLabel} de ${Math.round(rec.windSpeed)} km/h`);
   }
-  if (rec.windSpeed !== null) {
-    const windDesc = isOffshoreWind(rec.windDir) ? "de tierra (limpia la ola)" : isOnshoreWind(rec.windDir) ? "de cara" : "cruzado";
-    parts.push(`viento ${windDesc} de ${Math.round(rec.windSpeed)} km/h`);
-  }
-  return parts.length ? parts.join(", ") : "sin datos suficientes para justificarlo";
+  return parts.join(", ");
 }
 
 function computeSportRatings(d) {
+  const lang = getLang();
   const wind = d.windSpeed ?? 0;
-  const gust = d.windGust ?? wind;
   const windDir = d.windDir;
   const waveH = d.waveHeight ?? null;
   const wavePer = d.wavePeriod ?? null;
@@ -230,7 +302,7 @@ function computeSportRatings(d) {
 
   const sports = [];
 
-  // --- SURF / BODYBOARD ---
+  // --- SURF ---
   {
     const h = swellH ?? waveH;
     const per = swellPer ?? wavePer;
@@ -238,52 +310,71 @@ function computeSportRatings(d) {
     let why;
     if (!hasMarine || h === null) {
       idx = null;
-      why = "Sin datos de oleaje disponibles ahora mismo.";
+      why = lang === "en" ? "No swell data available right now." : "Sin datos de oleaje disponibles ahora mismo.";
     } else if (h < 0.3) {
       idx = 0;
-      why = `Mar casi plana (${h.toFixed(1)} m). No hay olas para surfear.`;
+      why =
+        lang === "en"
+          ? `Almost flat sea (${h.toFixed(1)} m). No rideable waves.`
+          : `Mar casi plana (${h.toFixed(1)} m). No hay olas para surfear.`;
     } else if (h < 0.6) {
       idx = 1;
-      why = `Oleaje pequeño (${h.toFixed(1)} m), aceptable solo para iniciación en La Barra.`;
+      why =
+        lang === "en"
+          ? `Small swell (${h.toFixed(1)} m), only OK for beginners at La Barra.`
+          : `Oleaje pequeño (${h.toFixed(1)} m), aceptable solo para iniciación en La Barra.`;
     } else if (h <= 2.2) {
       idx = per && per >= 8 ? 3 : 2;
-      why = `Oleaje de ${h.toFixed(1)} m con periodo ${per ? per.toFixed(0) : "?"} s en La Barra / El Confital.`;
+      why =
+        lang === "en"
+          ? `${h.toFixed(1)} m swell, ${per ? per.toFixed(0) : "?"} s period, at La Barra / El Confital.`
+          : `Oleaje de ${h.toFixed(1)} m con periodo ${per ? per.toFixed(0) : "?"} s en La Barra / El Confital.`;
     } else if (h <= 3) {
       idx = 1;
-      why = `Mar de fondo grande (${h.toFixed(1)} m): solo nivel avanzado.`;
+      why =
+        lang === "en"
+          ? `Big swell (${h.toFixed(1)} m): advanced surfers only.`
+          : `Mar de fondo grande (${h.toFixed(1)} m): solo nivel avanzado.`;
     } else {
       idx = 0;
-      why = `Oleaje muy grande (${h.toFixed(1)} m): condición de riesgo, no recomendado.`;
+      why =
+        lang === "en"
+          ? `Very large swell (${h.toFixed(1)} m): hazardous conditions, not recommended.`
+          : `Oleaje muy grande (${h.toFixed(1)} m): condición de riesgo, no recomendado.`;
     }
     if (idx !== null && isOnshoreWind(windDir) && wind > 20) {
       idx = clampRatingIndex(idx - 1);
-      why += " Viento de cara que puede desordenar la ola.";
+      why += lang === "en" ? " Onshore wind may mess up the wave." : " Viento de cara que puede desordenar la ola.";
     } else if (idx !== null && isOffshoreWind(windDir) && wind < 25) {
-      why += " Viento de tierra, ayuda a limpiar la ola.";
+      why += lang === "en" ? " Offshore wind helps clean up the wave." : " Viento de tierra, ayuda a limpiar la ola.";
     }
-    sports.push({ key: "surf", name: "Surf", emoji: "🏄", idx, why });
+    sports.push({ key: "surf", name: st("sport.surf"), icon: "surfboard", idx, why });
   }
 
+  // --- BODYBOARD ---
   {
     const h = waveH;
     let idx, why;
     if (!hasMarine || h === null) {
       idx = null;
-      why = "Sin datos de oleaje disponibles ahora mismo.";
+      why = lang === "en" ? "No swell data available right now." : "Sin datos de oleaje disponibles ahora mismo.";
     } else if (h < 0.3) {
       idx = 1;
-      why = `Olas muy pequeñas (${h.toFixed(1)} m) para bodyboard.`;
+      why = lang === "en" ? `Waves too small (${h.toFixed(1)} m) for bodyboarding.` : `Olas muy pequeñas (${h.toFixed(1)} m) para bodyboard.`;
     } else if (h <= 1.6) {
       idx = 3;
-      why = `Buen tamaño de ola (${h.toFixed(1)} m) para bodyboard en la orilla norte.`;
+      why =
+        lang === "en"
+          ? `Good wave size (${h.toFixed(1)} m) for bodyboarding on the north shore.`
+          : `Buen tamaño de ola (${h.toFixed(1)} m) para bodyboard en la orilla norte.`;
     } else if (h <= 2.5) {
       idx = 2;
-      why = `Olas grandes (${h.toFixed(1)} m), recomendable con experiencia.`;
+      why = lang === "en" ? `Big waves (${h.toFixed(1)} m), recommended with experience.` : `Olas grandes (${h.toFixed(1)} m), recomendable con experiencia.`;
     } else {
       idx = 0;
-      why = `Oleaje excesivo (${h.toFixed(1)} m) para bodyboard seguro.`;
+      why = lang === "en" ? `Excessive swell (${h.toFixed(1)} m) for safe bodyboarding.` : `Oleaje excesivo (${h.toFixed(1)} m) para bodyboard seguro.`;
     }
-    sports.push({ key: "bodyboard", name: "Bodyboard", emoji: "🏊", idx, why });
+    sports.push({ key: "bodyboard", name: st("sport.bodyboard"), icon: "waves", idx, why });
   }
 
   // --- PADDLE SURF (SUP) ---
@@ -292,18 +383,18 @@ function computeSportRatings(d) {
     const h = waveH ?? 0;
     if (wind < 12 && h < 0.5) {
       idx = 3;
-      why = `Mar en calma y viento suave (${wind.toFixed(0)} km/h): ideal para SUP.`;
+      why = lang === "en" ? `Calm sea and light wind (${wind.toFixed(0)} km/h): ideal for SUP.` : `Mar en calma y viento suave (${wind.toFixed(0)} km/h): ideal para SUP.`;
     } else if (wind < 20 && h < 1) {
       idx = 2;
-      why = `Condiciones moderadas (viento ${wind.toFixed(0)} km/h), navegable con cuidado.`;
+      why = lang === "en" ? `Moderate conditions (${wind.toFixed(0)} km/h wind), manageable with care.` : `Condiciones moderadas (viento ${wind.toFixed(0)} km/h), navegable con cuidado.`;
     } else if (wind < 28) {
       idx = 1;
-      why = `Viento notable (${wind.toFixed(0)} km/h), complicado para remar en línea recta.`;
+      why = lang === "en" ? `Noticeable wind (${wind.toFixed(0)} km/h), hard to paddle in a straight line.` : `Viento notable (${wind.toFixed(0)} km/h), complicado para remar en línea recta.`;
     } else {
       idx = 0;
-      why = `Viento fuerte (${wind.toFixed(0)} km/h): riesgo de deriva, no recomendado.`;
+      why = lang === "en" ? `Strong wind (${wind.toFixed(0)} km/h): drift risk, not recommended.` : `Viento fuerte (${wind.toFixed(0)} km/h): riesgo de deriva, no recomendado.`;
     }
-    sports.push({ key: "sup", name: "Paddle surf (SUP)", emoji: "🛶", idx, why });
+    sports.push({ key: "sup", name: st("sport.sup"), icon: "paddle", idx, why });
   }
 
   // --- NATACIÓN / BAÑO ---
@@ -312,21 +403,21 @@ function computeSportRatings(d) {
     let idx, why;
     if (!hasMarine) {
       idx = wind < 20 ? 2 : 1;
-      why = "Sin datos de oleaje; valorado solo con el viento.";
+      why = lang === "en" ? "No swell data; rated on wind alone." : "Sin datos de oleaje; valorado solo con el viento.";
     } else if (h < 0.5) {
       idx = 3;
-      why = `Mar tranquila (${h.toFixed(1)} m), buena para nadar en la zona central protegida.`;
+      why = lang === "en" ? `Calm sea (${h.toFixed(1)} m), good for swimming in the sheltered central section.` : `Mar tranquila (${h.toFixed(1)} m), buena para nadar en la zona central protegida.`;
     } else if (h < 1) {
       idx = 2;
-      why = `Algo de oleaje (${h.toFixed(1)} m), báñate con precaución.`;
+      why = lang === "en" ? `Some swell (${h.toFixed(1)} m), swim with care.` : `Algo de oleaje (${h.toFixed(1)} m), báñate con precaución.`;
     } else if (h < 1.5) {
       idx = 1;
-      why = `Oleaje moderado (${h.toFixed(1)} m), cuidado con las corrientes.`;
+      why = lang === "en" ? `Moderate swell (${h.toFixed(1)} m), watch out for currents.` : `Oleaje moderado (${h.toFixed(1)} m), cuidado con las corrientes.`;
     } else {
       idx = 0;
-      why = `Oleaje considerable (${h.toFixed(1)} m): no recomendado para el baño tranquilo.`;
+      why = lang === "en" ? `Significant swell (${h.toFixed(1)} m): not recommended for a calm swim.` : `Oleaje considerable (${h.toFixed(1)} m): no recomendado para el baño tranquilo.`;
     }
-    sports.push({ key: "natacion", name: "Natación / baño", emoji: "🏊‍♀️", idx, why });
+    sports.push({ key: "swim", name: st("sport.swim"), icon: "swimmer", idx, why });
   }
 
   // --- BUCEO / SNORKEL ---
@@ -335,23 +426,23 @@ function computeSportRatings(d) {
     let idx, why;
     if (wind < 15 && h < 0.6) {
       idx = 3;
-      why = "Mar en calma, buena visibilidad esperable en Peña La Vieja.";
+      why = lang === "en" ? "Calm sea, good visibility expected around Peña La Vieja." : "Mar en calma, buena visibilidad esperable en Peña La Vieja.";
     } else if (wind < 22 && h < 1) {
       idx = 2;
-      why = "Condiciones aceptables, algo de movimiento en superficie.";
+      why = lang === "en" ? "Acceptable conditions, some movement at the surface." : "Condiciones aceptables, algo de movimiento en superficie.";
     } else if (wind < 30) {
       idx = 1;
-      why = "Bastante movimiento, la visibilidad puede empeorar por el oleaje.";
+      why = lang === "en" ? "Quite a bit of movement; visibility may worsen due to swell." : "Bastante movimiento, la visibilidad puede empeorar por el oleaje.";
     } else {
       idx = 0;
-      why = "Mar agitada: no recomendado para bucear o hacer snorkel.";
+      why = lang === "en" ? "Rough sea: not recommended for diving or snorkelling." : "Mar agitada: no recomendado para bucear o hacer snorkel.";
     }
-    sports.push({ key: "buceo", name: "Buceo / snorkel", emoji: "🤿", idx, why });
+    sports.push({ key: "dive", name: st("sport.dive"), icon: "mask", idx, why });
   }
 
   return sports.map((s) => ({
     ...s,
     rating: s.idx === null ? null : RATING_ORDER[clampRatingIndex(s.idx)],
-    ratingLabel: s.idx === null ? "Sin datos" : RATING_LABEL[RATING_ORDER[clampRatingIndex(s.idx)]],
+    ratingLabel: s.idx === null ? t("rating.sinDatos") : ratingLabel(RATING_ORDER[clampRatingIndex(s.idx)]),
   }));
 }
