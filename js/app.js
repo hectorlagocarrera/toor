@@ -361,15 +361,19 @@ function renderSurfWindows(forecast, marine) {
   const windows = groupSurfWindows(series);
 
   let lastHeatDay = null;
+  let hoursSinceLabel = 99;
   const heatmapHtml = series
-    .map((rec, idx) => {
+    .map((rec) => {
       const ratingKey = rec.score === null ? null : RATING_ORDER[rec.score];
       const barClass = ratingKey ? `surf-heat-${ratingKey}` : rec.daylight ? "surf-heat-na" : "surf-heat-night";
-      const barHeight = rec.score === null ? 6 : 10 + rec.score * 10;
+      const barHeight = rec.score === null ? 14 : 18 + rec.score * 10;
       const dayKey = rec.time.slice(0, 10);
       const isNewDay = dayKey !== lastHeatDay;
       lastHeatDay = dayKey;
-      const showLabel = isNewDay || idx % 3 === 0;
+      // Espacio mínimo de 3h entre etiquetas para que no se solapen, aunque un cambio de día
+      // fuerce una fuera de ese ritmo.
+      const showLabel = isNewDay || hoursSinceLabel >= 3;
+      hoursSinceLabel = showLabel ? 0 : hoursSinceLabel + 1;
       const hourLabel = isNewDay
         ? `${new Date(rec.time).toLocaleDateString("es-ES", { weekday: "short" })} ${formatHour(rec.time)}`
         : formatHour(rec.time);
