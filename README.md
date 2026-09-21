@@ -36,14 +36,15 @@ y gratuita de [Open-Meteo](https://open-meteo.com) (sin necesidad de API key):
 - `https://marine-api.open-meteo.com/v1/marine` — oleaje, temperatura del agua y nivel del mar
   (`sea_level_height_msl`, que ya incluye la marea).
 
-Las cámaras en directo se insertan mediante el reproductor público de embebido de
+La cámara de La Cícer se inserta mediante el reproductor público de embebido de
 [Windy.com](https://www.windy.com/webcams) (`webcams.windy.com/webcams/public/embed/player/...`),
-pensado para poder integrarse en otras webs; al ser cámaras subidas por usuarios de Windy, alguna
-puede dejar de emitir en cualquier momento, por eso cada una lleva debajo un botón de respaldo
-directo a la misma cámara en windy.com. El resto de proveedores (SkylineWebcams, WebcamTaxi,
-WhatsUpCams, Oceanside Gran Canaria, Spain-GranCanaria.com, Surf-Forecast, ExploreWebcams,
-LiveBeaches, miplayadelascanteras.com, CanariasLife) no permiten insertar su vídeo en otra
-página, así que se muestran como enlace directo a su web.
+pensado para poder integrarse en otras webs, con un botón de respaldo directo a la misma cámara
+en windy.com por si deja de emitir. Se probaron otras tres cámaras de usuarios de Windy pero no
+emitían vídeo de forma fiable, así que se han dejado como enlace en vez de insertarlas. El resto
+de proveedores (SkylineWebcams, WebcamTaxi, WhatsUpCams, Oceanside Gran Canaria,
+Spain-GranCanaria.com, Surf-Forecast, ExploreWebcams, LiveBeaches, miplayadelascanteras.com,
+CanariasLife) no permiten insertar su vídeo en otra página, así que se muestran como enlace
+directo a su web.
 
 La potencia de ola del informe de surf es una estimación orientativa con la fórmula habitual de
 previsión de surf P ≈ 0.5 · Hs² · Tp (kW/m). Las mejores franjas horarias para surfear se calculan

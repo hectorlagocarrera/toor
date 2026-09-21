@@ -114,8 +114,8 @@ const ZONES = [
 ];
 
 // Cámaras que Windy.com permite insertar directamente (reproductor público pensado para embeberse).
-// Si alguna no llega a cargar (algunas cámaras de usuarios de Windy dejan de emitir), la propia
-// tarjeta ofrece un enlace directo de respaldo a la misma cámara en windy.com.
+// Solo dejamos aquí la que se ha confirmado que realmente emite vídeo: las otras cámaras de
+// usuarios de Windy que probamos aparecían en negro, así que se han movido a WEBCAMS como enlace.
 const EMBED_WEBCAMS = [
   {
     name: "La Cícer (Playa de Las Canteras) - El Burro",
@@ -123,29 +123,32 @@ const EMBED_WEBCAMS = [
     id: "1687952153",
     pageUrl: "https://webcams.windy.com/webcams/public/view/1687952153",
   },
-  {
-    name: "Las Canteras beach",
-    zone: "Playa de Las Canteras",
-    id: "1429130108",
-    pageUrl: "https://www.windy.com/webcams/1429130108",
-  },
-  {
-    name: "Beach de Las Canteras",
-    zone: "Playa de Las Canteras",
-    id: "1397657523",
-    pageUrl: "https://www.windy.com/webcams/1397657523",
-  },
-  {
-    name: "Webcam Playa De Las Canteras",
-    zone: "Playa de Las Canteras",
-    id: "1512678906",
-    pageUrl: "https://www.windy.com/webcams/1512678906",
-  },
 ];
 
 // Cámaras públicas verificadas (proveedores externos, no operadas por esta app) que no permiten
 // insertar su vídeo en otras páginas: se muestran como enlace directo a la web de cada proveedor.
 const WEBCAMS = [
+  {
+    name: "Las Canteras beach (Windy.com)",
+    zone: "Playa de Las Canteras",
+    desc: "Cámara de usuario en Windy.com. Su reproductor no siempre emite vídeo en directo.",
+    url: "https://www.windy.com/webcams/1429130108",
+    emoji: "📹",
+  },
+  {
+    name: "Beach de Las Canteras (Windy.com)",
+    zone: "Playa de Las Canteras",
+    desc: "Cámara de usuario en Windy.com. Su reproductor no siempre emite vídeo en directo.",
+    url: "https://www.windy.com/webcams/1397657523",
+    emoji: "📹",
+  },
+  {
+    name: "Webcam Playa De Las Canteras (Windy.com)",
+    zone: "Playa de Las Canteras",
+    desc: "Cámara de usuario en Windy.com. Su reproductor no siempre emite vídeo en directo.",
+    url: "https://www.windy.com/webcams/1512678906",
+    emoji: "📹",
+  },
   {
     name: "Las Canteras (SkylineWebcams)",
     zone: "La Cícer / Playa Grande",
