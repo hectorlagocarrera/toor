@@ -148,50 +148,6 @@ function computeSportRatings(d) {
     sports.push({ key: "bodyboard", name: "Bodyboard", emoji: "🏊", idx, why });
   }
 
-  // --- WINDSURF ---
-  {
-    let idx, why;
-    if (wind < 12) {
-      idx = 0;
-      why = `Viento flojo (${wind.toFixed(0)} km/h), insuficiente para planear.`;
-    } else if (wind < 18) {
-      idx = 1;
-      why = `Viento ligero (${wind.toFixed(0)} km/h), aceptable con vela grande.`;
-    } else if (wind <= 40) {
-      idx = 3;
-      why = `Viento de ${wind.toFixed(0)} km/h${isOnshoreWind(windDir) ? " de componente NE (alisio típico de La Cícer)" : ""}: condiciones muy buenas.`;
-    } else if (wind <= 50) {
-      idx = 2;
-      why = `Viento fuerte (${wind.toFixed(0)} km/h), solo nivel avanzado.`;
-    } else {
-      idx = 0;
-      why = `Viento muy fuerte (${wind.toFixed(0)} km/h, rachas ${gust.toFixed(0)}): riesgo alto.`;
-    }
-    sports.push({ key: "windsurf", name: "Windsurf", emoji: "🏄‍♂️", idx, why });
-  }
-
-  // --- KITESURF ---
-  {
-    let idx, why;
-    if (wind < 14) {
-      idx = 0;
-      why = `Viento flojo (${wind.toFixed(0)} km/h), insuficiente para kite.`;
-    } else if (wind < 18) {
-      idx = 1;
-      why = `Viento justo (${wind.toFixed(0)} km/h) con cometa grande.`;
-    } else if (wind <= 38) {
-      idx = 3;
-      why = `Viento de ${wind.toFixed(0)} km/h, ideal para kitesurf en La Cícer.`;
-    } else if (wind <= 48) {
-      idx = 2;
-      why = `Viento fuerte (${wind.toFixed(0)} km/h), cometa pequeña y nivel avanzado.`;
-    } else {
-      idx = 0;
-      why = `Viento excesivo (rachas ${gust.toFixed(0)} km/h): no recomendado.`;
-    }
-    sports.push({ key: "kitesurf", name: "Kitesurf", emoji: "🪁", idx, why });
-  }
-
   // --- PADDLE SURF (SUP) ---
   {
     let idx, why;
@@ -253,28 +209,6 @@ function computeSportRatings(d) {
       why = "Mar agitada: no recomendado para bucear o hacer snorkel.";
     }
     sports.push({ key: "buceo", name: "Buceo / snorkel", emoji: "🤿", idx, why });
-  }
-
-  // --- VELA LIGERA ---
-  {
-    let idx, why;
-    if (wind < 8) {
-      idx = 0;
-      why = `Viento muy flojo (${wind.toFixed(0)} km/h) para navegar.`;
-    } else if (wind < 12) {
-      idx = 1;
-      why = `Viento ligero (${wind.toFixed(0)} km/h).`;
-    } else if (wind <= 28) {
-      idx = 3;
-      why = `Viento de ${wind.toFixed(0)} km/h, buenas condiciones de navegación.`;
-    } else if (wind <= 38) {
-      idx = 2;
-      why = `Viento fresco (${wind.toFixed(0)} km/h), exige experiencia.`;
-    } else {
-      idx = 0;
-      why = `Viento excesivo (${wind.toFixed(0)} km/h) para vela ligera.`;
-    }
-    sports.push({ key: "vela", name: "Vela ligera", emoji: "⛵", idx, why });
   }
 
   return sports.map((s) => ({

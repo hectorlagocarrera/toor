@@ -181,10 +181,24 @@ function renderSurfReport(forecast, marine) {
       <span class="surf-stat-value">${fmt(report.windSpeed, 0)} <small>km/h</small></span>
       <span class="surf-stat-sub">${report.windType}${report.windDir !== null ? ` · ${degreesToCompass(report.windDir)}` : ""}</span>
     </div>
-    <div class="surf-stat surf-stat-tide">
-      <span class="surf-stat-label">Marea</span>
-      <span class="surf-stat-sub">La Barra es sensible a la marea (más hueca y peligrosa en bajamar). Consulta la predicción oficial:</span>
-      <a href="${TIDE_INFO_URL}" target="_blank" rel="noopener noreferrer" class="surf-stat-link">Ver tabla de mareas (Puerto de la Luz) ↗</a>
+  `;
+}
+
+function renderMareaPanel() {
+  const container = els("mareaPanel");
+  if (!container) return;
+  container.innerHTML = `
+    <div class="embed-frame-wrap marea-frame-wrap">
+      <iframe
+        src="${MAREA_URL}"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Tabla de mareas de Las Palmas / Puerto de la Luz"
+      ></iframe>
+    </div>
+    <div class="marea-links">
+      <a class="btn-link" href="${MAREA_URL}" target="_blank" rel="noopener noreferrer">Ver tabla completa (marea.ooo) ↗</a>
+      <a class="btn-link btn-link-secondary" href="${TIDE_INFO_URL}" target="_blank" rel="noopener noreferrer">Predicción oficial IHM ↗</a>
     </div>
   `;
 }
@@ -308,6 +322,7 @@ function init() {
   renderEmbedWebcams();
   renderWebcams();
   renderZones();
+  renderMareaPanel();
   loadAll();
   els("refreshBtn")?.addEventListener("click", loadAll);
   setInterval(loadAll, AUTO_REFRESH_MINUTES * 60 * 1000);

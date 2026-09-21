@@ -2,9 +2,9 @@
 
 Web app (funciona en escritorio y móvil) con información meteorológica y del estado del mar
 de la **Playa de Las Canteras** (Las Palmas de Gran Canaria), pensada para quienes practican
-deportes acuáticos: surf, bodyboard, windsurf, kitesurf, paddle surf (SUP), natación en aguas
-abiertas, buceo/snorkel y vela ligera. Incluye también una sección con cámaras web públicas en
-directo de la playa.
+deportes acuáticos: surf, bodyboard, paddle surf (SUP), natación en aguas abiertas y
+buceo/snorkel. Incluye también una tabla de mareas y una sección con cámaras web en directo
+de la playa.
 
 ## Contenido
 
@@ -14,11 +14,13 @@ directo de la playa.
 - **Previsión**: próximas 24 horas y próximos 7 días.
 - **Deportes**: incluye un **informe de surf detallado** (altura y periodo del mar de fondo,
   tipo de swell, potencia estimada de la ola en kW/m, orientación respecto a La Barra/El
-  Confital, tipo de viento —terral/de cara/cruzado— y enlace a la tabla oficial de mareas) y una
-  valoración orientativa (Excelente / Bueno / Regular / Malo) por deporte, calculada a partir del
-  viento y el oleaje actuales.
+  Confital y tipo de viento —terral/de cara/cruzado—), una **tabla de mareas** en directo, y una
+  valoración orientativa (Excelente / Bueno / Regular / Malo) por deporte —surf, bodyboard,
+  paddle surf, natación y buceo/snorkel; no se incluyen windsurf, kitesurf ni vela porque no se
+  practican en esta playa— calculada a partir del viento y el oleaje actuales.
 - **Cámaras**: vídeo en directo insertado en la propia página (vía el reproductor público de
-  Windy.com) más enlaces a otras cámaras web que no permiten insertarse en otras páginas.
+  Windy.com) más una amplia lista de enlaces a otras cámaras web de distintos proveedores que no
+  permiten insertar su vídeo en otras páginas.
 - **Playa**: descripción de las zonas de la playa (La Cícer, Peña La Vieja, playa central, La
   Puntilla, La Barra/El Confital) y qué deporte se practica habitualmente en cada una.
 
@@ -33,14 +35,22 @@ y gratuita de [Open-Meteo](https://open-meteo.com) (sin necesidad de API key):
 
 Las cámaras en directo se insertan mediante el reproductor público de embebido de
 [Windy.com](https://www.windy.com/webcams) (`webcams.windy.com/webcams/public/embed/player/...`),
-pensado para poder integrarse en otras webs. El resto de cámaras (SkylineWebcams, WebcamTaxi,
-WhatsUpCams, Oceanside Gran Canaria, Spain-GranCanaria.com) son enlaces a sus webs, ya que esos
-proveedores bloquean que su vídeo se muestre dentro de otra página.
+pensado para poder integrarse en otras webs; al ser cámaras subidas por usuarios de Windy, alguna
+puede dejar de emitir en cualquier momento, por eso cada una lleva debajo un botón de respaldo
+directo a la misma cámara en windy.com. El resto de proveedores (SkylineWebcams, WebcamTaxi,
+WhatsUpCams, Oceanside Gran Canaria, Spain-GranCanaria.com, Surf-Forecast, ExploreWebcams,
+LiveBeaches, miplayadelascanteras.com, CanariasLife) no permiten insertar su vídeo en otra
+página, así que se muestran como enlace directo a su web.
 
 La potencia de ola del informe de surf es una estimación orientativa con la fórmula habitual de
-previsión de surf P ≈ 0.5 · Hs² · Tp (kW/m), y la marea enlaza a la predicción oficial del
-Instituto Hidrográfico de la Marina para el Puerto de la Luz, ya que calcular mareas requiere
-constituyentes armónicos oficiales que no ofrece una API pública gratuita.
+previsión de surf P ≈ 0.5 · Hs² · Tp (kW/m). La tabla de mareas se inserta desde
+[marea.ooo](https://marea.ooo), la instancia pública del proyecto open-source
+[Mareia](https://github.com/JavierCervilla/mareia): un motor de predicción armónica propio
+(método de Foreman, 1977) sobre constantes TICON-4 con licencia CC-BY, validado específicamente
+para la estación de Las Palmas de Gran Canaria / Puerto de la Luz. No calculamos la marea
+nosotros mismos porque requiere astronomía de precisión (argumentos astronómicos y correcciones
+nodales) que no tiene sentido reimplementar de forma casera; por eso también se enlaza la
+predicción oficial del Instituto Hidrográfico de la Marina como fuente alternativa.
 
 ## Ejecutar en local
 
@@ -66,6 +76,7 @@ Vercel, Cloudflare Pages, etc. Solo hay que subir el contenido de esta carpeta.
   `MARINE_PARAMS`).
 - Umbrales de aptitud por deporte e informe de surf: `js/sports.js`.
 - Lista de cámaras: `js/config.js` (`EMBED_WEBCAMS` para las insertadas, `WEBCAMS` para las de solo enlace).
+- Tabla de mareas: `js/config.js` (`MAREA_URL`, `TIDE_INFO_URL`).
 - Zonas de la playa: `js/config.js` (`ZONES`).
 
 ## Aviso

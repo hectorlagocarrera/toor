@@ -71,15 +71,19 @@ const MARINE_PARAMS = {
 
 const AUTO_REFRESH_MINUTES = 10;
 
-// Predicción oficial de mareas del Puerto de la Luz (Instituto Hidrográfico de la Marina).
-// No la calculamos aquí: es un dato armónico que requiere fuentes oficiales, así que enlazamos.
+// Predicción de mareas para Las Palmas / Puerto de la Luz.
+// Motor armónico validado (Foreman 1977, constantes TICON-4, dato CC-BY) del proyecto
+// open-source Mareia, desplegado en marea.ooo. No calculamos la marea nosotros mismos:
+// requiere astronomía de precisión que no vamos a improvisar en el cliente.
+const MAREA_URL = "https://marea.ooo/es/28.142/-15.413";
+// Predicción oficial alternativa (Instituto Hidrográfico de la Marina).
 const TIDE_INFO_URL = "https://armada.defensa.gob.es/ihm/Aplicaciones/Mareas/puerto_mareas.html?puerto=56";
 
 const ZONES = [
   {
     name: "La Cícer",
-    desc: "Extremo sur de la playa. Zona clásica de windsurf y kitesurf de Las Canteras gracias a los alisios de componente NE, con acceso al agua desde la orilla junto al muro.",
-    tags: ["Windsurf", "Kitesurf", "Vela ligera"],
+    desc: "Extremo sur de la playa, junto al muro del paseo. Una de las zonas con más ambiente y accesos al agua de Las Canteras.",
+    tags: ["Baño", "Ambiente"],
   },
   {
     name: "Peña La Vieja / Auditorio",
@@ -104,6 +108,8 @@ const ZONES = [
 ];
 
 // Cámaras que Windy.com permite insertar directamente (reproductor público pensado para embeberse).
+// Si alguna no llega a cargar (algunas cámaras de usuarios de Windy dejan de emitir), la propia
+// tarjeta ofrece un enlace directo de respaldo a la misma cámara en windy.com.
 const EMBED_WEBCAMS = [
   {
     name: "La Cícer (Playa de Las Canteras) - El Burro",
@@ -123,9 +129,16 @@ const EMBED_WEBCAMS = [
     id: "1397657523",
     pageUrl: "https://www.windy.com/webcams/1397657523",
   },
+  {
+    name: "Webcam Playa De Las Canteras",
+    zone: "Playa de Las Canteras",
+    id: "1512678906",
+    pageUrl: "https://www.windy.com/webcams/1512678906",
+  },
 ];
 
-// Cámaras públicas verificadas (proveedores externos, no operadas por esta app).
+// Cámaras públicas verificadas (proveedores externos, no operadas por esta app) que no permiten
+// insertar su vídeo en otras páginas: se muestran como enlace directo a la web de cada proveedor.
 const WEBCAMS = [
   {
     name: "Las Canteras (SkylineWebcams)",
@@ -139,6 +152,13 @@ const WEBCAMS = [
     zone: "Playa Grande",
     desc: "Segunda cámara de SkylineWebcams centrada en Playa Grande.",
     url: "https://www.skylinewebcams.com/en/webcam/espana/canarias/las-palmas-gran-canaria/playa-grande-las-canteras.html",
+    emoji: "📷",
+  },
+  {
+    name: "La Cícer - Surf (SkylineWebcams)",
+    zone: "La Cícer",
+    desc: "Cámara de SkylineWebcams centrada en la zona de La Cícer, orientada a ver el estado del mar.",
+    url: "https://www.skylinewebcams.com/en/webcam/espana/canarias/las-palmas-gran-canaria/la-cicer-las-canteras.html",
     emoji: "📷",
   },
   {
@@ -163,9 +183,16 @@ const WEBCAMS = [
     emoji: "📹",
   },
   {
+    name: "La Puntilla (WhatsUpCams)",
+    zone: "La Puntilla",
+    desc: "Vista en directo del extremo sur de la playa, donde el Atlántico se junta con la arena dorada.",
+    url: "https://www.whatsupcams.com/en/webcams/spain/canary-islands/las-palmas-gran-canaria/webcam-live-las-canteras-beach/",
+    emoji: "📹",
+  },
+  {
     name: "La Cícer, estado del mar y viento (Oceanside Gran Canaria)",
     zone: "La Cícer",
-    desc: "Cámara panorámica de una escuela de surf/kite local, orientada a ver mar, viento y condiciones para deportes acuáticos.",
+    desc: "Cámara panorámica de una escuela de surf local, orientada a ver mar, viento y condiciones para deportes acuáticos.",
     url: "https://www.oceansidegrancanaria.com/webcam-las-canteras-beach-la-cicer-beach",
     emoji: "🏄",
   },
@@ -175,5 +202,47 @@ const WEBCAMS = [
     desc: "Cámara HD en directo con vistas amplias de la playa urbana.",
     url: "https://www.spain-grancanaria.com/en/images-videos/webcams/playa-las-canteras-beach.html",
     emoji: "🎥",
+  },
+  {
+    name: "La Barra (Spain-GranCanaria.com)",
+    zone: "La Barra",
+    desc: "Vista de la zona norte de la playa, junto a la rompiente de La Barra.",
+    url: "https://www.spain-grancanaria.com/en/images-videos/webcams/canteras-beach-la-barra.html",
+    emoji: "🎥",
+  },
+  {
+    name: "La Cícer — surf spot (Surf-Forecast)",
+    zone: "La Cícer",
+    desc: "Ficha del spot de surf con webcam y previsión detallada de oleaje, energía y viento.",
+    url: "https://www.surf-forecast.com/breaks/La-Cicer",
+    emoji: "🏄",
+  },
+  {
+    name: "Las Canteras (ExploreWebcams)",
+    zone: "Playa de Las Canteras",
+    desc: "Cámara HD en directo agregada por ExploreWebcams.",
+    url: "https://www.explorewebcams.com/las-canteras-beach-gran-canaria",
+    emoji: "🎥",
+  },
+  {
+    name: "Las Canteras (LiveBeaches)",
+    zone: "Playa de Las Canteras",
+    desc: "Cámara en directo de la playa, con foco en el ambiente y el oleaje en la orilla.",
+    url: "https://www.livebeaches.com/spain/las-canteras-beach-live-cam/",
+    emoji: "🎥",
+  },
+  {
+    name: "Playa Grande (miplayadelascanteras.com)",
+    zone: "Playa Grande",
+    desc: "Cámara del portal ciudadano dedicado a Las Canteras, vista desde el hotel Aloe Canteras.",
+    url: "https://miplayadelascanteras.com/webcam-playa-grandelascanteras/",
+    emoji: "📷",
+  },
+  {
+    name: "Las Canteras (CanariasLife)",
+    zone: "Playa de Las Canteras",
+    desc: "Cámara en directo pensada para ver el estado del mar, la ocupación de la playa y la luz disponible.",
+    url: "https://canariaslife.com/en/webcams-of-gran-canaria/las-palmas-de-gran-canaria/las-canteras-beach/",
+    emoji: "📷",
   },
 ];

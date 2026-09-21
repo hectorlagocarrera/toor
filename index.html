@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MeteoCanteras · Meteo y mar en Las Canteras</title>
-<meta name="description" content="Meteorología y estado del mar en tiempo real de la Playa de Las Canteras (Las Palmas de Gran Canaria), pensado para surf, windsurf, kitesurf, paddle surf, natación y buceo. Incluye cámaras web en directo.">
+<meta name="description" content="Meteorología, oleaje y mareas en tiempo real de la Playa de Las Canteras (Las Palmas de Gran Canaria), pensado para surf, bodyboard, paddle surf, natación y buceo. Incluye cámaras web en directo.">
 <meta name="theme-color" content="#0b6e8f">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
@@ -119,6 +119,10 @@
     <p class="section-hint">Lectura detallada del oleaje pensada para surfistas: altura y periodo del mar de fondo, potencia estimada de la ola y tipo de viento.</p>
     <div class="surf-report" id="surfReport"></div>
 
+    <h2 class="section-title">🌊 Tabla de mareas — Puerto de la Luz</h2>
+    <p class="section-hint">La Barra es sensible a la marea: en bajamar la ola rompe más hueca y sobre menos fondo. Predicción con motor armónico de código abierto (Foreman 1977, datos CC-BY).</p>
+    <div class="marea-panel" id="mareaPanel"></div>
+
     <h2 class="section-title">Aptitud por deporte acuático</h2>
     <p class="section-hint">Orientación general a partir del viento y el oleaje actuales. No sustituye la señalización de socorristas ni el sentido común en el agua.</p>
     <div class="sport-grid" id="sportGrid"></div>
@@ -142,10 +146,12 @@
     <h2 class="section-title">Sobre esta app</h2>
     <p class="about-text">
       MeteoCanteras reúne en un mismo sitio los datos meteorológicos y de oleaje de Las Canteras
-      para quienes practican deportes acuáticos: surf, bodyboard, windsurf, kitesurf, paddle surf,
-      natación en aguas abiertas, buceo y vela ligera. Los datos meteorológicos y de oleaje proceden
-      de <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a> (modelos
-      públicos de agencias meteorológicas), y las cámaras pertenecen a sus proveedores respectivos.
+      para quienes practican deportes acuáticos: surf, bodyboard, paddle surf, natación en aguas
+      abiertas y buceo/snorkel. Los datos meteorológicos y de oleaje proceden de
+      <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a> (modelos
+      públicos de agencias meteorológicas), la marea del proyecto open-source
+      <a href="https://marea.ooo" target="_blank" rel="noopener">Mareia / marea.ooo</a>, y las
+      cámaras pertenecen a sus proveedores respectivos.
     </p>
     <p class="about-text disclaimer">
       ⚠️ Esta aplicación tiene fines informativos y no constituye un aviso oficial de seguridad.
