@@ -79,22 +79,33 @@ function initShareButton() {
       wave: els("waveHeight")?.textContent ?? "--",
       water: els("waterTemp")?.textContent ?? "--",
     });
-    const shareData = { title: "MeteoCanteras", text, url: window.location.href };
+    const fullText = `${text} ${window.location.href}`;
+
+    // navigator.share y navigator.clipboard solo existen en contexto seguro (https/localhost):
+    // si se prueba la web por http:// en el móvil, ambas API faltan por completo. Probamos cada
+    // opción por orden y, si ninguna existe o falla, dejamos como último recurso un cuadro con el
+    // texto ya seleccionado para copiar a mano, así el botón nunca se queda sin hacer nada.
     if (navigator.share) {
       try {
-        await navigator.share(shareData);
+        await navigator.share({ title: "MeteoCanteras", text, url: window.location.href });
+        return;
       } catch (e) {
-        /* el usuario canceló el diálogo de compartir */
+        if (e && e.name === "AbortError") return;
       }
-      return;
     }
-    try {
-      await navigator.clipboard.writeText(`${text} ${window.location.href}`);
-      showBanner(t("share.copied"));
-      setTimeout(hideBanner, 2500);
-    } catch (e) {
-      /* sin API de portapapeles disponible, no hacemos nada más */
+
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(fullText);
+        showBanner(t("share.copied"));
+        setTimeout(hideBanner, 2500);
+        return;
+      } catch (e) {
+        /* seguimos al último recurso */
+      }
     }
+
+    window.prompt(t("share.copyManually"), fullText);
   });
 }
 
@@ -371,10 +382,13 @@ function renderSurfReport(forecast, marine) {
 // Curva de marea en SVG: sin librerías, un polyline suavizado con sombreado de noche, marcador de
 // "ahora" y las pleamares/bajamares del rango marcadas.
 function buildTideChartSvg(times, heights, nowIdx, daily) {
-  const width = 320;
-  const height = 96;
-  const padTop = 20;
-  const padBottom = 16;
+  // El viewBox se escala siempre de forma uniforme (misma proporción ancho/alto que el hueco
+  // real en pantalla, ver CSS `aspect-ratio`); si se escalase de forma distinta en cada eje,
+  // los círculos de los marcadores saldrían como óvalos.
+  const width = 480;
+  const height = 110;
+  const padTop = 22;
+  const padBottom = 18;
   const plotH = height - padTop - padBottom;
 
   const startIdx = Math.max(0, nowIdx - 6);
@@ -431,9 +445,9 @@ function buildTideChartSvg(times, heights, nowIdx, daily) {
       if (pos === -1) return "";
       const x = xAt(pos);
       const y = yAt(ex.height);
-      const labelY = ex.type === "pleamar" ? y - 8 : y + 16;
+      const labelY = ex.type === "pleamar" ? y - 12 : y + 22;
       return `
-        <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" class="tide-chart-dot"/>
+        <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" class="tide-chart-dot"/>
         <text x="${x.toFixed(1)}" y="${labelY.toFixed(1)}" class="tide-chart-label" text-anchor="middle">${formatHour(ex.time)}</text>
       `;
     })
@@ -444,12 +458,12 @@ function buildTideChartSvg(times, heights, nowIdx, daily) {
     nowPos !== -1
       ? `
         <line x1="${points[nowPos].x.toFixed(1)}" y1="0" x2="${points[nowPos].x.toFixed(1)}" y2="${height}" class="tide-chart-now-line"/>
-        <circle cx="${points[nowPos].x.toFixed(1)}" cy="${points[nowPos].y.toFixed(1)}" r="4" class="tide-chart-now-dot"/>
+        <circle cx="${points[nowPos].x.toFixed(1)}" cy="${points[nowPos].y.toFixed(1)}" r="6" class="tide-chart-now-dot"/>
       `
       : "";
 
   return `
-    <svg class="tide-chart" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" role="img" aria-label="${t("card.tide")}">
+    <svg class="tide-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${t("card.tide")}">
       ${nightRects}
       <path d="${areaPath}" class="tide-chart-area"/>
       <path d="${path}" class="tide-chart-line"/>

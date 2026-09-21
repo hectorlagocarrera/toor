@@ -12,6 +12,7 @@ const I18N = {
     "share.label": "Compartir",
     "share.text": "MeteoCanteras — ahora en Las Canteras: {temp}°C, viento {wind} km/h, oleaje {wave} m, agua {water}°C.",
     "share.copied": "Copiado al portapapeles",
+    "share.copyManually": "Copia este texto:",
 
     "nav.now": "Ahora",
     "nav.forecast": "Previsión",
@@ -174,6 +175,7 @@ const I18N = {
     "share.label": "Share",
     "share.text": "MeteoCanteras — right now at Las Canteras: {temp}°C, {wind} km/h wind, {wave} m waves, {water}°C water.",
     "share.copied": "Copied to clipboard",
+    "share.copyManually": "Copy this text:",
 
     "nav.now": "Now",
     "nav.forecast": "Forecast",
