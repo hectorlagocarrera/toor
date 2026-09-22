@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-22T13:28:09.386Z",
+  "updated": "2026-09-22T18:08:26.647Z",
   "avisos": [
     {
       "event": "Aviso de temperaturas máximas de nivel amarillo",
@@ -33,7 +33,7 @@
     {
       "fecha": "2026-09-23T00:00:00",
       "tMax": 29,
-      "tMin": 23,
+      "tMin": 24,
       "cielo": "Intervalos nubosos",
       "probPrecip": 20
     },
