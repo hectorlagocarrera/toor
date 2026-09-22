@@ -143,8 +143,6 @@ const I18N = {
     "cameras.viewLive": "Ver en directo",
     "cameras.notLoading": "¿No carga el vídeo? Verla en Windy.com",
 
-    "beach.aboutText":
-      'MeteoCanteras reúne en un mismo sitio los datos meteorológicos y de oleaje de Las Canteras para quienes practican deportes acuáticos: surf, bodyboard, paddle surf, natación en aguas abiertas y buceo/snorkel. Los datos meteorológicos y de oleaje proceden de <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a>, la marea del proyecto open-source <a href="https://marea.ooo" target="_blank" rel="noopener">Mareia / marea.ooo</a>, y las cámaras pertenecen a sus proveedores respectivos.',
     "beach.disclaimer":
       "Esta aplicación tiene fines informativos y no constituye un aviso oficial de seguridad. Respeta siempre las banderas y las indicaciones de Cruz Roja / socorrismo en la playa.",
     "footer.text": "MeteoCanteras · Datos: Open-Meteo · Hecho para la comunidad de deportes acuáticos de Las Canteras",
@@ -306,8 +304,6 @@ const I18N = {
     "cameras.viewLive": "Watch live",
     "cameras.notLoading": "Video not loading? Watch it on Windy.com",
 
-    "beach.aboutText":
-      'MeteoCanteras brings together the weather and swell data for Las Canteras in one place, for surfing, bodyboarding, paddleboarding, open-water swimming and diving/snorkelling. Weather and swell data comes from <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a>, the tide from the open-source project <a href="https://marea.ooo" target="_blank" rel="noopener">Mareia / marea.ooo</a>, and the webcams belong to their respective providers.',
     "beach.disclaimer":
       "This app is for informational purposes only and is not an official safety notice. Always follow the beach flags and lifeguard/Red Cross instructions.",
     "footer.text": "MeteoCanteras · Data: Open-Meteo · Built for the Las Canteras watersports community",
