@@ -4,7 +4,7 @@
 // estático solo lee un JSON same-origin (sin problema de CORS con opendata.aemet.es).
 import { XMLParser } from "fast-xml-parser";
 import { gunzipSync } from "node:zlib";
-import { writeFile, mkdir } from "node:fs/promises";
+import { writeFile, mkdir, readFile } from "node:fs/promises";
 
 const API_KEY = process.env.AEMET_API_KEY;
 
@@ -177,7 +177,22 @@ async function main() {
     console.error("Falta la variable de entorno AEMET_API_KEY");
     process.exit(1);
   }
-  const result = { updated: new Date().toISOString(), avisos: [], forecast: [], errors: [] };
+  // Si una de las dos llamadas falla (p. ej. el límite de peticiones/minuto de AEMET, bastante
+  // agresivo), es mejor conservar el último dato bueno que teníamos que sobrescribirlo con un
+  // array vacío y hacer desaparecer el banner o la previsión hasta la siguiente ejecución.
+  let previous = { avisos: [], forecast: [] };
+  try {
+    previous = JSON.parse(await readFile("data/aemet.json", "utf-8"));
+  } catch {
+    // Primera ejecución o fichero corrupto: no pasa nada, se queda en los valores por defecto.
+  }
+
+  const result = {
+    updated: new Date().toISOString(),
+    avisos: previous.avisos || [],
+    forecast: previous.forecast || [],
+    errors: [],
+  };
 
   try {
     result.avisos = await fetchAvisos();
