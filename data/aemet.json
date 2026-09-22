@@ -1,16 +1,6 @@
 {
-  "updated": "2026-09-22T06:57:05.611Z",
+  "updated": "2026-09-22T06:58:48.002Z",
   "avisos": [
-    {
-      "event": "Aviso de temperaturas máximas de nivel amarillo",
-      "headline": "Aviso de temperaturas máximas de nivel amarillo. Este, sur y oeste de Gran Canaria",
-      "description": "Temperatura máxima: 35 ºC. Afectando principalmente a las vertientes sur y oeste, donde localmente se podrían alcanzar 37 ºC. Se podrían alcanzar localmente 34 ºC en la cuenca de Tejeda y Valle de Agaete.",
-      "level": "amarillo",
-      "severity": "Moderate",
-      "effective": "2026-09-21T10:32:13+01:00",
-      "expires": "2026-09-23T18:59:59+01:00",
-      "areaDesc": "Este, sur y oeste de Gran Canaria"
-    },
     {
       "event": "Aviso de temperaturas máximas de nivel amarillo",
       "headline": "Aviso de temperaturas máximas de nivel amarillo. Este, sur y oeste de Gran Canaria",
@@ -22,42 +12,8 @@
       "areaDesc": "Este, sur y oeste de Gran Canaria"
     }
   ],
-  "forecast": [
-    {
-      "fecha": "2026-09-21T00:00:00",
-      "tMax": 27,
-      "tMin": 22,
-      "cielo": null,
-      "probPrecip": 0
-    },
-    {
-      "fecha": "2026-09-22T00:00:00",
-      "tMax": 28,
-      "tMin": 23,
-      "cielo": "Nubes altas",
-      "probPrecip": 5
-    },
-    {
-      "fecha": "2026-09-23T00:00:00",
-      "tMax": 29,
-      "tMin": 23,
-      "cielo": "Intervalos nubosos",
-      "probPrecip": 30
-    },
-    {
-      "fecha": "2026-09-24T00:00:00",
-      "tMax": 31,
-      "tMin": 26,
-      "cielo": "Intervalos nubosos",
-      "probPrecip": 20
-    },
-    {
-      "fecha": "2026-09-25T00:00:00",
-      "tMax": 31,
-      "tMin": 25,
-      "cielo": "Poco nuboso",
-      "probPrecip": 5
-    }
-  ],
-  "errors": []
+  "forecast": [],
+  "errors": [
+    "forecast: AEMET /api/prediccion/especifica/municipio/diaria/35016 -> HTTP 429: {\n  \"descripcion\" : \"Se ha alcanzado uno de los l�mites de uso. Vuelva a intentarlo el pr�ximo minuto.\",\n  \"estado\" : 429\n}"
+  ]
 }
