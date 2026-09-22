@@ -781,27 +781,60 @@ function renderSurfWindows(forecast, marine) {
   `;
 }
 
+// Las fotos de SkylineWebcams se refrescan solas mientras la pestaña está visible, sin que el
+// usuario tenga que recargar ni hacer clic. 90s es un intervalo prudente: ni machaca su CDN ni
+// hace que la imagen se note desactualizada.
+const PHOTO_REFRESH_MS = 90 * 1000;
+let photoRefreshTimers = [];
+
+function stopPhotoRefreshTimers() {
+  photoRefreshTimers.forEach((id) => clearInterval(id));
+  photoRefreshTimers = [];
+}
+
 function renderEmbedWebcams() {
   const container = els("embedGrid");
   if (!container) return;
+  stopPhotoRefreshTimers();
   container.innerHTML = "";
   EMBED_WEBCAMS.forEach((cam) => {
     const card = document.createElement("div");
     card.className = "embed-card";
-    card.innerHTML = `
-      <p class="embed-name">${icon("pin", "icon-xs")} ${cam.name} <span class="embed-zone">· ${cam.zone}</span></p>
-      <div class="embed-frame-wrap">
-        <iframe
+    const isPhoto = cam.type === "photo";
+    const badge = isPhoto
+      ? `<span class="embed-badge embed-badge--photo">${t("cameras.autoRefresh")}</span>`
+      : `<span class="embed-badge embed-badge--live">${t("cameras.live")}</span>`;
+    const media = isPhoto
+      ? `<img class="embed-photo" alt="${cam.name}">`
+      : `<iframe
           src="https://webcams.windy.com/webcams/public/embed/player/${cam.id}/live"
           loading="lazy"
           allowfullscreen
           referrerpolicy="no-referrer-when-downgrade"
           title="${cam.name}"
-        ></iframe>
-      </div>
+        ></iframe>`;
+    card.innerHTML = `
+      <p class="embed-name">${icon("pin", "icon-xs")} ${cam.name} <span class="embed-zone">· ${cam.zone}</span> ${badge}</p>
+      <div class="embed-frame-wrap" data-error-text="${t("cameras.photoError")}">${media}</div>
       <a class="embed-fallback-link" href="${cam.pageUrl}" target="_blank" rel="noopener noreferrer">${t("cameras.notLoading")} ↗</a>
     `;
     container.appendChild(card);
+
+    if (isPhoto) {
+      const wrap = card.querySelector(".embed-frame-wrap");
+      const img = card.querySelector(".embed-photo");
+      const refresh = () => {
+        img.src = `https://cdn.skylinewebcams.com/live${cam.imgId}.webp?t=${Date.now()}`;
+      };
+      img.addEventListener("error", () => wrap.classList.add("embed-frame-wrap--error"));
+      img.addEventListener("load", () => wrap.classList.remove("embed-frame-wrap--error"));
+      refresh();
+      photoRefreshTimers.push(
+        setInterval(() => {
+          if (document.visibilityState === "visible") refresh();
+        }, PHOTO_REFRESH_MS)
+      );
+    }
   });
 }
 

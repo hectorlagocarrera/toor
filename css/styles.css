@@ -597,8 +597,20 @@ main#app {
   padding: 12px;
   box-shadow: var(--shadow-card);
 }
-.embed-name { margin: 0 0 8px; font-weight: 700; font-size: 0.9rem; }
+.embed-name { margin: 0 0 8px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
 .embed-zone { font-weight: 500; color: var(--color-text-mute); }
+.embed-badge {
+  margin-left: auto;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 2px 7px;
+  border-radius: 999px;
+  color: #fff;
+}
+.embed-badge--live { background: linear-gradient(135deg, #d1615a, var(--color-poor)); }
+.embed-badge--photo { background: linear-gradient(135deg, #2ab5c9, var(--color-primary)); }
 .embed-frame-wrap {
   position: relative;
   width: 100%;
@@ -607,12 +619,27 @@ main#app {
   overflow: hidden;
   background: #000;
 }
-.embed-frame-wrap iframe {
+.embed-frame-wrap iframe,
+.embed-frame-wrap .embed-photo {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
+  object-fit: cover;
+}
+.embed-frame-wrap--error .embed-photo { opacity: 0; }
+.embed-frame-wrap--error::after {
+  content: attr(data-error-text);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #cfe3ea;
 }
 .embed-fallback-link {
   display: block;

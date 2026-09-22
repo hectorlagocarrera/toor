@@ -28,10 +28,14 @@ de la playa.
   valoración orientativa (Excelente / Bueno / Regular / Malo) por deporte —surf, bodyboard,
   paddle surf, natación y buceo/snorkel; no se incluyen windsurf, kitesurf ni vela porque no se
   practican en esta playa— calculada a partir del viento y el oleaje actuales.
-- **Cámaras**: vídeo en directo insertado en la propia página (vía el reproductor público de
-  Windy.com) más una lista corta y curada de enlaces a otras cámaras que no permiten insertar su
-  vídeo en otras páginas, elegidas para cubrir zonas distintas de la playa (La Cícer, La Barra,
-  La Puntilla, vista general) en vez de acumular enlaces repetidos a la misma vista.
+- **Cámaras**: una cámara con vídeo en directo real (reproductor público de Windy.com) y tres más
+  de SkylineWebcams mostradas como **foto que se actualiza sola cada ~90 segundos**, sin que haga
+  falta hacer clic ni salir de la página — SkylineWebcams no permite insertar su vídeo en directo
+  a terceros, pero sí una imagen fija pensada para esto (es la misma que ellos usan como
+  miniatura en su propia web). Además, una lista corta y curada de enlaces a otras cámaras que no
+  se pueden insertar de ninguna forma, elegidas para cubrir zonas distintas de la playa (La
+  Cícer, La Barra, La Puntilla, vista general) en vez de acumular enlaces repetidos a la misma
+  vista.
 - **Recomendación de neopreno** en la tarjeta de Agua (Ahora), según la temperatura del mar.
 - **Modo oscuro manual** (botón en la cabecera, además del automático según el sistema) y
   **botón de compartir** el estado actual (Web Share API, con copia al portapapeles como reserva).
