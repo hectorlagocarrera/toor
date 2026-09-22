@@ -330,17 +330,49 @@ function renderWindguruTable(forecast, marine) {
   `;
 }
 
-function renderDaily(forecast) {
+// Puntúa cada día con el mismo criterio que las franjas horarias de surf (scoreSurfHour), usando
+// los máximos diarios de mar de fondo y viento, para poder destacar cuál de los próximos días
+// pinta mejor sin inventar un criterio nuevo.
+function findBestSurfDayIndex(forecast, marine) {
+  const d = forecast.daily;
+  const marineByDate = {};
+  (marine?.daily?.time || []).forEach((date, i) => {
+    marineByDate[date] = {
+      swellH: marine.daily.swell_wave_height_max?.[i] ?? null,
+      swellPer: marine.daily.swell_wave_period_max?.[i] ?? null,
+    };
+  });
+
+  let bestIndex = null;
+  let bestScore = -1;
+  d.time.forEach((date, i) => {
+    const m = marineByDate[date];
+    if (!m || m.swellH === null) return;
+    const score = scoreSurfHour(m.swellH, m.swellPer, d.wind_speed_10m_max?.[i], d.wind_direction_10m_dominant?.[i]);
+    if (score !== null && score > bestScore) {
+      bestScore = score;
+      bestIndex = i;
+    }
+  });
+  // Solo merece destacarse si hay condiciones al menos decentes (score >= 2, igual que las franjas).
+  return bestScore >= 2 ? bestIndex : null;
+}
+
+function renderDaily(forecast, marine) {
   const container = els("dailyList");
   if (!container || !forecast.daily) return;
   container.innerHTML = "";
   const d = forecast.daily;
+  const bestIndex = findBestSurfDayIndex(forecast, marine);
   d.time.forEach((date, i) => {
     const row = document.createElement("div");
-    row.className = "day-row";
+    row.className = i === bestIndex ? "day-row day-row--best" : "day-row";
     row.innerHTML = `
       <div class="day-name">${formatDayName(date)}</div>
-      <div class="day-desc">${weatherCodeToText(d.weather_code[i])}</div>
+      <div class="day-desc">
+        <span>${weatherCodeToText(d.weather_code[i])}</span>
+        ${i === bestIndex ? `<span class="day-best-badge">${icon("surfboard", "icon-xs")} ${t("forecast.bestDay")}</span>` : ""}
+      </div>
       <div class="day-temps">${Math.round(d.temperature_2m_max[i])}° / ${Math.round(d.temperature_2m_min[i])}°</div>
       <div class="day-wind">${icon("wind", "icon-xs")} ${Math.round(d.wind_speed_10m_max[i])} km/h</div>
     `;
@@ -835,7 +867,7 @@ async function loadAll() {
     renderCurrent(forecast, marine);
     renderHourly(forecast, marine);
     renderWindguruTable(forecast, marine);
-    renderDaily(forecast);
+    renderDaily(forecast, marine);
     renderSports(forecast, marine);
     renderSurfReport(forecast, marine);
     renderSurfWindows(forecast, marine);
@@ -859,12 +891,23 @@ async function loadAll() {
   }
 }
 
+// Habilita el modo offline/instalable: cachea la app y los últimos datos buenos (ver sw.js).
+// Se registra al cargar, sin bloquear el resto del arranque, y falla en silencio si el navegador
+// no lo soporta o el sitio no está servido por HTTPS (p. ej. abierto como archivo local).
+function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
+
 function init() {
   applyStaticI18n();
   initTabs();
   initLangSwitcher();
   initThemeToggle();
   initShareButton();
+  registerServiceWorker();
   renderEmbedWebcams();
   renderWebcams();
   loadAll();

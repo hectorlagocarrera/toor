@@ -40,6 +40,13 @@ de la playa.
   oficial de AEMET** (temperatura, cielo y probabilidad de lluvia por día) junto a la de
   Open-Meteo, para contrastar ambas fuentes. Ver la sección "Integración con AEMET" más abajo
   para cómo funciona y cómo configurarla.
+- **Mejor día para surfear**: en "Próximos días" (Previsión), el día con mejores condiciones de
+  mar de fondo y viento (mismo criterio que las franjas horarias de surf) se destaca con una
+  insignia, para ver de un vistazo si merece la pena mirar más allá de hoy.
+- **Funciona sin conexión y es instalable**: un *service worker* (`sw.js`) cachea la app y el
+  último dato bueno, así que abre al instante en visitas repetidas y sigue mostrando algo útil
+  sin cobertura (típico en la playa), sin dejar de pedir siempre datos frescos cuando hay
+  conexión. Ver "Modo offline / PWA" más abajo.
 
 ## Idioma e iconos
 
@@ -136,6 +143,26 @@ Para activarlo en tu propio fork/repo:
 Si no configuras el secret, `data/aemet.json` se queda con el contenido vacío por defecto (sin
 avisos, sin previsión) y la app simplemente no muestra el banner ni la previsión oficial —
 el resto de funciones no se ven afectadas.
+
+## Modo offline / PWA
+
+`sw.js` es un *service worker* que se registra solo (`registerServiceWorker()` en `js/app.js`) y
+aplica la misma estrategia a todo: **red primero, caché como reserva**. En cada visita:
+
+- Si hay conexión, pide siempre lo último (HTML/CSS/JS, `data/aemet.json` y las dos APIs de
+  Open-Meteo) y actualiza la caché con la respuesta.
+- Si falla (sin cobertura, modo avión), sirve lo último que se guardó en caché en vez de romperse:
+  la app abre igual, con el último dato bueno, en lugar de una pantalla en blanco o un error del
+  navegador.
+
+No cachea nada de terceros (fuentes de Google, el reproductor de Windy, etc.), solo el propio
+origen y las dos APIs de datos. Junto con `manifest.json` (ya existente), esto también hace que
+el navegador ofrezca "Añadir a pantalla de inicio" con más consistencia entre plataformas.
+
+**Importante al desplegar cambios**: subir `CACHE_NAME` en `sw.js` (p. ej. `meteocanteras-v20` →
+`v21`) a la vez que el `?v=N` de `index.html` cada vez que cambien los archivos estáticos. Si no,
+los navegadores que ya tengan el *service worker* instalado seguirán sirviendo la versión vieja
+desde caché un tiempo más de lo esperado.
 
 ## Ejecutar en local
 

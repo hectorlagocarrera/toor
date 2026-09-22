@@ -65,6 +65,7 @@ const I18N = {
     "wg.row.tempWater": "Temp. agua °C",
     "forecast.next24": "Próximas 24 horas",
     "forecast.nextDays": "Próximos días",
+    "forecast.bestDay": "Mejor día para surfear",
 
     "aemet.forecastTitle": "Previsión oficial (AEMET)",
     "aemet.forecastHint":
@@ -227,6 +228,7 @@ const I18N = {
     "wg.row.tempWater": "Water temp. °C",
     "forecast.next24": "Next 24 hours",
     "forecast.nextDays": "Upcoming days",
+    "forecast.bestDay": "Best day to surf",
 
     "aemet.forecastTitle": "Official forecast (AEMET)",
     "aemet.forecastHint":

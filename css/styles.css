@@ -485,9 +485,34 @@ main#app {
   box-shadow: var(--shadow-card);
 }
 .day-row .day-name { font-weight: 600; text-transform: capitalize; }
-.day-row .day-desc { color: var(--color-text-mute); font-size: 0.78rem; }
+.day-row .day-desc {
+  color: var(--color-text-mute);
+  font-size: 0.78rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
 .day-row .day-temps { font-weight: 600; white-space: nowrap; }
 .day-row .day-wind { color: var(--color-text-mute); white-space: nowrap; font-size: 0.78rem; }
+
+.day-row--best {
+  border-color: var(--color-excellent);
+  background: color-mix(in srgb, var(--color-excellent) 6%, var(--color-surface));
+}
+.day-best-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #12925a, var(--color-excellent));
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.day-best-badge .icon { width: 11px; height: 11px; }
 
 .sport-grid {
   display: grid;
