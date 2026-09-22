@@ -9,9 +9,11 @@ import { writeFile, mkdir } from "node:fs/promises";
 const API_KEY = process.env.AEMET_API_KEY;
 
 const BASE = "https://opendata.aemet.es/opendata";
-// Área de Canarias para avisos_cap y municipio de Las Palmas de Gran Canaria (código INE).
-const AVISOS_AREA = "can";
-const MUNICIPIO = "35016";
+// avisos_cap solo admite de forma fiable "esp" (todo el país, ~190 boletines CAP); no hay
+// códigos de área por comunidad/provincia documentados que funcionen ("can" da 404). Se
+// descarga todo y se filtra por zona con AREA_MATCH más abajo.
+const AVISOS_AREA = "esp";
+const MUNICIPIO = "35016"; // Las Palmas de Gran Canaria (código INE)
 // Zonas de aviso que nos interesan (Gran Canaria, donde está Las Canteras).
 const AREA_MATCH = /gran canaria|las palmas/i;
 
