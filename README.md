@@ -31,8 +31,6 @@ de la playa.
 - **Cámaras**: vídeo en directo insertado en la propia página (vía el reproductor público de
   Windy.com) más una amplia lista de enlaces a otras cámaras web de distintos proveedores que no
   permiten insertar su vídeo en otras páginas.
-- **Playa**: descripción de las zonas de la playa (La Cícer, Peña La Vieja, playa central, La
-  Puntilla, La Barra/El Confital) y qué deporte se practica habitualmente en cada una.
 - **Recomendación de neopreno** en la tarjeta de Agua (Ahora), según la temperatura del mar.
 - **Modo oscuro manual** (botón en la cabecera, además del automático según el sistema) y
   **botón de compartir** el estado actual (Web Share API, con copia al portapapeles como reserva).
@@ -166,7 +164,6 @@ Vercel, Cloudflare Pages, etc. Solo hay que subir el contenido de esta carpeta.
   de corriente: `js/sports.js`.
 - Lista de cámaras: `js/config.js` (`EMBED_WEBCAMS` para las insertadas, `WEBCAMS` para las de solo enlace).
 - Enlaces de marea: `js/config.js` (`MAREA_URL`, `TIDE_INFO_URL`).
-- Zonas de la playa: `js/config.js` (`ZONES`).
 - Textos e idiomas: `js/i18n.js` (`I18N`). Iconos: `js/icons.js` (`ICON_PATHS`).
 - Área de avisos y municipio de AEMET: `scripts/fetch-aemet.mjs` (`AVISOS_AREA`, `MUNICIPIO`,
   `AREA_MATCH`).

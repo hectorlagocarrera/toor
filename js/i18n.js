@@ -18,7 +18,6 @@ const I18N = {
     "nav.forecast": "Previsión",
     "nav.sports": "Deportes",
     "nav.cameras": "Cámaras",
-    "nav.beach": "Playa",
 
     "now.lastUpdated": "Última actualización:",
     "card.air": "Aire",
@@ -144,8 +143,6 @@ const I18N = {
     "cameras.viewLive": "Ver en directo",
     "cameras.notLoading": "¿No carga el vídeo? Verla en Windy.com",
 
-    "beach.zonesTitle": "Zonas de la playa",
-    "beach.aboutTitle": "Sobre esta app",
     "beach.aboutText":
       'MeteoCanteras reúne en un mismo sitio los datos meteorológicos y de oleaje de Las Canteras para quienes practican deportes acuáticos: surf, bodyboard, paddle surf, natación en aguas abiertas y buceo/snorkel. Los datos meteorológicos y de oleaje proceden de <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a>, la marea del proyecto open-source <a href="https://marea.ooo" target="_blank" rel="noopener">Mareia / marea.ooo</a>, y las cámaras pertenecen a sus proveedores respectivos.',
     "beach.disclaimer":
@@ -184,7 +181,6 @@ const I18N = {
     "nav.forecast": "Forecast",
     "nav.sports": "Sports",
     "nav.cameras": "Cameras",
-    "nav.beach": "Beach",
 
     "now.lastUpdated": "Last updated:",
     "card.air": "Air",
@@ -310,8 +306,6 @@ const I18N = {
     "cameras.viewLive": "Watch live",
     "cameras.notLoading": "Video not loading? Watch it on Windy.com",
 
-    "beach.zonesTitle": "Beach areas",
-    "beach.aboutTitle": "About this app",
     "beach.aboutText":
       'MeteoCanteras brings together the weather and swell data for Las Canteras in one place, for surfing, bodyboarding, paddleboarding, open-water swimming and diving/snorkelling. Weather and swell data comes from <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a>, the tide from the open-source project <a href="https://marea.ooo" target="_blank" rel="noopener">Mareia / marea.ooo</a>, and the webcams belong to their respective providers.',
     "beach.disclaimer":
@@ -406,5 +400,4 @@ function setLang(lang) {
   if (typeof loadAll === "function") loadAll();
   if (typeof renderEmbedWebcams === "function") renderEmbedWebcams();
   if (typeof renderWebcams === "function") renderWebcams();
-  if (typeof renderZones === "function") renderZones();
 }

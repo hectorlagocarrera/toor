@@ -828,24 +828,6 @@ function renderWebcams() {
   });
 }
 
-function renderZones() {
-  const container = els("zoneList");
-  if (!container) return;
-  container.innerHTML = "";
-  ZONES.forEach((zone) => {
-    const card = document.createElement("div");
-    card.className = "zone-card";
-    card.innerHTML = `
-      <h3>${zone.name}</h3>
-      <p>${tr(zone.desc)}</p>
-      <div class="zone-tags">${tr(zone.tags)
-        .map((tag) => `<span class="zone-tag">${tag}</span>`)
-        .join("")}</div>
-    `;
-    container.appendChild(card);
-  });
-}
-
 async function loadAll() {
   hideBanner();
   try {
@@ -885,7 +867,6 @@ function init() {
   initShareButton();
   renderEmbedWebcams();
   renderWebcams();
-  renderZones();
   loadAll();
   els("refreshBtn")?.addEventListener("click", loadAll);
   setInterval(loadAll, AUTO_REFRESH_MINUTES * 60 * 1000);

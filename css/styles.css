@@ -826,26 +826,6 @@ main#app {
 .webcam-desc { font-size: 0.82rem; color: var(--color-text-mute); margin: 0; }
 .webcam-link { font-size: 0.78rem; margin-top: 8px; display: inline-block; }
 
-.zone-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
-.zone-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  box-shadow: var(--shadow-card);
-}
-.zone-card h3 { margin: 0 0 4px; font-size: 0.95rem; }
-.zone-card p { margin: 0; font-size: 0.85rem; color: var(--color-text-mute); }
-.zone-tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px; }
-.zone-tag {
-  font-size: 0.72rem;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  padding: 3px 8px;
-  border-radius: 999px;
-  color: var(--color-text-mute);
-}
-
 .about-text { font-size: 0.88rem; color: var(--color-text-mute); line-height: 1.5; }
 .about-text.disclaimer {
   background: #fff3cd;
@@ -863,4 +843,9 @@ main#app {
   font-size: 0.75rem;
   color: var(--color-text-mute);
   padding: 18px 16px 32px;
+}
+.app-footer .about-text {
+  text-align: left;
+  max-width: 480px;
+  margin: 0 auto 10px;
 }

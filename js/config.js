@@ -102,49 +102,6 @@ function tr(field) {
   return field[lang] ?? field.es;
 }
 
-const ZONES = [
-  {
-    name: "La Cícer",
-    desc: {
-      es: "Extremo sur de la playa, junto al muro del paseo. Una de las zonas con más ambiente y accesos al agua de Las Canteras.",
-      en: "The southern end of the beach, right by the promenade wall. One of the liveliest spots with easy water access.",
-    },
-    tags: { es: ["Baño", "Ambiente"], en: ["Swimming", "Atmosphere"] },
-  },
-  {
-    name: "Peña La Vieja / Auditorio",
-    desc: {
-      es: "Fondo rocoso junto al Auditorio Alfredo Kraus. Buena visibilidad y vida marina, habitual para snorkel y buceo en aguas poco profundas.",
-      en: "Rocky bottom next to the Alfredo Kraus Auditorium. Good visibility and marine life, popular for snorkelling and shallow diving.",
-    },
-    tags: { es: ["Buceo", "Snorkel"], en: ["Diving", "Snorkelling"] },
-  },
-  {
-    name: "Playa central (Las Coloradas)",
-    desc: {
-      es: "El tramo central, protegido por la barra de arena/roca (La Barra), mantiene el agua en calma casi todo el año. La mejor zona para el baño, familias y paddle surf tranquilo.",
-      en: "The central stretch, sheltered by the sand/rock bar (La Barra), stays calm almost year-round. The best area for swimming, families and easy paddleboarding.",
-    },
-    tags: { es: ["Natación", "Paddle surf", "Familias"], en: ["Swimming", "Paddleboarding", "Families"] },
-  },
-  {
-    name: "La Puntilla",
-    desc: {
-      es: "Extremo sur, más resguardado del viento. Aguas tranquilas, apta para baño e iniciación.",
-      en: "The southern tip, more sheltered from the wind. Calm water, suitable for swimming and beginners.",
-    },
-    tags: { es: ["Natación", "Iniciación"], en: ["Swimming", "Beginners"] },
-  },
-  {
-    name: "La Barra / El Confital",
-    desc: {
-      es: "Extremo norte, donde la barra rocosa rompe el oleaje de fondo llegado del Atlántico. La rompiente de referencia para surfistas y bodyboarders en Las Canteras.",
-      en: "The northern end, where the rocky bar breaks the Atlantic groundswell. The reference break for surfers and bodyboarders in Las Canteras.",
-    },
-    tags: { es: ["Surf", "Bodyboard"], en: ["Surfing", "Bodyboarding"] },
-  },
-];
-
 // Cámaras que Windy.com permite insertar directamente (reproductor público pensado para embeberse).
 // Solo dejamos aquí la que se ha confirmado que realmente emite vídeo: las otras cámaras de
 // usuarios de Windy que probamos aparecían en negro, así que se han movido a WEBCAMS como enlace.
