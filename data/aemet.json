@@ -1,6 +1,27 @@
 {
-  "updated": "2026-09-22T06:55:03.248Z",
-  "avisos": [],
+  "updated": "2026-09-22T06:57:05.611Z",
+  "avisos": [
+    {
+      "event": "Aviso de temperaturas máximas de nivel amarillo",
+      "headline": "Aviso de temperaturas máximas de nivel amarillo. Este, sur y oeste de Gran Canaria",
+      "description": "Temperatura máxima: 35 ºC. Afectando principalmente a las vertientes sur y oeste, donde localmente se podrían alcanzar 37 ºC. Se podrían alcanzar localmente 34 ºC en la cuenca de Tejeda y Valle de Agaete.",
+      "level": "amarillo",
+      "severity": "Moderate",
+      "effective": "2026-09-21T10:32:13+01:00",
+      "expires": "2026-09-23T18:59:59+01:00",
+      "areaDesc": "Este, sur y oeste de Gran Canaria"
+    },
+    {
+      "event": "Aviso de temperaturas máximas de nivel amarillo",
+      "headline": "Aviso de temperaturas máximas de nivel amarillo. Este, sur y oeste de Gran Canaria",
+      "description": "Temperatura máxima: 35 ºC. Afectando principalmente a las vertientes sur y oeste, donde localmente se podrían alcanzar 37 ºC. Se podrían alcanzar localmente 34 ºC en la cuenca de Tejeda y valle de Agaete.",
+      "level": "amarillo",
+      "severity": "Moderate",
+      "effective": "2026-09-21T22:50:01+01:00",
+      "expires": "2026-09-24T18:59:59+01:00",
+      "areaDesc": "Este, sur y oeste de Gran Canaria"
+    }
+  ],
   "forecast": [
     {
       "fecha": "2026-09-21T00:00:00",
@@ -38,7 +59,5 @@
       "probPrecip": 5
     }
   ],
-  "errors": [
-    "avisos: AEMET /api/avisos_cap/ultimoelaborado/area/can -> estado 404: Error al obtener los datos"
-  ]
+  "errors": []
 }
