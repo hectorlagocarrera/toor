@@ -120,36 +120,6 @@ const EMBED_WEBCAMS = [
 // insertar su vídeo en otras páginas: se muestran como enlace directo a la web de cada proveedor.
 const WEBCAMS = [
   {
-    name: "Las Canteras beach (Windy.com)",
-    zone: "Playa de Las Canteras",
-    desc: {
-      es: "Cámara de usuario en Windy.com. Su reproductor no siempre emite vídeo en directo.",
-      en: "User-submitted camera on Windy.com. Its player doesn't always stream live video.",
-    },
-    url: "https://www.windy.com/webcams/1429130108",
-    icon: "camera",
-  },
-  {
-    name: "Beach de Las Canteras (Windy.com)",
-    zone: "Playa de Las Canteras",
-    desc: {
-      es: "Cámara de usuario en Windy.com. Su reproductor no siempre emite vídeo en directo.",
-      en: "User-submitted camera on Windy.com. Its player doesn't always stream live video.",
-    },
-    url: "https://www.windy.com/webcams/1397657523",
-    icon: "camera",
-  },
-  {
-    name: "Webcam Playa De Las Canteras (Windy.com)",
-    zone: "Playa de Las Canteras",
-    desc: {
-      es: "Cámara de usuario en Windy.com. Su reproductor no siempre emite vídeo en directo.",
-      en: "User-submitted camera on Windy.com. Its player doesn't always stream live video.",
-    },
-    url: "https://www.windy.com/webcams/1512678906",
-    icon: "camera",
-  },
-  {
     name: "Las Canteras (SkylineWebcams)",
     zone: "La Cícer / Playa Grande",
     desc: {
@@ -190,26 +160,6 @@ const WEBCAMS = [
     icon: "camera",
   },
   {
-    name: "La Cícer / La Barra (WebcamTaxi)",
-    zone: "La Cícer - La Barra",
-    desc: {
-      es: "Vista del paseo y la zona norte de la playa, cerca de La Barra.",
-      en: "A view of the promenade and the northern end of the beach, near La Barra.",
-    },
-    url: "https://www.webcamtaxi.com/en/spain/gran-canaria/las-palmas-canteras-beach-la-barra.html",
-    icon: "camera",
-  },
-  {
-    name: "Las Canteras (WhatsUpCams)",
-    zone: "Playa de Las Canteras",
-    desc: {
-      es: "Cámara en directo del portal WhatsUpCams con varias vistas de la playa.",
-      en: "A live camera from the WhatsUpCams network with several views of the beach.",
-    },
-    url: "https://www.whatsupcams.com/en/webcams/spain/canary-islands/las-palmas-gran-canaria/webcam-playa-de-las-canteras-las-palmas/",
-    icon: "camera",
-  },
-  {
     name: "La Puntilla (WhatsUpCams)",
     zone: "La Puntilla",
     desc: {
@@ -230,16 +180,6 @@ const WEBCAMS = [
     icon: "surfboard",
   },
   {
-    name: "Las Canteras (Spain-GranCanaria.com)",
-    zone: "Playa de Las Canteras",
-    desc: {
-      es: "Cámara HD en directo con vistas amplias de la playa urbana.",
-      en: "A live HD camera with wide views of the urban beach.",
-    },
-    url: "https://www.spain-grancanaria.com/en/images-videos/webcams/playa-las-canteras-beach.html",
-    icon: "camera",
-  },
-  {
     name: "La Barra (Spain-GranCanaria.com)",
     zone: "La Barra",
     desc: {
@@ -258,45 +198,5 @@ const WEBCAMS = [
     },
     url: "https://www.surf-forecast.com/breaks/La-Cicer",
     icon: "surfboard",
-  },
-  {
-    name: "Las Canteras (ExploreWebcams)",
-    zone: "Playa de Las Canteras",
-    desc: {
-      es: "Cámara HD en directo agregada por ExploreWebcams.",
-      en: "A live HD camera aggregated by ExploreWebcams.",
-    },
-    url: "https://www.explorewebcams.com/las-canteras-beach-gran-canaria",
-    icon: "camera",
-  },
-  {
-    name: "Las Canteras (LiveBeaches)",
-    zone: "Playa de Las Canteras",
-    desc: {
-      es: "Cámara en directo de la playa, con foco en el ambiente y el oleaje en la orilla.",
-      en: "A live beach camera, focused on the atmosphere and the surf at the shoreline.",
-    },
-    url: "https://www.livebeaches.com/spain/las-canteras-beach-live-cam/",
-    icon: "camera",
-  },
-  {
-    name: "Playa Grande (miplayadelascanteras.com)",
-    zone: "Playa Grande",
-    desc: {
-      es: "Cámara del portal ciudadano dedicado a Las Canteras, vista desde el hotel Aloe Canteras.",
-      en: "A camera from the community site dedicated to Las Canteras, viewed from the Aloe Canteras hotel.",
-    },
-    url: "https://miplayadelascanteras.com/webcam-playa-grandelascanteras/",
-    icon: "camera",
-  },
-  {
-    name: "Las Canteras (CanariasLife)",
-    zone: "Playa de Las Canteras",
-    desc: {
-      es: "Cámara en directo pensada para ver el estado del mar, la ocupación de la playa y la luz disponible.",
-      en: "A live camera meant to check the state of the sea, how busy the beach is, and available daylight.",
-    },
-    url: "https://canariaslife.com/en/webcams-of-gran-canaria/las-palmas-de-gran-canaria/las-canteras-beach/",
-    icon: "camera",
   },
 ];

@@ -29,8 +29,9 @@ de la playa.
   paddle surf, natación y buceo/snorkel; no se incluyen windsurf, kitesurf ni vela porque no se
   practican en esta playa— calculada a partir del viento y el oleaje actuales.
 - **Cámaras**: vídeo en directo insertado en la propia página (vía el reproductor público de
-  Windy.com) más una amplia lista de enlaces a otras cámaras web de distintos proveedores que no
-  permiten insertar su vídeo en otras páginas.
+  Windy.com) más una lista corta y curada de enlaces a otras cámaras que no permiten insertar su
+  vídeo en otras páginas, elegidas para cubrir zonas distintas de la playa (La Cícer, La Barra,
+  La Puntilla, vista general) en vez de acumular enlaces repetidos a la misma vista.
 - **Recomendación de neopreno** en la tarjeta de Agua (Ahora), según la temperatura del mar.
 - **Modo oscuro manual** (botón en la cabecera, además del automático según el sistema) y
   **botón de compartir** el estado actual (Web Share API, con copia al portapapeles como reserva).
