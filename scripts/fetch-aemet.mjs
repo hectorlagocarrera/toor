@@ -126,14 +126,18 @@ function normalizeInfos(alertXmlFiles) {
       });
     }
   }
-  // Deduplicar avisos idénticos repetidos en distintos ficheros/zonas.
-  const seen = new Set();
-  return out.filter((a) => {
-    const key = `${a.event}|${a.level}|${a.effective}|${a.expires}`;
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
+  // AEMET reemite boletines para el mismo fenómeno según evoluciona (misma zona/evento/nivel,
+  // con "effective"/"expires" actualizados) — nos quedamos solo con el más reciente de cada uno,
+  // no con todos, para no mostrar el mismo aviso duplicado en la barra.
+  const byGroup = new Map();
+  for (const a of out) {
+    const key = `${a.event}|${a.level}|${a.areaDesc}`;
+    const prev = byGroup.get(key);
+    if (!prev || new Date(a.effective) > new Date(prev.effective)) {
+      byGroup.set(key, a);
+    }
+  }
+  return [...byGroup.values()];
 }
 
 async function fetchAvisos() {
