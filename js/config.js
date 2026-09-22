@@ -104,47 +104,56 @@ function tr(field) {
   return field[lang] ?? field.es;
 }
 
-// Cámaras que se pueden mostrar sin que el usuario tenga que hacer clic para verlas.
-// - type "windy": vídeo en directo real (reproductor público de Windy.com).
-// - type "photo": SkylineWebcams no permite insertar su vídeo en directo a terceros (solo al
-//   dueño de la cámara), pero sí publica un fotograma que se actualiza solo cada pocos minutos
-//   (es la misma imagen que ellos usan en su propia web para las miniaturas de "cámaras
-//   cercanas" — no es un truco, es contenido pensado para mostrarse fuera de su página). El id
-//   numérico se ve en el código fuente de cada cámara (parámetro nkey/id del reproductor).
+// Cámaras que Windy.com permite insertar directamente (reproductor público pensado para embeberse).
+// Solo dejamos aquí la que se ha confirmado que realmente emite vídeo.
+//
+// SkylineWebcams se intentó como foto auto-actualizable vía https://cdn.skylinewebcams.com/live{id}.webp
+// (la misma imagen que ellos usan como miniatura de "cámaras cercanas" en su propia web), pero en
+// producción el navegador la bloquea con net::ERR_BLOCKED_BY_ORB: su CDN protege esa imagen
+// (probablemente exige un Referer de su propio dominio) y no hay forma de sortear eso desde el
+// navegador sin un proxy propio. Vuelven a ser enlace en WEBCAMS.
 const EMBED_WEBCAMS = [
   {
-    type: "windy",
     name: "La Cícer (Playa de Las Canteras) - El Burro",
     zone: "La Cícer",
     id: "1687952153",
     pageUrl: "https://webcams.windy.com/webcams/public/view/1687952153",
-  },
-  {
-    type: "photo",
-    name: "Las Canteras (SkylineWebcams)",
-    zone: "La Cícer / Playa Grande",
-    imgId: "624",
-    pageUrl: "https://www.skylinewebcams.com/es/webcam/espana/canarias/las-palmas-gran-canaria/playa-las-canteras.html",
-  },
-  {
-    type: "photo",
-    name: "Playa Grande - Las Canteras (SkylineWebcams)",
-    zone: "Playa Grande",
-    imgId: "680",
-    pageUrl: "https://www.skylinewebcams.com/es/webcam/espana/canarias/las-palmas-gran-canaria/playa-grande-las-canteras.html",
-  },
-  {
-    type: "photo",
-    name: "La Cícer - Surf (SkylineWebcams)",
-    zone: "La Cícer",
-    imgId: "627",
-    pageUrl: "https://www.skylinewebcams.com/es/webcam/espana/canarias/las-palmas-gran-canaria/la-cicer-las-canteras.html",
   },
 ];
 
 // Cámaras públicas verificadas (proveedores externos, no operadas por esta app) que no permiten
 // insertar su vídeo en otras páginas: se muestran como enlace directo a la web de cada proveedor.
 const WEBCAMS = [
+  {
+    name: "Las Canteras (SkylineWebcams)",
+    zone: "La Cícer / Playa Grande",
+    desc: {
+      es: "Cámara HD en directo de SkylineWebcams sobre el tramo central de la playa.",
+      en: "SkylineWebcams' live HD camera over the central stretch of the beach.",
+    },
+    url: "https://www.skylinewebcams.com/es/webcam/espana/canarias/las-palmas-gran-canaria/playa-las-canteras.html",
+    icon: "camera",
+  },
+  {
+    name: "Playa Grande - Las Canteras (SkylineWebcams)",
+    zone: "Playa Grande",
+    desc: {
+      es: "Segunda cámara de SkylineWebcams centrada en Playa Grande.",
+      en: "A second SkylineWebcams camera focused on Playa Grande.",
+    },
+    url: "https://www.skylinewebcams.com/en/webcam/espana/canarias/las-palmas-gran-canaria/playa-grande-las-canteras.html",
+    icon: "camera",
+  },
+  {
+    name: "La Cícer - Surf (SkylineWebcams)",
+    zone: "La Cícer",
+    desc: {
+      es: "Cámara de SkylineWebcams centrada en la zona de La Cícer, orientada a ver el estado del mar.",
+      en: "SkylineWebcams' camera over La Cícer, oriented to check the state of the sea.",
+    },
+    url: "https://www.skylinewebcams.com/en/webcam/espana/canarias/las-palmas-gran-canaria/la-cicer-las-canteras.html",
+    icon: "camera",
+  },
   {
     name: "Las Canteras (WebcamTaxi)",
     zone: "Playa Las Canteras",

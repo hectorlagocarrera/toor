@@ -135,16 +135,13 @@ const I18N = {
       "Calculada con el nivel del mar (incluye marea) del modelo marino de Open-Meteo, ~8 km de resolución: útil para hacerse una idea, pero no reemplaza la predicción oficial para navegación.",
     "tide.now": "Ahora",
 
-    "cameras.liveTitle": "Cámaras sin clics",
-    "cameras.liveHint": "Vídeo en directo (Windy.com) y fotos que se actualizan solas cada poco tiempo (SkylineWebcams), sin tener que abrir otra web. Si alguna falla, usa el enlace de debajo.",
+    "cameras.liveTitle": "Vídeo en directo",
+    "cameras.liveHint": "Cámara insertada desde Windy.com. Si deja de emitir, usa el enlace de debajo del vídeo.",
     "cameras.moreTitle": "Más cámaras de la playa",
     "cameras.moreHint":
       "Estas cámaras no se pueden insertar en otras páginas (o su emisión no es fiable), así que se abren en la web de cada proveedor.",
     "cameras.viewLive": "Ver en directo",
-    "cameras.notLoading": "¿No carga? Verla en la web original",
-    "cameras.live": "En directo",
-    "cameras.autoRefresh": "Foto cada ~90 s",
-    "cameras.photoError": "No se pudo cargar la imagen",
+    "cameras.notLoading": "¿No carga el vídeo? Verla en Windy.com",
 
     "beach.disclaimer":
       "Esta aplicación tiene fines informativos y no constituye un aviso oficial de seguridad. Respeta siempre las banderas y las indicaciones de Cruz Roja / socorrismo en la playa.",
@@ -299,16 +296,13 @@ const I18N = {
       "Calculated from the sea level (tide included) of Open-Meteo's marine model, ~8 km resolution: good for a general idea, but not a substitute for the official prediction for navigation.",
     "tide.now": "Now",
 
-    "cameras.liveTitle": "No-click cameras",
-    "cameras.liveHint": "Live video (Windy.com) and photos that refresh themselves every so often (SkylineWebcams), without opening another site. If one fails, use the link below it.",
+    "cameras.liveTitle": "Live video",
+    "cameras.liveHint": "Camera embedded from Windy.com. If it stops streaming, use the link below the video.",
     "cameras.moreTitle": "More beach webcams",
     "cameras.moreHint":
       "These cameras can't be embedded on other pages (or their stream isn't reliable), so they open on each provider's own site.",
     "cameras.viewLive": "Watch live",
-    "cameras.notLoading": "Not loading? Watch it on the original site",
-    "cameras.live": "Live",
-    "cameras.autoRefresh": "Photo every ~90s",
-    "cameras.photoError": "Couldn't load the image",
+    "cameras.notLoading": "Video not loading? Watch it on Windy.com",
 
     "beach.disclaimer":
       "This app is for informational purposes only and is not an official safety notice. Always follow the beach flags and lifeguard/Red Cross instructions.",
