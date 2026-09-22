@@ -1,6 +1,44 @@
 {
-  "updated": null,
+  "updated": "2026-09-22T06:55:03.248Z",
   "avisos": [],
-  "forecast": [],
-  "errors": []
+  "forecast": [
+    {
+      "fecha": "2026-09-21T00:00:00",
+      "tMax": 27,
+      "tMin": 22,
+      "cielo": null,
+      "probPrecip": 0
+    },
+    {
+      "fecha": "2026-09-22T00:00:00",
+      "tMax": 28,
+      "tMin": 23,
+      "cielo": "Nubes altas",
+      "probPrecip": 5
+    },
+    {
+      "fecha": "2026-09-23T00:00:00",
+      "tMax": 29,
+      "tMin": 23,
+      "cielo": "Intervalos nubosos",
+      "probPrecip": 30
+    },
+    {
+      "fecha": "2026-09-24T00:00:00",
+      "tMax": 31,
+      "tMin": 26,
+      "cielo": "Intervalos nubosos",
+      "probPrecip": 20
+    },
+    {
+      "fecha": "2026-09-25T00:00:00",
+      "tMax": 31,
+      "tMin": 25,
+      "cielo": "Poco nuboso",
+      "probPrecip": 5
+    }
+  ],
+  "errors": [
+    "avisos: AEMET /api/avisos_cap/ultimoelaborado/area/can -> estado 404: Error al obtener los datos"
+  ]
 }
