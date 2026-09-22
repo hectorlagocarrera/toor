@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=14">
+<link rel="stylesheet" href="css/styles.css?v=15">
 </head>
 <body>
 
@@ -207,19 +207,6 @@
 
   <!-- INFO -->
   <section class="tab-panel" id="panel-info" data-panel="info">
-    <h2 class="section-title"><span class="title-icon-badge"><span data-icon="flag" class="title-icon"></span></span> <span data-i18n="beach.flagTitle">Bandera de baño hoy</span></h2>
-    <p class="section-hint" data-i18n="beach.flagHint">Las Canteras usa el sistema oficial de banderas del Ayuntamiento (verde, amarilla, roja y morada). Esta app no tiene acceso a un dato en directo fiable, así que aquí tienes qué significa cada una y dónde consultarla ahora mismo.</p>
-    <ul class="flag-legend">
-      <li><i class="flag-swatch flag-green"></i><span data-i18n="beach.flagGreen">Verde — baño permitido, mar en condiciones normales.</span></li>
-      <li><i class="flag-swatch flag-yellow"></i><span data-i18n="beach.flagYellow">Amarilla — baño con precaución (oleaje, corrientes o algas).</span></li>
-      <li><i class="flag-swatch flag-red"></i><span data-i18n="beach.flagRed">Roja — baño prohibido, condiciones peligrosas.</span></li>
-      <li><i class="flag-swatch flag-purple"></i><span data-i18n="beach.flagPurple">Morada — riesgo añadido: medusas, contaminación u otro aviso sanitario.</span></li>
-    </ul>
-    <div class="marea-links">
-      <a class="btn-link" href="https://canarias.app/playas-estado/" target="_blank" rel="noopener noreferrer"><span data-i18n="beach.flagCheck">Ver la bandera de hoy (Canarias.app)</span> ↗</a>
-      <a class="btn-link btn-link-secondary" href="https://lpamar.laspalmasgc.es/las-playas/lpa-beach" target="_blank" rel="noopener noreferrer"><span data-i18n="beach.flagOfficial">App oficial del Ayuntamiento: LPA Beach</span> ↗</a>
-    </div>
-
     <h2 class="section-title"><span class="title-icon-badge"><span data-icon="pin" class="title-icon"></span></span> <span data-i18n="beach.zonesTitle">Zonas de la playa</span></h2>
     <div class="zone-list" id="zoneList"></div>
     <h2 class="section-title" data-i18n="beach.aboutTitle">Sobre esta app</h2>
@@ -243,12 +230,12 @@
   <p data-i18n="footer.text">MeteoCanteras · Datos: Open-Meteo · Hecho para la comunidad de deportes acuáticos de Las Canteras</p>
 </footer>
 
-<script src="js/icons.js?v=14"></script>
-<script src="js/i18n.js?v=14"></script>
-<script src="js/config.js?v=14"></script>
-<script src="js/weather.js?v=14"></script>
-<script src="js/sports.js?v=14"></script>
-<script src="js/app.js?v=14"></script>
+<script src="js/icons.js?v=15"></script>
+<script src="js/i18n.js?v=15"></script>
+<script src="js/config.js?v=15"></script>
+<script src="js/weather.js?v=15"></script>
+<script src="js/sports.js?v=15"></script>
+<script src="js/app.js?v=15"></script>
 <script>
   document.querySelectorAll("[data-icon]").forEach((el) => {
     el.innerHTML = icon(el.dataset.icon);

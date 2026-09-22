@@ -132,15 +132,6 @@ const I18N = {
     "cameras.viewLive": "Ver en directo",
     "cameras.notLoading": "¿No carga el vídeo? Verla en Windy.com",
 
-    "beach.flagTitle": "Bandera de baño hoy",
-    "beach.flagHint":
-      "Las Canteras usa el sistema oficial de banderas del Ayuntamiento (verde, amarilla, roja y morada). Esta app no tiene acceso a un dato en directo fiable, así que aquí tienes qué significa cada una y dónde consultarla ahora mismo.",
-    "beach.flagGreen": "Verde — baño permitido, mar en condiciones normales.",
-    "beach.flagYellow": "Amarilla — baño con precaución (oleaje, corrientes o algas).",
-    "beach.flagRed": "Roja — baño prohibido, condiciones peligrosas.",
-    "beach.flagPurple": "Morada — riesgo añadido: medusas, contaminación u otro aviso sanitario.",
-    "beach.flagCheck": "Ver la bandera de hoy (Canarias.app)",
-    "beach.flagOfficial": "App oficial del Ayuntamiento: LPA Beach",
     "beach.zonesTitle": "Zonas de la playa",
     "beach.aboutTitle": "Sobre esta app",
     "beach.aboutText":
@@ -295,15 +286,6 @@ const I18N = {
     "cameras.viewLive": "Watch live",
     "cameras.notLoading": "Video not loading? Watch it on Windy.com",
 
-    "beach.flagTitle": "Today's swimming flag",
-    "beach.flagHint":
-      "Las Canteras uses the City Council's official flag system (green, yellow, red and purple). This app has no reliable live feed for it, so here's what each colour means and where to check it right now.",
-    "beach.flagGreen": "Green — swimming allowed, normal sea conditions.",
-    "beach.flagYellow": "Yellow — swim with caution (swell, currents or algae).",
-    "beach.flagRed": "Red — swimming banned, hazardous conditions.",
-    "beach.flagPurple": "Purple — extra hazard: jellyfish, pollution or another health notice.",
-    "beach.flagCheck": "Check today's flag (Canarias.app)",
-    "beach.flagOfficial": "Official City Council app: LPA Beach",
     "beach.zonesTitle": "Beach areas",
     "beach.aboutTitle": "About this app",
     "beach.aboutText":

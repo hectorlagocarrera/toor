@@ -31,10 +31,8 @@ de la playa.
 - **Cámaras**: vídeo en directo insertado en la propia página (vía el reproductor público de
   Windy.com) más una amplia lista de enlaces a otras cámaras web de distintos proveedores que no
   permiten insertar su vídeo en otras páginas.
-- **Playa**: qué significa cada color de la **bandera de baño oficial** (verde/amarilla/roja/
-  morada) y enlaces para consultarla en directo (esta app no tiene un dato en vivo fiable propio);
-  descripción de las zonas de la playa (La Cícer, Peña La Vieja, playa central, La Puntilla, La
-  Barra/El Confital) y qué deporte se practica habitualmente en cada una.
+- **Playa**: descripción de las zonas de la playa (La Cícer, Peña La Vieja, playa central, La
+  Puntilla, La Barra/El Confital) y qué deporte se practica habitualmente en cada una.
 - **Recomendación de neopreno** en la tarjeta de Agua (Ahora), según la temperatura del mar.
 - **Modo oscuro manual** (botón en la cabecera, además del automático según el sistema) y
   **botón de compartir** el estado actual (Web Share API, con copia al portapapeles como reserva).
@@ -105,8 +103,9 @@ precisión oficial.
 
 No existe una fuente pública y gratuita fiable con la bandera de baño en directo de Las Canteras
 (el sistema municipal "LPA Beach" es la fuente oficial, pero es una app/sensores propios sin API
-pública documentada), así que en vez de inventar un dato la app explica qué significa cada
-bandera y enlaza a dónde consultarla ahora mismo.
+pública documentada ni un enlace estable a un estado del día), así que la app no incluye esa
+sección: se apoya en el aviso propio de riesgo de corriente y anima a respetar siempre la
+señalización física de Cruz Roja/socorrismo en la playa.
 
 ## Ejecutar en local
 
