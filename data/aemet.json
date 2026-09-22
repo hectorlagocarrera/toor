@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-22T18:08:26.647Z",
+  "updated": "2026-09-22T21:25:31.646Z",
   "avisos": [
     {
       "event": "Aviso de temperaturas máximas de nivel amarillo",
@@ -35,28 +35,28 @@
       "tMax": 29,
       "tMin": 24,
       "cielo": "Intervalos nubosos",
-      "probPrecip": 20
+      "probPrecip": 25
     },
     {
       "fecha": "2026-09-24T00:00:00",
       "tMax": 31,
       "tMin": 25,
       "cielo": "Intervalos nubosos",
-      "probPrecip": 10
+      "probPrecip": 25
     },
     {
       "fecha": "2026-09-25T00:00:00",
       "tMax": 31,
-      "tMin": 26,
-      "cielo": "Intervalos nubosos",
-      "probPrecip": 10
+      "tMin": 25,
+      "cielo": "Nubes altas",
+      "probPrecip": 5
     },
     {
       "fecha": "2026-09-26T00:00:00",
-      "tMax": 30,
+      "tMax": 29,
       "tMin": 26,
-      "cielo": "Muy nuboso",
-      "probPrecip": 10
+      "cielo": "Cubierto",
+      "probPrecip": 20
     }
   ],
   "errors": []
