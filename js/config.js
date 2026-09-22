@@ -90,6 +90,13 @@ const AUTO_REFRESH_MINUTES = 10;
 const MAREA_URL = "https://marea.ooo/es/28.142/-15.413";
 const TIDE_INFO_URL = "https://armada.defensa.gob.es/ihm/Aplicaciones/Mareas/puerto_mareas.html?puerto=56";
 
+// Avisos oficiales y previsión de AEMET: data/aemet.json lo genera un GitHub Action
+// programado (.github/workflows/aemet.yml, scripts/fetch-aemet.mjs) llamando a la API de
+// AEMET OpenData desde el servidor de GitHub, nunca desde el navegador — así la API key no
+// viaja al cliente y evitamos el problema de CORS de opendata.aemet.es en un sitio estático.
+const AEMET_DATA_URL = "data/aemet.json";
+const AEMET_AVISOS_URL = "https://www.aemet.es/es/eltiempo/prediccion/avisos?w=hoy&a=can";
+
 function tr(field) {
   const lang = getLang();
   return field[lang] ?? field.es;

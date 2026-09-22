@@ -36,6 +36,12 @@ de la playa.
 - **Recomendación de neopreno** en la tarjeta de Agua (Ahora), según la temperatura del mar.
 - **Modo oscuro manual** (botón en la cabecera, además del automático según el sistema) y
   **botón de compartir** el estado actual (Web Share API, con copia al portapapeles como reserva).
+- **Barra de avisos oficiales de AEMET**: cuando hay un aviso activo (amarillo/naranja/rojo) para
+  Gran Canaria aparece un banner en la parte superior con el motivo, hasta cuándo dura y un
+  enlace a la página oficial de avisos. En la pestaña Previsión se muestra además la **previsión
+  oficial de AEMET** (temperatura, cielo y probabilidad de lluvia por día) junto a la de
+  Open-Meteo, para contrastar ambas fuentes. Ver la sección "Integración con AEMET" más abajo
+  para cómo funciona y cómo configurarla.
 
 ## Idioma e iconos
 
@@ -107,6 +113,32 @@ pública documentada ni un enlace estable a un estado del día), así que la app
 sección: se apoya en el aviso propio de riesgo de corriente y anima a respetar siempre la
 señalización física de Cruz Roja/socorrismo en la playa.
 
+## Integración con AEMET
+
+El sitio sigue siendo 100% estático (sin servidor propio ni backend en producción), pero la API
+de AEMET OpenData no se puede llamar directamente desde el navegador: no da cabeceras CORS (por
+eso todos los clientes existentes son librerías de servidor), y además hacerlo expondría la API
+key de AEMET a cualquiera que mirase el código fuente de la página.
+
+Para evitar ambos problemas sin montar un backend, un **GitHub Action programado**
+(`.github/workflows/aemet.yml`, cada 2 horas o manualmente) ejecuta
+`scripts/fetch-aemet.mjs` en los servidores de GitHub: llama a AEMET (avisos oficiales de
+`avisos_cap` para Gran Canaria y la previsión diaria del municipio de Las Palmas de Gran
+Canaria), y escribe el resultado normalizado en `data/aemet.json`, que se commitea al repo. La
+web solo hace un `fetch('data/aemet.json')` same-origin — sin CORS, sin exponer ninguna key.
+
+Para activarlo en tu propio fork/repo:
+
+1. Consigue una API key gratuita en <https://opendata.aemet.es/centrodedescargas/altaUsuario>.
+2. En GitHub, ve a **Settings → Secrets and variables → Actions → New repository secret**, y
+   crea un secret llamado `AEMET_API_KEY` con esa key como valor.
+3. El Action ya está programado; también puedes lanzarlo a mano desde la pestaña **Actions →
+   Actualizar datos de AEMET → Run workflow**.
+
+Si no configuras el secret, `data/aemet.json` se queda con el contenido vacío por defecto (sin
+avisos, sin previsión) y la app simplemente no muestra el banner ni la previsión oficial —
+el resto de funciones no se ven afectadas.
+
 ## Ejecutar en local
 
 No requiere instalación. Basta con servir la carpeta como sitio estático, por ejemplo:
@@ -136,6 +168,8 @@ Vercel, Cloudflare Pages, etc. Solo hay que subir el contenido de esta carpeta.
 - Enlaces de marea: `js/config.js` (`MAREA_URL`, `TIDE_INFO_URL`).
 - Zonas de la playa: `js/config.js` (`ZONES`).
 - Textos e idiomas: `js/i18n.js` (`I18N`). Iconos: `js/icons.js` (`ICON_PATHS`).
+- Área de avisos y municipio de AEMET: `scripts/fetch-aemet.mjs` (`AVISOS_AREA`, `MUNICIPIO`,
+  `AREA_MATCH`).
 
 ## Aviso
 

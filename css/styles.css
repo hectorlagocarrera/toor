@@ -287,6 +287,38 @@ main#app {
   font-size: 0.88rem;
 }
 
+.aemet-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-fair);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  text-decoration: none;
+  color: var(--color-text);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.aemet-banner[hidden] { display: none; }
+.aemet-banner:hover { box-shadow: var(--shadow-card-hover); transform: translateY(-1px); }
+.aemet-banner--naranja { border-left-color: var(--color-accent); }
+.aemet-banner--rojo { border-left-color: var(--color-poor); }
+.aemet-banner-icon { flex-shrink: 0; color: var(--color-fair); }
+.aemet-banner--naranja .aemet-banner-icon { color: var(--color-accent); }
+.aemet-banner--rojo .aemet-banner-icon { color: var(--color-poor); }
+.aemet-banner-icon .icon { width: 20px; height: 20px; }
+.aemet-banner-text { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.aemet-banner-text strong { font-size: 0.9rem; }
+.aemet-banner-meta { color: var(--color-text-mute); font-size: 0.78rem; }
+.aemet-banner-arrow { flex-shrink: 0; opacity: 0.55; }
+
+.aemet-forecast-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
+.aemet-forecast-list .day-row { grid-template-columns: 90px 1fr auto auto; }
+.aemet-forecast-hint-empty { font-size: 0.85rem; color: var(--color-text-mute); }
+
 .tab-panel { display: none; }
 .tab-panel.is-active { display: block; animation: fadein 0.2s ease; }
 

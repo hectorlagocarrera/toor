@@ -68,6 +68,18 @@ const I18N = {
     "forecast.next24": "Próximas 24 horas",
     "forecast.nextDays": "Próximos días",
 
+    "aemet.forecastTitle": "Previsión oficial (AEMET)",
+    "aemet.forecastHint":
+      "Para contrastar con los datos de arriba. AEMET usa su propio modelo y no siempre coincide al detalle con Open-Meteo.",
+    "aemet.noData": "Todavía no hay datos de AEMET disponibles (se actualizan cada 2 horas).",
+    "aemet.rain": "lluvia",
+    "aemet.level.amarillo": "Aviso amarillo",
+    "aemet.level.naranja": "Aviso naranja",
+    "aemet.level.rojo": "Aviso rojo",
+    "aemet.bannerUntil": "hasta",
+    "aemet.bannerMore": "+{count} aviso(s) más — ver todos",
+    "aemet.bannerLinkLabel": "Ver avisos oficiales de AEMET para Canarias",
+
     "sports.surfReportTitle": "Informe de surf — La Barra / El Confital",
     "sports.surfReportHint":
       "Mejores franjas horarias, mar de fondo, potencia de la ola y viento, pensado para decidir cuándo remar hacia La Barra.",
@@ -221,6 +233,18 @@ const I18N = {
     "wg.row.tempWater": "Water temp. °C",
     "forecast.next24": "Next 24 hours",
     "forecast.nextDays": "Upcoming days",
+
+    "aemet.forecastTitle": "Official forecast (AEMET)",
+    "aemet.forecastHint":
+      "To cross-check against the data above. AEMET uses its own model and doesn't always match Open-Meteo exactly.",
+    "aemet.noData": "No AEMET data available yet (it updates every 2 hours).",
+    "aemet.rain": "rain",
+    "aemet.level.amarillo": "Yellow warning",
+    "aemet.level.naranja": "Orange warning",
+    "aemet.level.rojo": "Red warning",
+    "aemet.bannerUntil": "until",
+    "aemet.bannerMore": "+{count} more warning(s) — see all",
+    "aemet.bannerLinkLabel": "See official AEMET warnings for the Canary Islands",
 
     "sports.surfReportTitle": "Surf report — La Barra / El Confital",
     "sports.surfReportHint":

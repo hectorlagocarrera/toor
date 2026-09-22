@@ -1,0 +1,46 @@
+name: Actualizar datos de AEMET
+
+on:
+  schedule:
+    # Cada 2 horas. Los avisos de AEMET no cambian con frecuencia mayor que esa.
+    - cron: "17 */2 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aemet-data
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Descargar avisos y previsión de AEMET
+        env:
+          AEMET_API_KEY: ${{ secrets.AEMET_API_KEY }}
+        run: npm run fetch-aemet
+
+      - name: Commit y push si hay cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- data/aemet.json; then
+            echo "Sin cambios en data/aemet.json"
+          else
+            git add data/aemet.json
+            git commit -m "chore: actualizar datos de AEMET [skip ci]"
+            git push
+          fi

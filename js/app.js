@@ -348,6 +348,79 @@ function renderDaily(forecast) {
   });
 }
 
+async function fetchAemetData() {
+  try {
+    const res = await fetch(`${AEMET_DATA_URL}?t=${Date.now()}`, { cache: "no-store" });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+const AEMET_LEVEL_RANK = { rojo: 3, naranja: 2, amarillo: 1 };
+
+function renderAemetBanner(data) {
+  const el = els("aemetBanner");
+  if (!el) return;
+  const avisos = data?.avisos || [];
+  if (avisos.length === 0) {
+    el.hidden = true;
+    return;
+  }
+  const sorted = [...avisos].sort(
+    (a, b) => (AEMET_LEVEL_RANK[b.level] || 0) - (AEMET_LEVEL_RANK[a.level] || 0)
+  );
+  const top = sorted[0];
+  const levelLabel = t(`aemet.level.${top.level}`);
+  el.href = AEMET_AVISOS_URL;
+  el.title = t("aemet.bannerLinkLabel");
+  el.setAttribute("aria-label", t("aemet.bannerLinkLabel"));
+  el.className = `aemet-banner aemet-banner--${top.level}`;
+  setText("aemetBannerTitle", top.headline || `${levelLabel}: ${top.event}`);
+  let meta = top.expires
+    ? `${t("aemet.bannerUntil")} ${new Date(top.expires).toLocaleString(getLocale(), {
+        day: "numeric",
+        month: "short",
+        hour: "2-digit",
+        minute: "2-digit",
+      })}`
+    : "";
+  if (sorted.length > 1) {
+    const more = t("aemet.bannerMore", { count: sorted.length - 1 });
+    meta = meta ? `${meta} · ${more}` : more;
+  }
+  setText("aemetBannerMeta", meta);
+  el.hidden = false;
+}
+
+function renderAemetForecast(data) {
+  const container = els("aemetForecastList");
+  if (!container) return;
+  const days = data?.forecast || [];
+  if (days.length === 0) {
+    container.innerHTML = `<p class="aemet-forecast-hint-empty">${t("aemet.noData")}</p>`;
+    return;
+  }
+  container.innerHTML = "";
+  days.forEach((day) => {
+    const row = document.createElement("div");
+    row.className = "day-row";
+    const dateLabel = formatDayName(day.fecha ? day.fecha.slice(0, 10) : day.fecha);
+    const rainLabel =
+      day.probPrecip !== null && day.probPrecip !== undefined && day.probPrecip !== ""
+        ? `${day.probPrecip}% ${t("aemet.rain")}`
+        : "—";
+    row.innerHTML = `
+      <div class="day-name">${dateLabel}</div>
+      <div class="day-desc">${day.cielo || "—"}</div>
+      <div class="day-temps">${day.tMax ?? "--"}° / ${day.tMin ?? "--"}°</div>
+      <div class="day-wind">${rainLabel}</div>
+    `;
+    container.appendChild(row);
+  });
+}
+
 function renderSurfReport(forecast, marine) {
   const container = els("surfReport");
   if (!container) return;
@@ -793,6 +866,14 @@ async function loadAll() {
   } catch (err) {
     console.error(err);
     showBanner(t("error.general"));
+  }
+
+  try {
+    const aemetData = await fetchAemetData();
+    renderAemetBanner(aemetData);
+    renderAemetForecast(aemetData);
+  } catch (err) {
+    console.error("AEMET:", err);
   }
 }
 

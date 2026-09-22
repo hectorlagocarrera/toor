@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=15">
+<link rel="stylesheet" href="css/styles.css?v=16">
 </head>
 <body>
 
@@ -55,6 +55,15 @@
 </nav>
 
 <main id="app">
+
+  <a id="aemetBanner" class="aemet-banner" href="#" target="_blank" rel="noopener noreferrer" hidden>
+    <span class="aemet-banner-icon" data-icon="info"></span>
+    <span class="aemet-banner-text">
+      <strong id="aemetBannerTitle"></strong>
+      <span id="aemetBannerMeta" class="aemet-banner-meta"></span>
+    </span>
+    <span class="aemet-banner-arrow">↗</span>
+  </a>
 
   <div id="statusBanner" class="status-banner" hidden></div>
 
@@ -175,6 +184,10 @@
 
     <h2 class="section-title" data-i18n="forecast.nextDays">Próximos días</h2>
     <div class="daily-list" id="dailyList"></div>
+
+    <h2 class="section-title"><span class="title-icon-badge"><span data-icon="shield" class="title-icon"></span></span> <span data-i18n="aemet.forecastTitle">Previsión oficial (AEMET)</span></h2>
+    <p class="section-hint" data-i18n="aemet.forecastHint">Para contrastar con los datos de arriba. AEMET usa su propio modelo y no siempre coincide al detalle con Open-Meteo.</p>
+    <div class="aemet-forecast-list" id="aemetForecastList"></div>
   </section>
 
   <!-- DEPORTES -->
@@ -230,12 +243,12 @@
   <p data-i18n="footer.text">MeteoCanteras · Datos: Open-Meteo · Hecho para la comunidad de deportes acuáticos de Las Canteras</p>
 </footer>
 
-<script src="js/icons.js?v=15"></script>
-<script src="js/i18n.js?v=15"></script>
-<script src="js/config.js?v=15"></script>
-<script src="js/weather.js?v=15"></script>
-<script src="js/sports.js?v=15"></script>
-<script src="js/app.js?v=15"></script>
+<script src="js/icons.js?v=16"></script>
+<script src="js/i18n.js?v=16"></script>
+<script src="js/config.js?v=16"></script>
+<script src="js/weather.js?v=16"></script>
+<script src="js/sports.js?v=16"></script>
+<script src="js/app.js?v=16"></script>
 <script>
   document.querySelectorAll("[data-icon]").forEach((el) => {
     el.innerHTML = icon(el.dataset.icon);

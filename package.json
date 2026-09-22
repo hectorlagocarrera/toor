@@ -1,0 +1,12 @@
+{
+  "name": "meteocanteras-data",
+  "private": true,
+  "description": "Scripts de soporte (no forman parte del sitio estático) para generar data/aemet.json desde un GitHub Action programado.",
+  "type": "module",
+  "scripts": {
+    "fetch-aemet": "node scripts/fetch-aemet.mjs"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^5.0.0"
+  }
+}
