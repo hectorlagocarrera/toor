@@ -805,7 +805,7 @@ function renderEmbedWebcams() {
       ? `<span class="embed-badge embed-badge--photo">${t("cameras.autoRefresh")}</span>`
       : `<span class="embed-badge embed-badge--live">${t("cameras.live")}</span>`;
     const media = isPhoto
-      ? `<img class="embed-photo" alt="${cam.name}">`
+      ? `<img class="embed-photo" alt="${cam.name}" referrerpolicy="no-referrer">`
       : `<iframe
           src="https://webcams.windy.com/webcams/public/embed/player/${cam.id}/live"
           loading="lazy"
