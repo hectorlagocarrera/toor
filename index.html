@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=13">
+<link rel="stylesheet" href="css/styles.css?v=14">
 </head>
 <body>
 
@@ -60,66 +60,96 @@
 
   <!-- AHORA -->
   <section class="tab-panel is-active" id="panel-ahora" data-panel="ahora">
+    <div class="hero-card">
+      <div class="hero-top">
+        <div>
+          <p class="hero-temp"><span id="heroTemp">--</span>°</p>
+          <p class="hero-desc" id="heroDesc">—</p>
+        </div>
+        <div class="hero-icon" id="heroIcon"></div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span data-icon="wind"></span>
+          <span id="heroWind">--</span><small>km/h</small>
+        </div>
+        <div class="hero-stat">
+          <span data-icon="waves"></span>
+          <span id="heroWave">--</span><small>m</small>
+        </div>
+        <div class="hero-stat">
+          <span data-icon="droplet"></span>
+          <span id="heroWater">--</span><small>°C</small>
+        </div>
+        <div class="hero-stat">
+          <span data-icon="tide"></span>
+          <span id="heroTide">--</span><small>m</small>
+        </div>
+      </div>
+      <svg class="hero-wave" viewBox="0 0 500 40" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 20 C 60 40, 110 0, 170 18 S 290 38, 340 18 S 460 0, 500 20 V40 H0 Z" fill="var(--color-bg)"/>
+      </svg>
+    </div>
     <p class="updated-line"><span data-i18n="now.lastUpdated">Última actualización:</span> <span id="lastUpdated">—</span></p>
 
     <div class="card-grid">
       <article class="metric-card">
-        <h3><span data-icon="thermometer" class="card-icon"></span> <span data-i18n="card.air">Aire</span></h3>
+        <h3><span class="metric-icon-badge"><span data-icon="thermometer" class="card-icon"></span></span> <span data-i18n="card.air">Aire</span></h3>
         <p class="metric-big"><span id="airTemp">--</span>°C</p>
         <p class="metric-sub"><span data-i18n="card.air.feels">Sensación</span> <span id="feelsLike">--</span>°C</p>
         <p class="metric-sub" id="weatherDesc">—</p>
       </article>
 
       <article class="metric-card">
-        <h3><span data-icon="wind" class="card-icon"></span> <span data-i18n="card.wind">Viento</span></h3>
+        <h3><span class="metric-icon-badge"><span data-icon="wind" class="card-icon"></span></span> <span data-i18n="card.wind">Viento</span></h3>
         <p class="metric-big"><span id="windSpeed">--</span> <small>km/h</small></p>
         <p class="metric-sub"><span data-i18n="card.wind.gusts">Rachas</span> <span id="windGust">--</span> km/h</p>
         <p class="metric-sub"><span id="windArrow" class="wind-arrow">↑</span> <span id="windDir">--</span></p>
       </article>
 
       <article class="metric-card">
-        <h3><span data-icon="waves" class="card-icon"></span> <span data-i18n="card.waves">Oleaje</span></h3>
+        <h3><span class="metric-icon-badge"><span data-icon="waves" class="card-icon"></span></span> <span data-i18n="card.waves">Oleaje</span></h3>
         <p class="metric-big"><span id="waveHeight">--</span> <small>m</small></p>
         <p class="metric-sub"><span data-i18n="card.waves.period">Periodo</span> <span id="wavePeriod">--</span> s</p>
         <p class="metric-sub"><span data-i18n="card.waves.direction">Dirección</span> <span id="waveDir">--</span></p>
       </article>
 
       <article class="metric-card">
-        <h3><span data-icon="waves" class="card-icon"></span> <span data-i18n="card.swell">Mar de fondo</span></h3>
+        <h3><span class="metric-icon-badge"><span data-icon="waves" class="card-icon"></span></span> <span data-i18n="card.swell">Mar de fondo</span></h3>
         <p class="metric-big"><span id="swellHeight">--</span> <small>m</small></p>
         <p class="metric-sub"><span data-i18n="card.waves.period">Periodo</span> <span id="swellPeriod">--</span> s</p>
         <p class="metric-sub"><span data-i18n="card.waves.direction">Dirección</span> <span id="swellDir">--</span></p>
       </article>
 
       <article class="metric-card">
-        <h3><span data-icon="tide" class="card-icon"></span> <span data-i18n="card.tide">Marea</span></h3>
+        <h3><span class="metric-icon-badge"><span data-icon="tide" class="card-icon"></span></span> <span data-i18n="card.tide">Marea</span></h3>
         <p class="metric-big"><span id="tideHeight">--</span> <small>m</small></p>
         <p class="metric-sub" id="tideTrend">—</p>
         <p class="metric-sub" id="tideNext">—</p>
       </article>
 
       <article class="metric-card">
-        <h3><span data-icon="droplet" class="card-icon"></span> <span data-i18n="card.water">Agua</span></h3>
+        <h3><span class="metric-icon-badge"><span data-icon="droplet" class="card-icon"></span></span> <span data-i18n="card.water">Agua</span></h3>
         <p class="metric-big"><span id="waterTemp">--</span>°C</p>
         <p class="metric-sub" data-i18n="card.water.sub">Temperatura del mar</p>
         <p class="metric-sub wetsuit-hint"><span data-icon="wetsuit"></span> <span id="wetsuitHint">—</span></p>
       </article>
 
       <article class="metric-card">
-        <h3><span data-icon="sun" class="card-icon"></span> <span data-i18n="card.uv">Sol / UV</span></h3>
+        <h3><span class="metric-icon-badge"><span data-icon="sun" class="card-icon"></span></span> <span data-i18n="card.uv">Sol / UV</span></h3>
         <p class="metric-big"><span id="uvIndex">--</span></p>
         <p class="metric-sub" id="uvLabel">—</p>
         <p class="metric-sub"><span data-i18n="card.uv.sunrise">Amanecer</span> <span id="sunrise">--</span> · <span data-i18n="card.uv.sunset">Ocaso</span> <span id="sunset">--</span></p>
       </article>
 
       <article class="metric-card">
-        <h3><span data-icon="humidity" class="card-icon"></span> <span data-i18n="card.humidity">Humedad</span></h3>
+        <h3><span class="metric-icon-badge"><span data-icon="humidity" class="card-icon"></span></span> <span data-i18n="card.humidity">Humedad</span></h3>
         <p class="metric-big"><span id="humidity">--</span>%</p>
         <p class="metric-sub"><span data-i18n="card.humidity.visibility">Visibilidad</span> <span id="visibility">--</span> km</p>
       </article>
 
       <article class="metric-card">
-        <h3><span data-icon="rain" class="card-icon"></span> <span data-i18n="card.rain">Lluvia</span></h3>
+        <h3><span class="metric-icon-badge"><span data-icon="rain" class="card-icon"></span></span> <span data-i18n="card.rain">Lluvia</span></h3>
         <p class="metric-big"><span id="precip">--</span> <small>mm</small></p>
         <p class="metric-sub"><span data-i18n="card.rain.prob">Prob. próxima hora</span> <span id="precipProb">--</span>%</p>
       </article>
@@ -128,7 +158,7 @@
 
   <!-- PREVISION -->
   <section class="tab-panel" id="panel-prevision" data-panel="prevision">
-    <h2 class="section-title"><span data-icon="chart" class="title-icon"></span> <span data-i18n="forecast.tableTitle">Previsión detallada</span></h2>
+    <h2 class="section-title"><span class="title-icon-badge"><span data-icon="chart" class="title-icon"></span></span> <span data-i18n="forecast.tableTitle">Previsión detallada</span></h2>
     <p class="section-hint" data-i18n="forecast.tableHint">Viento, oleaje y temperatura del aire y del agua cada 3 horas para los próximos días. Desliza para ver más horas.</p>
     <div id="windguruTable"></div>
     <div class="wg-legend">
@@ -149,12 +179,12 @@
 
   <!-- DEPORTES -->
   <section class="tab-panel" id="panel-deportes" data-panel="deportes">
-    <h2 class="section-title"><span data-icon="surfboard" class="title-icon"></span> <span data-i18n="sports.surfReportTitle">Informe de surf — La Barra / El Confital</span></h2>
+    <h2 class="section-title"><span class="title-icon-badge"><span data-icon="surfboard" class="title-icon"></span></span> <span data-i18n="sports.surfReportTitle">Informe de surf — La Barra / El Confital</span></h2>
     <p class="section-hint" data-i18n="sports.surfReportHint">Mejores franjas horarias, mar de fondo, potencia de la ola y viento, pensado para decidir cuándo remar hacia La Barra.</p>
     <div class="surf-windows" id="surfWindows"></div>
     <div class="surf-report" id="surfReport"></div>
 
-    <h2 class="section-title"><span data-icon="tide" class="title-icon"></span> <span data-i18n="sports.tideTitle">Marea — Puerto de la Luz</span></h2>
+    <h2 class="section-title"><span class="title-icon-badge"><span data-icon="tide" class="title-icon"></span></span> <span data-i18n="sports.tideTitle">Marea — Puerto de la Luz</span></h2>
     <p class="section-hint" data-i18n="sports.tideHint">La Barra es sensible a la marea: en bajamar la ola rompe más hueca y sobre menos fondo. Calculada a partir del modelo de nivel del mar de Open-Meteo.</p>
     <div class="marea-panel" id="mareaPanel"></div>
     <div id="ripRisk"></div>
@@ -166,7 +196,7 @@
 
   <!-- CAMARAS -->
   <section class="tab-panel" id="panel-camaras" data-panel="camaras">
-    <h2 class="section-title"><span data-icon="camera" class="title-icon"></span> <span data-i18n="cameras.liveTitle">Vídeo en directo</span></h2>
+    <h2 class="section-title"><span class="title-icon-badge"><span data-icon="camera" class="title-icon"></span></span> <span data-i18n="cameras.liveTitle">Vídeo en directo</span></h2>
     <p class="section-hint" data-i18n="cameras.liveHint">Cámara insertada desde Windy.com. Si deja de emitir, usa el enlace de debajo del vídeo.</p>
     <div class="embed-grid" id="embedGrid"></div>
 
@@ -177,7 +207,7 @@
 
   <!-- INFO -->
   <section class="tab-panel" id="panel-info" data-panel="info">
-    <h2 class="section-title"><span data-icon="flag" class="title-icon"></span> <span data-i18n="beach.flagTitle">Bandera de baño hoy</span></h2>
+    <h2 class="section-title"><span class="title-icon-badge"><span data-icon="flag" class="title-icon"></span></span> <span data-i18n="beach.flagTitle">Bandera de baño hoy</span></h2>
     <p class="section-hint" data-i18n="beach.flagHint">Las Canteras usa el sistema oficial de banderas del Ayuntamiento (verde, amarilla, roja y morada). Esta app no tiene acceso a un dato en directo fiable, así que aquí tienes qué significa cada una y dónde consultarla ahora mismo.</p>
     <ul class="flag-legend">
       <li><i class="flag-swatch flag-green"></i><span data-i18n="beach.flagGreen">Verde — baño permitido, mar en condiciones normales.</span></li>
@@ -190,7 +220,7 @@
       <a class="btn-link btn-link-secondary" href="https://lpamar.laspalmasgc.es/las-playas/lpa-beach" target="_blank" rel="noopener noreferrer"><span data-i18n="beach.flagOfficial">App oficial del Ayuntamiento: LPA Beach</span> ↗</a>
     </div>
 
-    <h2 class="section-title"><span data-icon="pin" class="title-icon"></span> <span data-i18n="beach.zonesTitle">Zonas de la playa</span></h2>
+    <h2 class="section-title"><span class="title-icon-badge"><span data-icon="pin" class="title-icon"></span></span> <span data-i18n="beach.zonesTitle">Zonas de la playa</span></h2>
     <div class="zone-list" id="zoneList"></div>
     <h2 class="section-title" data-i18n="beach.aboutTitle">Sobre esta app</h2>
     <p class="about-text" data-i18n-html="beach.aboutText">
@@ -213,12 +243,12 @@
   <p data-i18n="footer.text">MeteoCanteras · Datos: Open-Meteo · Hecho para la comunidad de deportes acuáticos de Las Canteras</p>
 </footer>
 
-<script src="js/icons.js?v=13"></script>
-<script src="js/i18n.js?v=13"></script>
-<script src="js/config.js?v=13"></script>
-<script src="js/weather.js?v=13"></script>
-<script src="js/sports.js?v=13"></script>
-<script src="js/app.js?v=13"></script>
+<script src="js/icons.js?v=14"></script>
+<script src="js/i18n.js?v=14"></script>
+<script src="js/config.js?v=14"></script>
+<script src="js/weather.js?v=14"></script>
+<script src="js/sports.js?v=14"></script>
+<script src="js/app.js?v=14"></script>
 <script>
   document.querySelectorAll("[data-icon]").forEach((el) => {
     el.innerHTML = icon(el.dataset.icon);

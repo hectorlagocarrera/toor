@@ -52,6 +52,11 @@ en `I18N`.
 Los iconos son un set propio en trazo (`js/icons.js`, SVG inline, sin depender de ninguna
 librería externa ni de emojis) para mantener un aspecto más cuidado y consistente en toda la app.
 
+La pestaña "Ahora" abre con una cabecera tipo *hero* (temperatura, condición e iconos de viento,
+oleaje, agua y marea a gran tamaño) y el resto de la interfaz usa insignias de color para cada
+icono, botones y estados con degradados suaves, y sombras/hover más marcados en las tarjetas,
+para dar una sensación más cuidada sin perder la sobriedad general del diseño.
+
 ## Cómo funciona
 
 Es una aplicación **100% estática** (HTML + CSS + JavaScript, sin build ni backend). Los datos

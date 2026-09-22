@@ -109,6 +109,13 @@ function initShareButton() {
   });
 }
 
+function weatherCodeToIcon(code) {
+  if (code === null || code === undefined) return "sun";
+  if (code === 0 || code === 1) return "sun";
+  if ([2, 3, 45, 48].includes(code)) return "cloud";
+  return "rain";
+}
+
 function renderCurrent(forecast, marine) {
   const cur = forecast.current || {};
   setText("airTemp", cur.temperature_2m?.toFixed(1) ?? "--");
@@ -171,6 +178,15 @@ function renderCurrent(forecast, marine) {
     setText("tideTrend", t("tide.noData"));
     setText("tideNext", t("tide.noDataSub"));
   }
+
+  setText("heroTemp", cur.temperature_2m?.toFixed(0) ?? "--");
+  setText("heroDesc", weatherCodeToText(cur.weather_code));
+  setText("heroWind", cur.wind_speed_10m?.toFixed(0) ?? "--");
+  setText("heroWave", marine?.current?.wave_height?.toFixed(1) ?? "--");
+  setText("heroWater", marine?.current?.sea_surface_temperature?.toFixed(0) ?? "--");
+  setText("heroTide", tide ? tide.nowHeight.toFixed(1) : "--");
+  const heroIconEl = els("heroIcon");
+  if (heroIconEl) heroIconEl.innerHTML = icon(weatherCodeToIcon(cur.weather_code));
 }
 
 function findNearestHourIndex(timeArray) {
