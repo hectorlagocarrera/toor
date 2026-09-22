@@ -98,7 +98,8 @@ a { color: var(--color-primary); }
 
 .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .brand-icon { width: 34px; height: 34px; flex-shrink: 0; }
-.brand h1 { font-size: 1.15rem; margin: 0; line-height: 1.1; font-family: var(--font-heading); font-weight: 700; }
+.brand-text { min-width: 0; overflow: hidden; }
+.brand h1 { font-size: 1.15rem; margin: 0; line-height: 1.1; font-family: var(--font-heading); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .brand-sub { margin: 2px 0 0; font-size: 0.72rem; opacity: 0.85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
