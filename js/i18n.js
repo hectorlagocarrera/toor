@@ -6,7 +6,6 @@ const I18N = {
     "meta.title": "MeteoCanteras · Meteorología y mar en Las Canteras",
     "meta.description":
       "Meteorología, oleaje y mareas en tiempo real de la Playa de Las Canteras (Las Palmas de Gran Canaria) para surf, bodyboard, paddle surf, natación y buceo. Incluye cámaras en directo.",
-    "brand.subtitle": "Playa de Las Canteras · Las Palmas de Gran Canaria",
     "refresh.label": "Actualizar datos",
     "theme.label": "Cambiar tema (claro/oscuro)",
     "share.label": "Compartir",
@@ -169,7 +168,6 @@ const I18N = {
     "meta.title": "MeteoCanteras · Weather & sea conditions in Las Canteras",
     "meta.description":
       "Live weather, swell and tide data for Las Canteras Beach (Las Palmas de Gran Canaria) for surfing, bodyboarding, paddleboarding, swimming and diving. Includes live webcams.",
-    "brand.subtitle": "Las Canteras Beach · Las Palmas de Gran Canaria",
     "refresh.label": "Refresh data",
     "theme.label": "Toggle light/dark theme",
     "share.label": "Share",
