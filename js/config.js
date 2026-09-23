@@ -74,8 +74,6 @@ const MARINE_PARAMS = {
     "sea_surface_temperature",
     "sea_level_height_msl",
   ].join(","),
-  // Para destacar qué día de los próximos 7 pinta mejor para surfear (ver "Mejor día" en Previsión).
-  daily: ["swell_wave_height_max", "swell_wave_period_max"].join(","),
   timezone: "Atlantic/Canary",
   forecast_days: 7,
   // Las Canteras está muy pegada a la costa: sin esto, la API puede coger una celda de rejilla

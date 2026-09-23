@@ -43,9 +43,9 @@ de la playa.
   oficial de AEMET** (temperatura, cielo y probabilidad de lluvia por día) junto a la de
   Open-Meteo, para contrastar ambas fuentes. Ver la sección "Integración con AEMET" más abajo
   para cómo funciona y cómo configurarla.
-- **Mejor día para surfear**: en "Próximos días" (Previsión), el día con mejores condiciones de
-  mar de fondo y viento (mismo criterio que las franjas horarias de surf) se destaca con una
-  insignia, para ver de un vistazo si merece la pena mirar más allá de hoy.
+- **Mejor día para surfear**: en "Próximos días" (Previsión), el día con mejores condiciones se
+  destaca con una insignia, calculado a partir de las mismas franjas horarias que "Hora a hora"
+  en Deportes (no de máximos diarios aparte), para que ambas secciones digan siempre lo mismo.
 - **Funciona sin conexión y es instalable**: un *service worker* (`sw.js`) cachea la app y el
   último dato bueno, así que abre al instante en visitas repetidas y sigue mostrando algo útil
   sin cobertura (típico en la playa), sin dejar de pedir siempre datos frescos cuando hay

@@ -5,7 +5,7 @@
 //
 // Subir CACHE_NAME cada vez que cambien los archivos estáticos (a la vez que el ?v=N de
 // index.html) para que las visitas ya instaladas descarten la caché vieja.
-const CACHE_NAME = "meteocanteras-v25";
+const CACHE_NAME = "meteocanteras-v26";
 
 self.addEventListener("install", () => {
   self.skipWaiting();

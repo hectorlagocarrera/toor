@@ -303,8 +303,9 @@ function buildSurfHourlySeries(
 
 // Agrupa las horas seguidas de buenas condiciones (score >= 2) en franjas, sin cruzar nunca la
 // medianoche, y dentro de cada una identifica la hora "pico" (la de mejor puntuación) para poder
-// justificar la recomendación con datos concretos en vez de solo un rango horario.
-function groupSurfWindows(series) {
+// justificar la recomendación con datos concretos en vez de solo un rango horario. Devuelve TODAS
+// las franjas encontradas (una función más arriba en la cadena decide cuántas mostrar).
+function computeSurfWindows(series) {
   const windows = [];
   let current = null;
   series.forEach((rec) => {
@@ -321,20 +322,43 @@ function groupSurfWindows(series) {
   });
   if (current) windows.push(current);
 
-  return windows
-    .map((records) => {
-      const avgScore = records.reduce((a, r) => a + r.score, 0) / records.length;
-      const peak = records.reduce((best, r) => (r.score > best.score ? r : best), records[0]);
-      return {
-        start: records[0].time,
-        end: records[records.length - 1].time,
-        hours: records.length,
-        avgScore,
-        peak,
-      };
-    })
+  return windows.map((records) => {
+    const avgScore = records.reduce((a, r) => a + r.score, 0) / records.length;
+    const peak = records.reduce((best, r) => (r.score > best.score ? r : best), records[0]);
+    return {
+      date: records[0].time.slice(0, 10),
+      start: records[0].time,
+      end: records[records.length - 1].time,
+      hours: records.length,
+      avgScore,
+      peak,
+    };
+  });
+}
+
+// Las 1-2 mejores franjas de toda la serie (lo que se muestra en "Hora a hora" en Deportes).
+function groupSurfWindows(series) {
+  return computeSurfWindows(series)
     .sort((a, b) => b.avgScore - a.avgScore || b.hours - a.hours)
     .slice(0, 2);
+}
+
+// Mejor día completo (para el badge de "Previsión"): usa las mismas franjas hora a hora que
+// Deportes en vez de un criterio propio con máximos diarios, para que ambas secciones cuenten
+// siempre la misma historia — antes podían discrepar porque el máximo de oleaje y el máximo de
+// viento de un día no tienen por qué darse a la misma hora, y el criterio diario tampoco excluía
+// la noche. Se compara la mejor franja de cada día (no la media del día completo, que mezclaría
+// horas sin oleaje aprovechable con la franja buena) y gana el día cuya mejor franja tenga mayor
+// puntuación media.
+function findBestSurfDay(series) {
+  const bestPerDay = {};
+  computeSurfWindows(series).forEach((w) => {
+    if (!bestPerDay[w.date] || w.avgScore > bestPerDay[w.date].avgScore) {
+      bestPerDay[w.date] = w;
+    }
+  });
+  const ranked = Object.values(bestPerDay).sort((a, b) => b.avgScore - a.avgScore || b.hours - a.hours);
+  return ranked[0]?.date ?? null;
 }
 
 // Frase corta con los datos concretos de una hora, para explicar "por qué" es un buen momento.

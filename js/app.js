@@ -330,32 +330,34 @@ function renderWindguruTable(forecast, marine) {
   `;
 }
 
-// Puntúa cada día con el mismo criterio que las franjas horarias de surf (scoreSurfHour), usando
-// los máximos diarios de mar de fondo y viento, para poder destacar cuál de los próximos días
-// pinta mejor sin inventar un criterio nuevo.
+// Qué día de "Próximos días" destacar como mejor para surfear. Reutiliza exactamente la misma
+// serie hora a hora (con la misma restricción de luz solar) que las franjas de Deportes, en vez
+// de un criterio propio con máximos diarios: antes discrepaban porque el pico de oleaje y el pico
+// de viento de un día no tienen por qué darse a la misma hora, y el máximo diario tampoco excluía
+// la noche.
 function findBestSurfDayIndex(forecast, marine) {
-  const d = forecast.daily;
-  const marineByDate = {};
-  (marine?.daily?.time || []).forEach((date, i) => {
-    marineByDate[date] = {
-      swellH: marine.daily.swell_wave_height_max?.[i] ?? null,
-      swellPer: marine.daily.swell_wave_period_max?.[i] ?? null,
-    };
-  });
+  const mh = marine?.hourly;
+  const fh = forecast.hourly;
+  const daily = forecast.daily;
+  if (!mh?.wave_height || !fh?.wind_speed_10m || !daily) return null;
 
-  let bestIndex = null;
-  let bestScore = -1;
-  d.time.forEach((date, i) => {
-    const m = marineByDate[date];
-    if (!m || m.swellH === null) return;
-    const score = scoreSurfHour(m.swellH, m.swellPer, d.wind_speed_10m_max?.[i], d.wind_direction_10m_dominant?.[i]);
-    if (score !== null && score > bestScore) {
-      bestScore = score;
-      bestIndex = i;
-    }
-  });
-  // Solo merece destacarse si hay condiciones al menos decentes (score >= 2, igual que las franjas).
-  return bestScore >= 2 ? bestIndex : null;
+  const nowIdx = findNearestHourIndex(mh.time);
+  const series = buildSurfHourlySeries(
+    mh.time,
+    mh.wave_height,
+    mh.wave_period,
+    mh.swell_wave_height,
+    mh.swell_wave_period,
+    fh.time,
+    fh.wind_speed_10m,
+    fh.wind_direction_10m,
+    nowIdx,
+    mh.time.length - nowIdx,
+    { time: daily.time, sunrise: daily.sunrise, sunset: daily.sunset }
+  );
+  const bestDate = findBestSurfDay(series);
+  const bestIndex = bestDate ? daily.time.indexOf(bestDate) : -1;
+  return bestIndex === -1 ? null : bestIndex;
 }
 
 function renderDaily(forecast, marine) {
