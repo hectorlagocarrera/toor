@@ -1,23 +1,23 @@
 {
-  "updated": "2026-09-23T13:42:13.229Z",
+  "updated": "2026-09-23T18:26:09.681Z",
   "avisos": [
     {
       "event": "Aviso de temperaturas máximas de nivel amarillo",
       "headline": "Aviso de temperaturas máximas de nivel amarillo. Este, sur y oeste de Gran Canaria",
-      "description": "Temperatura máxima: 34 ºC. Afectando especialmente a medianías y zonas bajas del sur de Gran Canaria y Tenerife. En Gran Canaria podrá alcanzar localmente 37 ºC.",
+      "description": "Temperatura máxima: 35 ºC. Afectando especialmente a medianías y zonas bajas del sur de Gran Canaria y Tenerife. En Gran Canaria podrá alcanzar localmente 37 ºC. Las temperaturas mínimas apenas bajarán de los 26 ºC en las zonas de mayor afectación.",
       "level": "amarillo",
       "severity": "Moderate",
-      "effective": "2026-09-22T22:50:01+01:00",
+      "effective": "2026-09-23T17:51:01+01:00",
       "expires": "2026-09-25T18:59:59+01:00",
       "areaDesc": "Este, sur y oeste de Gran Canaria"
     },
     {
       "event": "Aviso de temperaturas máximas de nivel amarillo",
       "headline": "Aviso de temperaturas máximas de nivel amarillo. Norte de Gran Canaria",
-      "description": "Temperatura máxima: 35 ºC. En Gran Canaria, afectando de manera extensa a medianías, y especialmente en vertientes norte y sur, incluyendo zonas bajas, donde localmente se podrían alcanzar 38 ºC. En Tenerife, especialmente en medianías y zonas bajas.",
+      "description": "Temperatura máxima: 35 ºC. En Gran Canaria, afectando de manera extensa a medianías, así como en zonas bajas, donde localmente se podrían alcanzar 38 ºC, sin bajar de los 26 ºC de mínima en el sudeste e interior sur. En Tenerife, especialmente en medianías y zonas bajas.",
       "level": "amarillo",
       "severity": "Moderate",
-      "effective": "2026-09-22T10:26:46+01:00",
+      "effective": "2026-09-23T17:24:46+01:00",
       "expires": "2026-09-24T18:59:59+01:00",
       "areaDesc": "Norte de Gran Canaria"
     }
@@ -39,8 +39,8 @@
     },
     {
       "fecha": "2026-09-25T00:00:00",
-      "tMax": 30,
-      "tMin": 26,
+      "tMax": 31,
+      "tMin": 25,
       "cielo": "Nubes altas",
       "probPrecip": 0
     },
