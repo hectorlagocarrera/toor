@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-23T00:40:08.247Z",
+  "updated": "2026-09-23T07:49:24.189Z",
   "avisos": [
     {
       "event": "Aviso de temperaturas máximas de nivel amarillo",
@@ -24,13 +24,6 @@
   ],
   "forecast": [
     {
-      "fecha": "2026-09-22T00:00:00",
-      "tMax": 28,
-      "tMin": 24,
-      "cielo": null,
-      "probPrecip": 0
-    },
-    {
       "fecha": "2026-09-23T00:00:00",
       "tMax": 29,
       "tMin": 24,
@@ -46,16 +39,23 @@
     },
     {
       "fecha": "2026-09-25T00:00:00",
-      "tMax": 31,
-      "tMin": 25,
+      "tMax": 30,
+      "tMin": 26,
       "cielo": "Nubes altas",
-      "probPrecip": 5
+      "probPrecip": 0
     },
     {
       "fecha": "2026-09-26T00:00:00",
-      "tMax": 29,
+      "tMax": 30,
       "tMin": 26,
-      "cielo": "Cubierto",
+      "cielo": "Nuboso",
+      "probPrecip": 25
+    },
+    {
+      "fecha": "2026-09-27T00:00:00",
+      "tMax": 30,
+      "tMin": 26,
+      "cielo": "Intervalos nubosos",
       "probPrecip": 20
     }
   ],
