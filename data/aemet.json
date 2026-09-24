@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T17:18:01.758Z",
+  "updated": "2026-09-24T21:35:48.959Z",
   "avisos": [
     {
       "event": "Aviso de temperaturas máximas de nivel amarillo",
@@ -69,5 +69,7 @@
       "probPrecip": 20
     }
   ],
-  "errors": []
+  "errors": [
+    "forecast: AEMET /api/prediccion/especifica/municipio/diaria/35016 -> HTTP 429: {\n  \"descripcion\" : \"Se ha alcanzado uno de los l�mites de uso. Vuelva a intentarlo el pr�ximo minuto.\",\n  \"estado\" : 429\n}"
+  ]
 }
