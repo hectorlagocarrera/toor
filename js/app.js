@@ -368,15 +368,16 @@ function renderDaily(forecast, marine) {
   const bestIndex = findBestSurfDayIndex(forecast, marine);
   d.time.forEach((date, i) => {
     const row = document.createElement("div");
-    row.className = i === bestIndex ? "day-row day-row--best" : "day-row";
+    const isBest = i === bestIndex;
+    row.className = isBest ? "day-row day-row--best" : "day-row";
     row.innerHTML = `
-      <div class="day-name">${formatDayName(date)}</div>
-      <div class="day-desc">
-        <span>${weatherCodeToText(d.weather_code[i])}</span>
-        ${i === bestIndex ? `<span class="day-best-badge">${icon("surfboard", "icon-xs")} ${t("forecast.bestDay")}</span>` : ""}
+      <div class="day-row-main">
+        <div class="day-name">${formatDayName(date)}</div>
+        <div class="day-desc">${weatherCodeToText(d.weather_code[i])}</div>
+        <div class="day-temps">${Math.round(d.temperature_2m_max[i])}° / ${Math.round(d.temperature_2m_min[i])}°</div>
+        <div class="day-wind">${icon("wind", "icon-xs")} ${Math.round(d.wind_speed_10m_max[i])} km/h</div>
       </div>
-      <div class="day-temps">${Math.round(d.temperature_2m_max[i])}° / ${Math.round(d.temperature_2m_min[i])}°</div>
-      <div class="day-wind">${icon("wind", "icon-xs")} ${Math.round(d.wind_speed_10m_max[i])} km/h</div>
+      ${isBest ? `<div class="day-best-badge">${icon("surfboard", "icon-xs")} ${t("forecast.bestDay")}</div>` : ""}
     `;
     container.appendChild(row);
   });
@@ -446,10 +447,12 @@ function renderAemetForecast(data) {
         ? `${day.probPrecip}% ${t("aemet.rain")}`
         : "—";
     row.innerHTML = `
-      <div class="day-name">${dateLabel}</div>
-      <div class="day-desc">${day.cielo || "—"}</div>
-      <div class="day-temps">${day.tMax ?? "--"}° / ${day.tMin ?? "--"}°</div>
-      <div class="day-wind">${rainLabel}</div>
+      <div class="day-row-main">
+        <div class="day-name">${dateLabel}</div>
+        <div class="day-desc">${day.cielo || "—"}</div>
+        <div class="day-temps">${day.tMax ?? "--"}° / ${day.tMin ?? "--"}°</div>
+        <div class="day-wind">${rainLabel}</div>
+      </div>
     `;
     container.appendChild(row);
   });

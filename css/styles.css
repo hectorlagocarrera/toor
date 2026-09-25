@@ -315,7 +315,6 @@ main#app {
 .aemet-banner-arrow { flex-shrink: 0; opacity: 0.55; }
 
 .aemet-forecast-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
-.aemet-forecast-list .day-row { grid-template-columns: 90px 1fr auto auto; }
 .aemet-forecast-hint-empty { font-size: 0.85rem; color: var(--color-text-mute); }
 
 .tab-panel { display: none; }
@@ -476,10 +475,6 @@ main#app {
 
 .daily-list { display: flex; flex-direction: column; gap: 10px; }
 .day-row {
-  display: grid;
-  grid-template-columns: 90px 1fr auto auto;
-  align-items: center;
-  gap: 10px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
@@ -487,15 +482,14 @@ main#app {
   font-size: 0.85rem;
   box-shadow: var(--shadow-card);
 }
-.day-row .day-name { font-weight: 600; text-transform: capitalize; }
-.day-row .day-desc {
-  color: var(--color-text-mute);
-  font-size: 0.78rem;
-  display: flex;
+.day-row-main {
+  display: grid;
+  grid-template-columns: 90px 1fr auto auto;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
+  gap: 10px;
 }
+.day-row .day-name { font-weight: 600; text-transform: capitalize; }
+.day-row .day-desc { color: var(--color-text-mute); font-size: 0.78rem; }
 .day-row .day-temps { font-weight: 600; white-space: nowrap; }
 .day-row .day-wind { color: var(--color-text-mute); white-space: nowrap; font-size: 0.78rem; }
 
@@ -514,6 +508,8 @@ main#app {
   padding: 2px 8px;
   border-radius: 999px;
   white-space: nowrap;
+  margin-top: 8px;
+  width: fit-content;
 }
 .day-best-badge .icon { width: 11px; height: 11px; }
 
