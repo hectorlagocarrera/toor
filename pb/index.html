@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Francisco Padrón Bermejo | Abogado en Las Palmas de Gran Canaria</title>
+  <meta name="description" content="Francisco Padrón Bermejo, abogado en Las Palmas de Gran Canaria desde 1997. Especialista en accidentes de tráfico, seguros y responsabilidad civil, arrendamientos, desahucios y herencias. Colegiado n.º 2489 ICALPA.">
+
+  <!-- Tipografías: Playfair Display (serif, títulos) + Inter (sans-serif, texto) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              50:  '#f2f5fa',
+              100: '#e3e9f3',
+              700: '#1b2d4f',
+              800: '#13223d',
+              900: '#0c1830',
+              950: '#070f20',
+            },
+            gold: {
+              300: '#dcc48e',
+              400: '#cfae6a',
+              500: '#b8944f',
+              600: '#9c7a3c',
+            },
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            soft: '0 10px 30px -12px rgba(12, 24, 48, 0.18)',
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="bg-white font-sans text-slate-700 antialiased">
+
+  <!-- ============ NAVEGACIÓN ============ -->
+  <header id="top" class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-navy-900/95 backdrop-blur">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <a href="#inicio" class="font-serif text-lg text-white sm:text-xl">
+        Francisco Padrón <span class="text-gold-400">|</span> <span class="font-sans text-sm font-light uppercase tracking-[0.2em] text-slate-300">Abogado</span>
+      </a>
+
+      <ul class="hidden items-center gap-8 text-sm font-medium text-slate-300 md:flex">
+        <li><a href="#inicio" class="transition hover:text-gold-400">Inicio</a></li>
+        <li><a href="#areas" class="transition hover:text-gold-400">Áreas de práctica</a></li>
+        <li><a href="#perfil" class="transition hover:text-gold-400">Sobre mí</a></li>
+        <li><a href="#contacto" class="rounded-sm bg-gold-500 px-5 py-2.5 font-semibold text-navy-950 transition hover:bg-gold-400">Contacto</a></li>
+      </ul>
+
+      <!-- Botón menú móvil -->
+      <button id="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu"
+              class="inline-flex h-10 w-10 items-center justify-center rounded text-white md:hidden">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Menú móvil -->
+    <div id="mobile-menu" class="hidden border-t border-white/10 bg-navy-900 md:hidden">
+      <ul class="space-y-1 px-4 py-4 text-slate-200">
+        <li><a href="#inicio" class="block rounded px-3 py-2 hover:bg-white/5">Inicio</a></li>
+        <li><a href="#areas" class="block rounded px-3 py-2 hover:bg-white/5">Áreas de práctica</a></li>
+        <li><a href="#perfil" class="block rounded px-3 py-2 hover:bg-white/5">Sobre mí</a></li>
+        <li class="pt-2"><a href="#contacto" class="block rounded-sm bg-gold-500 px-3 py-3 text-center font-semibold text-navy-950">Contacto</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section id="inicio" class="relative flex min-h-[92vh] items-center overflow-hidden bg-navy-900 pt-20">
+      <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=2000&q=80"
+           alt="Balanza de la justicia sobre mesa de despacho"
+           class="absolute inset-0 h-full w-full object-cover opacity-30">
+      <div class="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-900/90 to-navy-900/40"></div>
+
+      <div class="relative mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div class="max-w-3xl">
+          <p class="mb-6 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-gold-400">
+            <span class="h-px w-10 bg-gold-400"></span> Abogado en Las Palmas de Gran Canaria
+          </p>
+          <h1 class="font-serif text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl">
+            Sus derechos merecen una defensa <span class="italic text-gold-400">firme, rigurosa</span> y cercana.
+          </h1>
+          <p class="mt-6 max-w-2xl text-lg font-light leading-relaxed text-slate-300 sm:text-xl">
+            Más de 25 años defendiendo a particulares y familias en Las Palmas. Si ha sufrido un accidente, tiene un conflicto con su aseguradora o necesita resolver un arrendamiento o una herencia, le acompaño desde la primera consulta hasta la última resolución.
+          </p>
+          <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+            <a href="#contacto" class="inline-flex items-center justify-center rounded-sm bg-gold-500 px-8 py-4 text-base font-semibold text-navy-950 shadow-lg shadow-black/20 transition hover:bg-gold-400">
+              Solicitar una Consulta
+              <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="#areas" class="inline-flex items-center justify-center rounded-sm border border-white/30 px-8 py-4 text-base font-medium text-white transition hover:border-gold-400 hover:text-gold-400">
+              Ver áreas de práctica
+            </a>
+          </div>
+        </div>
+
+        <!-- Indicadores de confianza -->
+        <dl class="mt-16 grid max-w-3xl grid-cols-1 gap-6 border-t border-white/10 pt-10 sm:grid-cols-3">
+          <div>
+            <dt class="text-xs uppercase tracking-widest text-slate-400">Ejerciendo desde</dt>
+            <dd class="mt-1 font-serif text-3xl text-white">1997</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-widest text-slate-400">Experiencia</dt>
+            <dd class="mt-1 font-serif text-3xl text-white">+25 años</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-widest text-slate-400">Colegiado ICALPA</dt>
+            <dd class="mt-1 font-serif text-3xl text-white">N.º 2489</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============ ÁREAS DE PRÁCTICA ============ -->
+    <section id="areas" class="scroll-mt-20 bg-slate-50 py-20 sm:py-28">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-gold-600">Áreas de práctica</p>
+          <h2 class="mt-4 font-serif text-3xl font-semibold text-navy-900 sm:text-4xl">Especialización que marca la diferencia</h2>
+          <p class="mt-5 text-lg leading-relaxed text-slate-600">
+            Conozco cómo trabajan las aseguradoras desde dentro. Esa experiencia se traduce en estrategias más eficaces y en indemnizaciones justas para usted.
+          </p>
+        </div>
+
+        <div class="mt-16 grid gap-8 sm:grid-cols-2 lg:gap-10">
+          <!-- Tarjeta 1 -->
+          <article class="group overflow-hidden rounded-lg bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+            <div class="h-48 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1200&q=80"
+                   alt="Vehículos circulando por carretera" loading="lazy"
+                   class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+            </div>
+            <div class="p-8">
+              <span class="text-xs font-semibold uppercase tracking-widest text-gold-600">Especialidad principal</span>
+              <h3 class="mt-2 font-serif text-2xl text-navy-900">Derecho de la Circulación y Accidentes de Tráfico</h3>
+              <p class="mt-4 leading-relaxed text-slate-600">
+                Reclamación de indemnizaciones por lesiones, secuelas, daños materiales y lucro cesante. Negociación con compañías y defensa en juicio para que reciba la compensación íntegra que le corresponde.
+              </p>
+              <ul class="mt-5 space-y-2 text-sm text-slate-600">
+                <li class="flex gap-2"><span class="text-gold-500">—</span> Lesionados y víctimas de atropellos</li>
+                <li class="flex gap-2"><span class="text-gold-500">—</span> Valoración conforme al baremo vigente</li>
+                <li class="flex gap-2"><span class="text-gold-500">—</span> Procedimientos penales y civiles</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Tarjeta 2 -->
+          <article class="group overflow-hidden rounded-lg bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+            <div class="h-48 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80"
+                   alt="Firma de una póliza con bolígrafo" loading="lazy"
+                   class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+            </div>
+            <div class="p-8">
+              <span class="text-xs font-semibold uppercase tracking-widest text-gold-600">Especialidad principal</span>
+              <h3 class="mt-2 font-serif text-2xl text-navy-900">Seguros y Responsabilidad Civil</h3>
+              <p class="mt-4 leading-relaxed text-slate-600">
+                Siniestros rechazados, pólizas mal interpretadas o indemnizaciones insuficientes. Hago valer sus derechos frente a la aseguradora y reclamo la responsabilidad de quien le haya causado un daño.
+              </p>
+              <ul class="mt-5 space-y-2 text-sm text-slate-600">
+                <li class="flex gap-2"><span class="text-gold-500">—</span> Reclamaciones frente a compañías</li>
+                <li class="flex gap-2"><span class="text-gold-500">—</span> Responsabilidad civil contractual y extracontractual</li>
+                <li class="flex gap-2"><span class="text-gold-500">—</span> Análisis y revisión de pólizas</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Tarjeta 3 -->
+          <article class="group overflow-hidden rounded-lg bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+            <div class="h-48 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80"
+                   alt="Entrega de llaves de una vivienda" loading="lazy"
+                   class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+            </div>
+            <div class="p-8">
+              <span class="text-xs font-semibold uppercase tracking-widest text-gold-600">Inmobiliario</span>
+              <h3 class="mt-2 font-serif text-2xl text-navy-900">Arrendamientos, Contratos y Desahucios</h3>
+              <p class="mt-4 leading-relaxed text-slate-600">
+                Protección para propietarios e inquilinos. Redacto y reviso contratos con garantías y tramito desahucios y reclamaciones de rentas con la máxima agilidad posible.
+              </p>
+              <ul class="mt-5 space-y-2 text-sm text-slate-600">
+                <li class="flex gap-2"><span class="text-gold-500">—</span> Desahucios por impago y por expiración</li>
+                <li class="flex gap-2"><span class="text-gold-500">—</span> Reclamación de rentas y fianzas</li>
+                <li class="flex gap-2"><span class="text-gold-500">—</span> Redacción y revisión de contratos</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Tarjeta 4 -->
+          <article class="group overflow-hidden rounded-lg bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+            <div class="h-48 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=1200&q=80"
+                   alt="Documentación jurídica sobre escritorio" loading="lazy"
+                   class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+            </div>
+            <div class="p-8">
+              <span class="text-xs font-semibold uppercase tracking-widest text-gold-600">Civil</span>
+              <h3 class="mt-2 font-serif text-2xl text-navy-900">Derecho Civil y Sucesiones</h3>
+              <p class="mt-4 leading-relaxed text-slate-600">
+                Herencias, testamentos y conflictos entre herederos resueltos con sensibilidad y precisión técnica. Asesoramiento civil general para que tome cada decisión con seguridad.
+              </p>
+              <ul class="mt-5 space-y-2 text-sm text-slate-600">
+                <li class="flex gap-2"><span class="text-gold-500">—</span> Aceptación y partición de herencias</li>
+                <li class="flex gap-2"><span class="text-gold-500">—</span> Reclamación de legítimas</li>
+                <li class="flex gap-2"><span class="text-gold-500">—</span> Reclamaciones de cantidad y obligaciones</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PERFIL PROFESIONAL ============ -->
+    <section id="perfil" class="scroll-mt-20 bg-white py-20 sm:py-28">
+      <div class="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8">
+        <div class="relative">
+          <div class="absolute -bottom-4 -left-4 hidden h-full w-full rounded-lg border-2 border-gold-400 sm:block"></div>
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1400&q=80"
+               alt="Despacho profesional luminoso y ordenado" loading="lazy"
+               class="relative aspect-[4/3] w-full rounded-lg object-cover shadow-soft">
+          <div class="absolute -right-2 bottom-6 rounded-md bg-navy-900 px-6 py-5 text-white shadow-xl sm:-right-6">
+            <p class="font-serif text-4xl text-gold-400">1997</p>
+            <p class="text-xs uppercase tracking-widest text-slate-300">Ejercicio ininterrumpido</p>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-gold-600">Sobre mí</p>
+          <h2 class="mt-4 font-serif text-3xl font-semibold text-navy-900 sm:text-4xl">Francisco Padrón Bermejo</h2>
+          <p class="mt-2 text-sm text-slate-500">Abogado colegiado n.º 2489 · Ilustre Colegio de Abogados de Las Palmas</p>
+
+          <div class="mt-8 space-y-5 text-lg leading-relaxed text-slate-600">
+            <p>
+              Licenciado en Derecho por la <strong class="font-semibold text-navy-900">Universidad de Las Palmas de Gran Canaria (ULPGC)</strong>, ejerzo la abogacía de forma ininterrumpida desde 1997. Más de dos décadas y media dedicadas a una sola misión: proteger los intereses de mis clientes.
+            </p>
+            <p>
+              Mi colaboración externa con entidades de primer nivel como <strong class="font-semibold text-navy-900">Reale Seguros, Plus Ultra y Mutua Madrileña</strong> me ha dado un conocimiento profundo de cómo se valoran y negocian los siniestros. Hoy pongo esa experiencia al servicio de quien más lo necesita: usted.
+            </p>
+            <p>
+              Trabajo con rigor, honestidad y trato directo. Le diré con claridad cuáles son sus opciones reales desde el primer día, y cada asunto lo llevo personalmente.
+            </p>
+          </div>
+
+          <dl class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div class="rounded-lg bg-slate-50 p-5">
+              <dt class="text-xs uppercase tracking-widest text-slate-500">Formación</dt>
+              <dd class="mt-1 font-serif text-lg text-navy-900">Derecho · ULPGC</dd>
+            </div>
+            <div class="rounded-lg bg-slate-50 p-5">
+              <dt class="text-xs uppercase tracking-widest text-slate-500">Trayectoria</dt>
+              <dd class="mt-1 font-serif text-lg text-navy-900">+25 años</dd>
+            </div>
+            <div class="rounded-lg bg-slate-50 p-5">
+              <dt class="text-xs uppercase tracking-widest text-slate-500">Trato</dt>
+              <dd class="mt-1 font-serif text-lg text-navy-900">Personal y directo</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FRANJA DE CONFIANZA ============ -->
+    <section class="relative overflow-hidden bg-navy-900 py-16">
+      <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=2000&q=80"
+           alt="" aria-hidden="true" loading="lazy"
+           class="absolute inset-0 h-full w-full object-cover opacity-15">
+      <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
+        <p class="font-serif text-2xl italic leading-relaxed text-white sm:text-3xl">
+          “Cada caso es único y cada cliente merece que su abogado lo trate como si fuera el único.”
+        </p>
+        <p class="mt-4 text-sm uppercase tracking-[0.3em] text-gold-400">Francisco Padrón Bermejo</p>
+      </div>
+    </section>
+
+    <!-- ============ CONTACTO ============ -->
+    <section id="contacto" class="scroll-mt-20 bg-slate-50 py-20 sm:py-28">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-gold-600">Cita previa</p>
+          <h2 class="mt-4 font-serif text-3xl font-semibold text-navy-900 sm:text-4xl">Cuénteme su caso</h2>
+          <p class="mt-5 text-lg leading-relaxed text-slate-600">
+            Cuanto antes actúe, más opciones tendrá. Déjeme sus datos y le responderé personalmente en un plazo máximo de 24 horas laborables.
+          </p>
+        </div>
+
+        <div class="mt-14 grid gap-8 lg:grid-cols-5">
+          <!-- Datos del despacho -->
+          <aside class="rounded-lg bg-navy-900 p-8 text-slate-300 shadow-soft sm:p-10 lg:col-span-2">
+            <h3 class="font-serif text-2xl text-white">El despacho</h3>
+            <p class="mt-3 leading-relaxed">Atención presencial con cita previa en el centro de Las Palmas de Gran Canaria.</p>
+
+            <ul class="mt-8 space-y-6">
+              <li class="flex gap-4">
+                <svg class="mt-0.5 h-6 w-6 flex-none text-gold-400" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                <div>
+                  <p class="text-xs uppercase tracking-widest text-slate-400">Dirección</p>
+                  <!-- TODO: sustituir por la dirección real del despacho -->
+                  <p class="mt-1 text-white">C/ [Dirección del despacho], n.º —<br>35002 Las Palmas de Gran Canaria</p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <svg class="mt-0.5 h-6 w-6 flex-none text-gold-400" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+                <div>
+                  <p class="text-xs uppercase tracking-widest text-slate-400">Teléfono</p>
+                  <!-- TODO: sustituir por el teléfono real -->
+                  <p class="mt-1 text-white">928 000 000</p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <svg class="mt-0.5 h-6 w-6 flex-none text-gold-400" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 7v5l3 2"/></svg>
+                <div>
+                  <p class="text-xs uppercase tracking-widest text-slate-400">Horario</p>
+                  <p class="mt-1 text-white">Lunes a viernes · 9:00 – 14:00 y 16:30 – 19:30</p>
+                </div>
+              </li>
+            </ul>
+
+            <div class="mt-10 overflow-hidden rounded-md">
+              <img src="https://images.unsplash.com/photo-1436450412740-6b988f486c6b?auto=format&fit=crop&w=1000&q=80"
+                   alt="Documentos y bolígrafo sobre la mesa del despacho" loading="lazy"
+                   class="h-40 w-full object-cover opacity-80">
+            </div>
+          </aside>
+
+          <!-- Formulario -->
+          <form id="contact-form" class="rounded-lg bg-white p-8 shadow-soft sm:p-10 lg:col-span-3" novalidate>
+            <div class="grid gap-6 sm:grid-cols-2">
+              <div class="sm:col-span-2">
+                <label for="nombre" class="block text-sm font-medium text-navy-900">Nombre y apellidos</label>
+                <input id="nombre" name="nombre" type="text" autocomplete="name" required
+                       class="mt-2 block w-full rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-navy-900 outline-none transition focus:border-gold-500 focus:bg-white focus:ring-2 focus:ring-gold-400/30">
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-navy-900">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required
+                       class="mt-2 block w-full rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-navy-900 outline-none transition focus:border-gold-500 focus:bg-white focus:ring-2 focus:ring-gold-400/30">
+              </div>
+              <div>
+                <label for="telefono" class="block text-sm font-medium text-navy-900">Teléfono</label>
+                <input id="telefono" name="telefono" type="tel" autocomplete="tel" required
+                       class="mt-2 block w-full rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-navy-900 outline-none transition focus:border-gold-500 focus:bg-white focus:ring-2 focus:ring-gold-400/30">
+              </div>
+              <div class="sm:col-span-2">
+                <label for="tipo" class="block text-sm font-medium text-navy-900">Tipo de caso</label>
+                <select id="tipo" name="tipo" required
+                        class="mt-2 block w-full rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-navy-900 outline-none transition focus:border-gold-500 focus:bg-white focus:ring-2 focus:ring-gold-400/30">
+                  <option value="" disabled selected>Seleccione una opción</option>
+                  <option>Accidente de tráfico</option>
+                  <option>Seguros y responsabilidad civil</option>
+                  <option>Arrendamientos y desahucios</option>
+                  <option>Herencias y sucesiones</option>
+                  <option>Derecho civil general</option>
+                  <option>Otro</option>
+                </select>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="mensaje" class="block text-sm font-medium text-navy-900">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Describa brevemente su situación…"
+                          class="mt-2 block w-full resize-y rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-navy-900 outline-none transition placeholder:text-slate-400 focus:border-gold-500 focus:bg-white focus:ring-2 focus:ring-gold-400/30"></textarea>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="flex items-start gap-3 text-sm text-slate-600">
+                  <input type="checkbox" name="privacidad" required class="mt-1 h-4 w-4 rounded border-slate-300 accent-gold-500">
+                  <span>He leído y acepto la <a href="#" class="text-navy-900 underline decoration-gold-400 underline-offset-2">política de privacidad</a>. Sus datos se tratarán con total confidencialidad.</span>
+                </label>
+              </div>
+            </div>
+
+            <button type="submit" class="mt-8 inline-flex w-full items-center justify-center rounded-sm bg-gold-500 px-8 py-4 text-base font-semibold text-navy-950 transition hover:bg-gold-400 sm:w-auto">
+              Solicitar una Consulta
+            </button>
+            <p id="form-msg" class="mt-4 hidden text-sm" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="bg-navy-950 text-slate-400">
+    <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+        <div>
+          <p class="font-serif text-xl text-white">Francisco Padrón <span class="text-gold-400">|</span> Abogado</p>
+          <p class="mt-3 max-w-sm text-sm leading-relaxed">
+            Abogado colegiado n.º 2489 del Ilustre Colegio de Abogados de Las Palmas. Ejerciendo en Las Palmas de Gran Canaria desde 1997.
+          </p>
+        </div>
+        <nav aria-label="Enlaces legales">
+          <ul class="flex flex-wrap gap-x-6 gap-y-3 text-sm">
+            <li><a href="#" class="transition hover:text-gold-400">Aviso legal</a></li>
+            <li><a href="#" class="transition hover:text-gold-400">Política de privacidad</a></li>
+            <li><a href="#" class="transition hover:text-gold-400">Política de cookies</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs sm:flex-row sm:justify-between">
+        <p>© <span id="year">2026</span> Francisco Padrón Bermejo. Todos los derechos reservados.</p>
+        <p>Colegiado ICALPA n.º 2489 · Las Palmas de Gran Canaria</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Menú móvil
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden') === false;
+      btn.setAttribute('aria-expanded', open);
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      btn.setAttribute('aria-expanded', 'false');
+    }));
+
+    // Año del copyright
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Formulario (demo: sin backend, solo validación y mensaje de confirmación)
+    const form = document.getElementById('contact-form');
+    const msg = document.getElementById('form-msg');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      msg.classList.remove('hidden');
+      if (!form.checkValidity()) {
+        msg.className = 'mt-4 text-sm text-red-600';
+        msg.textContent = 'Por favor, complete todos los campos y acepte la política de privacidad.';
+        return;
+      }
+      msg.className = 'mt-4 text-sm text-emerald-700';
+      msg.textContent = 'Gracias. Hemos recibido su solicitud y le contactaremos en menos de 24 horas laborables.';
+      form.reset();
+    });
+  </script>
+</body>
+</html>
