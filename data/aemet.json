@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T18:42:31.020Z",
+  "updated": "2026-09-25T23:20:18.726Z",
   "avisos": [
     {
       "event": "Aviso de vientos de nivel amarillo",
@@ -45,28 +45,28 @@
       "tMax": 29,
       "tMin": 25,
       "cielo": "Cubierto",
-      "probPrecip": 20
+      "probPrecip": 25
     },
     {
       "fecha": "2026-09-27T00:00:00",
       "tMax": 30,
       "tMin": 24,
       "cielo": "Cubierto con lluvia",
-      "probPrecip": 70
+      "probPrecip": 80
     },
     {
       "fecha": "2026-09-28T00:00:00",
-      "tMax": 29,
-      "tMin": 24,
-      "cielo": "Nuboso",
-      "probPrecip": 30
+      "tMax": 28,
+      "tMin": 23,
+      "cielo": "Intervalos nubosos",
+      "probPrecip": 40
     },
     {
       "fecha": "2026-09-29T00:00:00",
-      "tMax": 29,
-      "tMin": 24,
+      "tMax": 28,
+      "tMin": 23,
       "cielo": "Intervalos nubosos",
-      "probPrecip": 25
+      "probPrecip": 20
     }
   ],
   "errors": []
