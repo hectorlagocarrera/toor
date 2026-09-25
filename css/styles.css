@@ -445,20 +445,23 @@ main#app {
   text-align: center;
   min-width: 44px;
   border-bottom: 1px solid var(--color-border);
-  color: #1a2b33;
+  color: var(--color-text);
 }
 .wg-day-cell { font-weight: 700; font-size: 0.72rem; text-transform: capitalize; color: var(--color-text); background: none; }
 .wg-arrow { display: inline-block; }
+/* Las celdas con banda de color (viento/oleaje) llevan un fondo claro fijo, igual en los dos
+   temas, así que necesitan también un texto oscuro fijo: si heredaran var(--color-text) se
+   volverían casi ilegibles en modo oscuro (texto claro sobre fondo claro). */
 .wg-wind-0 { background: transparent; color: var(--color-text); }
-.wg-wind-1 { background: #d9f2d0; }
-.wg-wind-2 { background: #fff3b0; }
-.wg-wind-3 { background: #ffcf8a; }
-.wg-wind-4 { background: #ff9d9d; }
-.wg-wave-0 { background: #eaf6fb; }
-.wg-wave-1 { background: #cdeaf7; }
-.wg-wave-2 { background: #9ed4ee; }
+.wg-wind-1 { background: #d9f2d0; color: #1a2b33; }
+.wg-wind-2 { background: #fff3b0; color: #1a2b33; }
+.wg-wind-3 { background: #ffcf8a; color: #1a2b33; }
+.wg-wind-4 { background: #ff9d9d; color: #1a2b33; }
+.wg-wave-0 { background: #eaf6fb; color: #1a2b33; }
+.wg-wave-1 { background: #cdeaf7; color: #1a2b33; }
+.wg-wave-2 { background: #9ed4ee; color: #1a2b33; }
 .wg-wave-3 { background: #5fb3de; color: #06222c; }
-.wg-wave-4 { background: #c98cff; }
+.wg-wave-4 { background: #c98cff; color: #1a2b33; }
 
 .wg-legend {
   display: flex;
