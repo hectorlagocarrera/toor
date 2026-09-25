@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Francisco Padrón Bermejo | Abogado en Las Palmas de Gran Canaria</title>
+  <link rel="canonical" href="https://padronbermejoabogado.es/">
   <meta name="description" content="Francisco Padrón Bermejo, abogado en Las Palmas de Gran Canaria desde 1997. Especialista en accidentes de tráfico, seguros y responsabilidad civil, arrendamientos, desahucios y herencias. Colegiado n.º 2489 ICALPA.">
 
   <!-- Tipografías: Playfair Display (serif, títulos) + Inter (sans-serif, texto) -->
@@ -314,36 +315,48 @@
                 <svg class="mt-0.5 h-6 w-6 flex-none text-gold-400" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
                 <div>
                   <p class="text-xs uppercase tracking-widest text-slate-400">Dirección</p>
-                  <!-- TODO: sustituir por la dirección real del despacho -->
-                  <p class="mt-1 text-white">C/ [Dirección del despacho], n.º —<br>35002 Las Palmas de Gran Canaria</p>
+                  <address class="mt-1 not-italic text-white">C/ Triana, n.º 38, 1.º Dcha.<br>35002 Las Palmas de Gran Canaria</address>
                 </div>
               </li>
               <li class="flex gap-4">
                 <svg class="mt-0.5 h-6 w-6 flex-none text-gold-400" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
                 <div>
-                  <p class="text-xs uppercase tracking-widest text-slate-400">Teléfono</p>
-                  <!-- TODO: sustituir por el teléfono real -->
-                  <p class="mt-1 text-white">928 000 000</p>
+                  <p class="text-xs uppercase tracking-widest text-slate-400">Teléfonos</p>
+                  <p class="mt-1 text-white">
+                    Tel. <a href="tel:+34928320015" class="transition hover:text-gold-400">928 320 015</a><br>
+                    Móvil <a href="tel:+34629176362" class="transition hover:text-gold-400">629 176 362</a><br>
+                    <span class="text-slate-400">Fax 928 385 625</span>
+                  </p>
                 </div>
               </li>
               <li class="flex gap-4">
-                <svg class="mt-0.5 h-6 w-6 flex-none text-gold-400" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 7v5l3 2"/></svg>
+                <svg class="mt-0.5 h-6 w-6 flex-none text-gold-400" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="m3 7 9 6 9-6"/></svg>
                 <div>
-                  <p class="text-xs uppercase tracking-widest text-slate-400">Horario</p>
-                  <p class="mt-1 text-white">Lunes a viernes · 9:00 – 14:00 y 16:30 – 19:30</p>
+                  <p class="text-xs uppercase tracking-widest text-slate-400">Email</p>
+                  <p class="mt-1 break-all text-white"><a href="mailto:padronbermejo@gmail.com" class="transition hover:text-gold-400">padronbermejo@gmail.com</a></p>
                 </div>
               </li>
             </ul>
 
             <div class="mt-10 overflow-hidden rounded-md">
-              <img src="https://images.unsplash.com/photo-1436450412740-6b988f486c6b?auto=format&fit=crop&w=1000&q=80"
-                   alt="Documentos y bolígrafo sobre la mesa del despacho" loading="lazy"
-                   class="h-40 w-full object-cover opacity-80">
+              <iframe title="Ubicación del despacho en C/ Triana 38, Las Palmas de Gran Canaria"
+                      src="https://www.google.com/maps?q=Calle+Triana+38,+35002+Las+Palmas+de+Gran+Canaria&output=embed"
+                      class="h-56 w-full border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </aside>
 
           <!-- Formulario -->
-          <form id="contact-form" class="rounded-lg bg-white p-8 shadow-soft sm:p-10 lg:col-span-3" novalidate>
+          <!-- Envío mediante FormSubmit (formsubmit.co): reenvía el formulario a padronbermejo@gmail.com
+               y muestra un CAPTCHA antes de enviar. El primer envío requiere confirmar la activación
+               desde el enlace que FormSubmit manda a ese correo. -->
+          <form id="contact-form" action="https://formsubmit.co/padronbermejo@gmail.com" method="POST"
+                class="rounded-lg bg-white p-8 shadow-soft sm:p-10 lg:col-span-3" novalidate>
+            <input type="hidden" name="_subject" value="Nueva consulta desde padronbermejoabogado.es">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="true">
+            <input type="hidden" name="_next" id="form-next" value="https://padronbermejoabogado.es/?enviado=1#contacto">
+            <!-- Trampa anti-spam: los humanos no ven este campo -->
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
             <div class="grid gap-6 sm:grid-cols-2">
               <div class="sm:col-span-2">
                 <label for="nombre" class="block text-sm font-medium text-navy-900">Nombre y apellidos</label>
@@ -389,6 +402,7 @@
             <button type="submit" class="mt-8 inline-flex w-full items-center justify-center rounded-sm bg-gold-500 px-8 py-4 text-base font-semibold text-navy-950 transition hover:bg-gold-400 sm:w-auto">
               Solicitar una Consulta
             </button>
+            <p class="mt-4 text-xs text-slate-500">Al enviar se mostrará una verificación anti-spam (CAPTCHA) para confirmar que no es un robot.</p>
             <p id="form-msg" class="mt-4 hidden text-sm" role="status"></p>
           </form>
         </div>
@@ -416,7 +430,7 @@
       </div>
       <div class="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs sm:flex-row sm:justify-between">
         <p>© <span id="year">2026</span> Francisco Padrón Bermejo. Todos los derechos reservados.</p>
-        <p>Colegiado ICALPA n.º 2489 · Las Palmas de Gran Canaria</p>
+        <p>Colegiado ICALPA n.º 2489 · C/ Triana 38, 1.º Dcha., 35002 Las Palmas de G.C. · padronbermejoabogado.es</p>
       </div>
     </div>
   </footer>
@@ -437,21 +451,22 @@
     // Año del copyright
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Formulario (demo: sin backend, solo validación y mensaje de confirmación)
+    // Formulario: valida en el navegador y deja que FormSubmit haga el envío (con CAPTCHA)
     const form = document.getElementById('contact-form');
     const msg = document.getElementById('form-msg');
+    // Tras enviar, volver a esta misma página (sirve igual en GitHub Pages que en el dominio final)
+    document.getElementById('form-next').value = location.origin + location.pathname + '?enviado=1#contacto';
     form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      msg.classList.remove('hidden');
       if (!form.checkValidity()) {
+        e.preventDefault();
         msg.className = 'mt-4 text-sm text-red-600';
         msg.textContent = 'Por favor, complete todos los campos y acepte la política de privacidad.';
-        return;
       }
-      msg.className = 'mt-4 text-sm text-emerald-700';
-      msg.textContent = 'Gracias. Hemos recibido su solicitud y le contactaremos en menos de 24 horas laborables.';
-      form.reset();
     });
+    if (new URLSearchParams(location.search).has('enviado')) {
+      msg.className = 'mt-4 text-sm text-emerald-700';
+      msg.textContent = 'Gracias. Hemos recibido su consulta y le contactaremos en menos de 24 horas laborables.';
+    }
   </script>
 </body>
 </html>
