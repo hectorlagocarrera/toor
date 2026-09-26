@@ -1,16 +1,6 @@
 {
-  "updated": "2026-09-26T05:07:47.215Z",
+  "updated": "2026-09-26T11:33:05.445Z",
   "avisos": [
-    {
-      "event": "Aviso de vientos de nivel amarillo",
-      "headline": "Aviso de vientos de nivel amarillo. Este, sur y oeste de Gran Canaria",
-      "description": "Rachas máximas: 70 km/h. Rachas muy fuertes del norte que afectarán a vertientes sur, especialmente en barrancos.",
-      "level": "amarillo",
-      "severity": "Moderate",
-      "effective": "2026-09-25T10:00:19+01:00",
-      "expires": "2026-09-26T02:59:59+01:00",
-      "areaDesc": "Este, sur y oeste de Gran Canaria"
-    },
     {
       "event": "Aviso de temperaturas máximas de nivel amarillo",
       "headline": "Aviso de temperaturas máximas de nivel amarillo. Este, sur y oeste de Gran Canaria",
@@ -20,32 +10,15 @@
       "effective": "2026-09-25T10:00:19+01:00",
       "expires": "2026-09-26T18:59:59+01:00",
       "areaDesc": "Este, sur y oeste de Gran Canaria"
-    },
-    {
-      "event": "Aviso de temperaturas máximas de nivel amarillo",
-      "headline": "Aviso de temperaturas máximas de nivel amarillo. Cumbres de Gran Canaria",
-      "description": "Temperatura máxima: 34 ºC. En La Gomera, principalmente en las zonas bajas del sur; en Tenerife, en la fachada noroeste y áreas adyacentes; en Gran Canaria, en la cuenca de Tejeda; y en las islas más orientales, principalmente en las zonas del sur y este.",
-      "level": "amarillo",
-      "severity": "Moderate",
-      "effective": "2026-09-25T08:01:18+01:00",
-      "expires": "2026-09-25T18:59:59+01:00",
-      "areaDesc": "Cumbres de Gran Canaria"
     }
   ],
   "forecast": [
     {
-      "fecha": "2026-09-25T00:00:00",
+      "fecha": "2026-09-26T00:00:00",
       "tMax": 29,
       "tMin": 25,
       "cielo": null,
       "probPrecip": 0
-    },
-    {
-      "fecha": "2026-09-26T00:00:00",
-      "tMax": 29,
-      "tMin": 25,
-      "cielo": "Cubierto",
-      "probPrecip": 25
     },
     {
       "fecha": "2026-09-27T00:00:00",
@@ -57,19 +30,24 @@
     {
       "fecha": "2026-09-28T00:00:00",
       "tMax": 28,
-      "tMin": 23,
-      "cielo": "Intervalos nubosos",
-      "probPrecip": 40
+      "tMin": 24,
+      "cielo": "Intervalos nubosos con lluvia escasa",
+      "probPrecip": 60
     },
     {
       "fecha": "2026-09-29T00:00:00",
       "tMax": 28,
       "tMin": 23,
       "cielo": "Intervalos nubosos",
-      "probPrecip": 20
+      "probPrecip": 40
+    },
+    {
+      "fecha": "2026-09-30T00:00:00",
+      "tMax": 28,
+      "tMin": 24,
+      "cielo": "Intervalos nubosos",
+      "probPrecip": 25
     }
   ],
-  "errors": [
-    "forecast: AEMET /api/prediccion/especifica/municipio/diaria/35016 -> HTTP 429: {\n  \"descripcion\" : \"Se ha alcanzado uno de los l�mites de uso. Vuelva a intentarlo el pr�ximo minuto.\",\n  \"estado\" : 429\n}"
-  ]
+  "errors": []
 }
