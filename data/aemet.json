@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T16:29:48.737Z",
+  "updated": "2026-09-26T21:16:33.653Z",
   "avisos": [
     {
       "event": "Aviso de temperaturas máximas de nivel amarillo",
@@ -15,15 +15,15 @@
   "forecast": [
     {
       "fecha": "2026-09-26T00:00:00",
-      "tMax": 29,
-      "tMin": 25,
+      "tMax": 30,
+      "tMin": 26,
       "cielo": null,
       "probPrecip": 0
     },
     {
       "fecha": "2026-09-27T00:00:00",
       "tMax": 30,
-      "tMin": 24,
+      "tMin": 25,
       "cielo": "Cubierto con lluvia",
       "probPrecip": 80
     },
@@ -39,17 +39,15 @@
       "tMax": 28,
       "tMin": 23,
       "cielo": "Intervalos nubosos",
-      "probPrecip": 40
+      "probPrecip": 30
     },
     {
       "fecha": "2026-09-30T00:00:00",
       "tMax": 28,
-      "tMin": 24,
+      "tMin": 23,
       "cielo": "Intervalos nubosos",
-      "probPrecip": 25
+      "probPrecip": 10
     }
   ],
-  "errors": [
-    "forecast: AEMET /api/prediccion/especifica/municipio/diaria/35016 -> HTTP 429: {\n  \"descripcion\" : \"Se ha alcanzado uno de los l�mites de uso. Vuelva a intentarlo el pr�ximo minuto.\",\n  \"estado\" : 429\n}"
-  ]
+  "errors": []
 }
