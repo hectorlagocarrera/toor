@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T23:20:18.726Z",
+  "updated": "2026-09-26T05:07:47.215Z",
   "avisos": [
     {
       "event": "Aviso de vientos de nivel amarillo",
@@ -69,5 +69,7 @@
       "probPrecip": 20
     }
   ],
-  "errors": []
+  "errors": [
+    "forecast: AEMET /api/prediccion/especifica/municipio/diaria/35016 -> HTTP 429: {\n  \"descripcion\" : \"Se ha alcanzado uno de los l�mites de uso. Vuelva a intentarlo el pr�ximo minuto.\",\n  \"estado\" : 429\n}"
+  ]
 }
