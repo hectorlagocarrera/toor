@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T21:16:33.653Z",
+  "updated": "2026-09-27T00:41:27.478Z",
   "avisos": [
     {
       "event": "Aviso de temperaturas máximas de nivel amarillo",
@@ -25,7 +25,7 @@
       "tMax": 30,
       "tMin": 25,
       "cielo": "Cubierto con lluvia",
-      "probPrecip": 80
+      "probPrecip": 95
     },
     {
       "fecha": "2026-09-28T00:00:00",
