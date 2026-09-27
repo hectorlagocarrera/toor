@@ -1,38 +1,27 @@
 {
-  "updated": "2026-09-27T08:19:17.716Z",
-  "avisos": [
-    {
-      "event": "Aviso de temperaturas máximas de nivel amarillo",
-      "headline": "Aviso de temperaturas máximas de nivel amarillo. Este, sur y oeste de Gran Canaria",
-      "description": "Temperatura máxima: 34 ºC. Afectando principalmente a zonas bajas del sur, donde las temperaturas mínimas apenas bajarán de los 26 ºC.",
-      "level": "amarillo",
-      "severity": "Moderate",
-      "effective": "2026-09-25T10:00:19+01:00",
-      "expires": "2026-09-26T18:59:59+01:00",
-      "areaDesc": "Este, sur y oeste de Gran Canaria"
-    }
-  ],
+  "updated": "2026-09-27T15:11:17.461Z",
+  "avisos": [],
   "forecast": [
     {
       "fecha": "2026-09-27T00:00:00",
-      "tMax": 30,
-      "tMin": 25,
-      "cielo": "Cubierto con lluvia",
-      "probPrecip": 95
+      "tMax": 31,
+      "tMin": 24,
+      "cielo": null,
+      "probPrecip": 0
     },
     {
       "fecha": "2026-09-28T00:00:00",
       "tMax": 28,
       "tMin": 24,
       "cielo": "Intervalos nubosos con lluvia escasa",
-      "probPrecip": 60
+      "probPrecip": 70
     },
     {
       "fecha": "2026-09-29T00:00:00",
       "tMax": 28,
       "tMin": 23,
-      "cielo": "Intervalos nubosos",
-      "probPrecip": 45
+      "cielo": "Intervalos nubosos con lluvia escasa",
+      "probPrecip": 70
     },
     {
       "fecha": "2026-09-30T00:00:00",
