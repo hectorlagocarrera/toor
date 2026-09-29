@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T16:33:02.733Z",
+  "updated": "2026-09-29T22:22:32.769Z",
   "avisos": [],
   "forecast": [
     {
@@ -14,21 +14,21 @@
       "tMax": 28,
       "tMin": 23,
       "cielo": "Intervalos nubosos",
-      "probPrecip": 15
+      "probPrecip": 10
     },
     {
       "fecha": "2026-10-01T00:00:00",
       "tMax": 27,
       "tMin": 24,
-      "cielo": "Poco nuboso",
-      "probPrecip": 5
+      "cielo": "Nuboso",
+      "probPrecip": 45
     },
     {
       "fecha": "2026-10-02T00:00:00",
       "tMax": 27,
       "tMin": 23,
       "cielo": "Nuboso",
-      "probPrecip": 20
+      "probPrecip": 10
     },
     {
       "fecha": "2026-10-03T00:00:00",
