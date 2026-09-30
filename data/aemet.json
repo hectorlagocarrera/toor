@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T12:45:07.750Z",
+  "updated": "2026-09-30T19:27:29.402Z",
   "avisos": [],
   "forecast": [
     {
@@ -19,7 +19,7 @@
     {
       "fecha": "2026-10-02T00:00:00",
       "tMax": 27,
-      "tMin": 23,
+      "tMin": 24,
       "cielo": "Muy nuboso con lluvia escasa",
       "probPrecip": 70
     },
