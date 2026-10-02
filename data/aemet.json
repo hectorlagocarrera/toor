@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T05:49:38.587Z",
+  "updated": "2026-10-02T12:47:59.882Z",
   "avisos": [],
   "forecast": [
     {
@@ -38,5 +38,7 @@
       "probPrecip": 80
     }
   ],
-  "errors": []
+  "errors": [
+    "forecast: AEMET datos (https://opendata.aemet.es/opendata/sh/d0ae75bf) -> HTTP 503"
+  ]
 }
