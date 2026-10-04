@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T19:41:47.633Z",
+  "updated": "2026-10-04T23:16:31.352Z",
   "avisos": [],
   "forecast": [
     {
@@ -13,8 +13,8 @@
       "fecha": "2026-10-05T00:00:00",
       "tMax": 27,
       "tMin": 23,
-      "cielo": "Cubierto con lluvia escasa",
-      "probPrecip": 70
+      "cielo": "Nuboso con lluvia escasa",
+      "probPrecip": 80
     },
     {
       "fecha": "2026-10-06T00:00:00",
@@ -38,7 +38,5 @@
       "probPrecip": 100
     }
   ],
-  "errors": [
-    "forecast: AEMET datos (https://opendata.aemet.es/opendata/sh/d0ae75bf) -> HTTP 500"
-  ]
+  "errors": []
 }
