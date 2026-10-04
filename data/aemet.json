@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T15:24:52.822Z",
+  "updated": "2026-10-04T19:41:47.633Z",
   "avisos": [],
   "forecast": [
     {
@@ -39,6 +39,6 @@
     }
   ],
   "errors": [
-    "avisos: AEMET /api/avisos_cap/ultimoelaborado/area/esp -> HTTP 503: <!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>503 Service Temporarily Unavailable</title>\n</head><body>\n<h1>Service Temporarily Unavailable</h1>\n<p>The server is temporarily unable to service your\nrequest due to maintenance downtime or capacity\nproblems. Please try again lat"
+    "forecast: AEMET datos (https://opendata.aemet.es/opendata/sh/d0ae75bf) -> HTTP 500"
   ]
 }
