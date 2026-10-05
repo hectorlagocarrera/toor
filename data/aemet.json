@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T14:54:14.851Z",
+  "updated": "2026-10-05T22:44:07.274Z",
   "avisos": [
     {
       "event": "Aviso de lluvias de nivel amarillo",
@@ -63,7 +63,7 @@
     },
     {
       "fecha": "2026-10-09T00:00:00",
-      "tMax": 26,
+      "tMax": 25,
       "tMin": 22,
       "cielo": "Intervalos nubosos con lluvia",
       "probPrecip": 100
