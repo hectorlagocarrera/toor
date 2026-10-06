@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T06:30:23.475Z",
+  "updated": "2026-10-06T15:16:48.248Z",
   "avisos": [
     {
       "event": "Aviso de lluvias de nivel amarillo",
@@ -69,5 +69,7 @@
       "probPrecip": 100
     }
   ],
-  "errors": []
+  "errors": [
+    "forecast: AEMET /api/prediccion/especifica/municipio/diaria/35016 -> HTTP 429: {\n  \"descripcion\" : \"Se ha alcanzado uno de los l�mites de uso. Vuelva a intentarlo el pr�ximo minuto.\",\n  \"estado\" : 429\n}"
+  ]
 }
