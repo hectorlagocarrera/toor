@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-09T00:27:14.566Z",
+  "updated": "2026-10-09T09:13:34.695Z",
   "avisos": [],
   "forecast": [
     {
@@ -38,5 +38,7 @@
       "probPrecip": 45
     }
   ],
-  "errors": []
+  "errors": [
+    "forecast: AEMET /api/prediccion/especifica/municipio/diaria/35016 -> HTTP 429: {\n  \"descripcion\" : \"Se ha alcanzado uno de los l�mites de uso. Vuelva a intentarlo el pr�ximo minuto.\",\n  \"estado\" : 429\n}"
+  ]
 }
