@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-16T13:19:34.360Z",
+  "updated": "2026-10-16T18:08:45.213Z",
   "avisos": [],
   "forecast": [
     {
@@ -19,7 +19,7 @@
     {
       "fecha": "2026-10-18T00:00:00",
       "tMax": 26,
-      "tMin": 22,
+      "tMin": 23,
       "cielo": "Intervalos nubosos con lluvia",
       "probPrecip": 100
     },
