@@ -1,44 +1,42 @@
 {
-  "updated": "2026-10-15T21:30:35.539Z",
+  "updated": "2026-10-16T00:28:13.527Z",
   "avisos": [],
   "forecast": [
     {
-      "fecha": "2026-10-14T00:00:00",
+      "fecha": "2026-10-15T00:00:00",
       "tMax": 27,
       "tMin": 23,
       "cielo": null,
       "probPrecip": 0
     },
     {
-      "fecha": "2026-10-15T00:00:00",
+      "fecha": "2026-10-16T00:00:00",
       "tMax": 27,
       "tMin": 23,
       "cielo": "Nubes altas",
       "probPrecip": 0
     },
     {
-      "fecha": "2026-10-16T00:00:00",
-      "tMax": 27,
-      "tMin": 23,
-      "cielo": "Intervalos nubosos",
-      "probPrecip": 20
-    },
-    {
       "fecha": "2026-10-17T00:00:00",
       "tMax": 26,
-      "tMin": 22,
-      "cielo": "Intervalos nubosos",
-      "probPrecip": 35
+      "tMin": 23,
+      "cielo": "Nuboso con lluvia escasa",
+      "probPrecip": 85
     },
     {
       "fecha": "2026-10-18T00:00:00",
       "tMax": 26,
       "tMin": 22,
-      "cielo": "Nuboso con lluvia",
+      "cielo": "Intervalos nubosos con lluvia",
       "probPrecip": 100
+    },
+    {
+      "fecha": "2026-10-19T00:00:00",
+      "tMax": 24,
+      "tMin": 21,
+      "cielo": "Muy nuboso con lluvia",
+      "probPrecip": 95
     }
   ],
-  "errors": [
-    "forecast: AEMET /api/prediccion/especifica/municipio/diaria/35016 -> HTTP 429: {\n  \"descripcion\" : \"Se ha alcanzado uno de los l�mites de uso. Vuelva a intentarlo el pr�ximo minuto.\",\n  \"estado\" : 429\n}"
-  ]
+  "errors": []
 }
