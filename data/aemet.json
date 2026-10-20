@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-20T11:48:49.633Z",
+  "updated": "2026-10-20T17:17:42.877Z",
   "avisos": [],
   "forecast": [
     {
@@ -11,7 +11,7 @@
     },
     {
       "fecha": "2026-10-21T00:00:00",
-      "tMax": 26,
+      "tMax": 25,
       "tMin": 22,
       "cielo": "Cubierto con lluvia",
       "probPrecip": 100
