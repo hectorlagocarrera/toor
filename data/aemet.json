@@ -1,19 +1,43 @@
 {
-  "updated": "2026-10-21T00:40:36.088Z",
-  "avisos": [],
-  "forecast": [
+  "updated": "2026-10-21T07:47:11.231Z",
+  "avisos": [
     {
-      "fecha": "2026-10-20T00:00:00",
-      "tMax": 25,
-      "tMin": 20,
-      "cielo": null,
-      "probPrecip": 0
+      "event": "Aviso de lluvias de nivel amarillo",
+      "headline": "Aviso de lluvias de nivel amarillo. Norte de Gran Canaria",
+      "description": "Precipitación acumulada en una hora: 15 mm. Chubascos fuertes que pueden ir acompañados de tormentas.",
+      "level": "amarillo",
+      "severity": "Moderate",
+      "effective": "2026-10-21T07:39:04+01:00",
+      "expires": "2026-10-21T23:59:59+01:00",
+      "areaDesc": "Norte de Gran Canaria"
     },
+    {
+      "event": "Aviso de lluvias de nivel amarillo",
+      "headline": "Aviso de lluvias de nivel amarillo. Cumbres de Gran Canaria",
+      "description": "Precipitación acumulada en una hora: 15 mm. Chubascos fuertes que pueden ir acompañados de tormentas.",
+      "level": "amarillo",
+      "severity": "Moderate",
+      "effective": "2026-10-21T07:39:04+01:00",
+      "expires": "2026-10-21T23:59:59+01:00",
+      "areaDesc": "Cumbres de Gran Canaria"
+    },
+    {
+      "event": "Aviso de lluvias de nivel amarillo",
+      "headline": "Aviso de lluvias de nivel amarillo. Este, sur y oeste de Gran Canaria",
+      "description": "Precipitación acumulada en una hora: 15 mm. Chubascos fuertes que pueden ir acompañados de tormentas.",
+      "level": "amarillo",
+      "severity": "Moderate",
+      "effective": "2026-10-21T07:39:04+01:00",
+      "expires": "2026-10-21T23:59:59+01:00",
+      "areaDesc": "Este, sur y oeste de Gran Canaria"
+    }
+  ],
+  "forecast": [
     {
       "fecha": "2026-10-21T00:00:00",
       "tMax": 25,
       "tMin": 22,
-      "cielo": "Muy nuboso con lluvia",
+      "cielo": "Cubierto con lluvia",
       "probPrecip": 100
     },
     {
@@ -26,16 +50,23 @@
     {
       "fecha": "2026-10-23T00:00:00",
       "tMax": 26,
-      "tMin": 22,
+      "tMin": 23,
       "cielo": "Intervalos nubosos con lluvia",
       "probPrecip": 95
     },
     {
       "fecha": "2026-10-24T00:00:00",
       "tMax": 25,
-      "tMin": 23,
+      "tMin": 22,
       "cielo": "Nuboso con lluvia",
       "probPrecip": 95
+    },
+    {
+      "fecha": "2026-10-25T00:00:00",
+      "tMax": 25,
+      "tMin": 22,
+      "cielo": "Nuboso",
+      "probPrecip": 45
     }
   ],
   "errors": []
