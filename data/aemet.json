@@ -1,41 +1,13 @@
 {
-  "updated": "2026-10-22T05:00:01.778Z",
-  "avisos": [
-    {
-      "event": "Aviso de lluvias de nivel naranja",
-      "headline": "Aviso de lluvias de nivel naranja. Norte de Gran Canaria",
-      "description": "Precipitación acumulada en una hora: 40 mm. Afectando al noreste.",
-      "level": "naranja",
-      "severity": "Severe",
-      "effective": "2026-10-22T01:37:34+01:00",
-      "expires": "2026-10-22T05:59:59+01:00",
-      "areaDesc": "Norte de Gran Canaria"
-    },
-    {
-      "event": "Aviso de lluvias de nivel amarillo",
-      "headline": "Aviso de lluvias de nivel amarillo. Este, sur y oeste de Gran Canaria",
-      "description": "Precipitación acumulada en una hora: 15 mm. Chubascos fuertes que pueden ir acompañados de tormentas. Afectando a la vertiente E de GC.",
-      "level": "amarillo",
-      "severity": "Moderate",
-      "effective": "2026-10-22T01:37:34+01:00",
-      "expires": "2026-10-22T05:59:59+01:00",
-      "areaDesc": "Este, sur y oeste de Gran Canaria"
-    }
-  ],
+  "updated": "2026-10-22T12:03:24.437Z",
+  "avisos": [],
   "forecast": [
     {
-      "fecha": "2026-10-21T00:00:00",
+      "fecha": "2026-10-22T00:00:00",
       "tMax": 25,
       "tMin": 21,
       "cielo": null,
       "probPrecip": 0
-    },
-    {
-      "fecha": "2026-10-22T00:00:00",
-      "tMax": 26,
-      "tMin": 21,
-      "cielo": "Intervalos nubosos con lluvia escasa",
-      "probPrecip": 90
     },
     {
       "fecha": "2026-10-23T00:00:00",
@@ -48,15 +20,22 @@
       "fecha": "2026-10-24T00:00:00",
       "tMax": 26,
       "tMin": 23,
-      "cielo": "Nuboso con lluvia escasa",
-      "probPrecip": 75
+      "cielo": "Muy nuboso con lluvia escasa",
+      "probPrecip": 80
     },
     {
       "fecha": "2026-10-25T00:00:00",
       "tMax": 26,
       "tMin": 22,
       "cielo": "Nuboso",
-      "probPrecip": 30
+      "probPrecip": 25
+    },
+    {
+      "fecha": "2026-10-26T00:00:00",
+      "tMax": 27,
+      "tMin": 22,
+      "cielo": "Cubierto",
+      "probPrecip": 15
     }
   ],
   "errors": []
