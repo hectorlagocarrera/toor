@@ -1,34 +1,24 @@
 {
-  "updated": "2026-10-21T23:25:51.545Z",
+  "updated": "2026-10-22T05:00:01.778Z",
   "avisos": [
     {
-      "event": "Aviso de lluvias de nivel amarillo",
-      "headline": "Aviso de lluvias de nivel amarillo. Norte de Gran Canaria",
-      "description": "Precipitación acumulada en una hora: 15 mm. Chubascos fuertes que pueden ir acompañados de tormentas.",
-      "level": "amarillo",
-      "severity": "Moderate",
-      "effective": "2026-10-21T07:39:04+01:00",
-      "expires": "2026-10-21T23:59:59+01:00",
+      "event": "Aviso de lluvias de nivel naranja",
+      "headline": "Aviso de lluvias de nivel naranja. Norte de Gran Canaria",
+      "description": "Precipitación acumulada en una hora: 40 mm. Afectando al noreste.",
+      "level": "naranja",
+      "severity": "Severe",
+      "effective": "2026-10-22T01:37:34+01:00",
+      "expires": "2026-10-22T05:59:59+01:00",
       "areaDesc": "Norte de Gran Canaria"
     },
     {
       "event": "Aviso de lluvias de nivel amarillo",
-      "headline": "Aviso de lluvias de nivel amarillo. Cumbres de Gran Canaria",
-      "description": "Precipitación acumulada en una hora: 15 mm. Chubascos fuertes que pueden ir acompañados de tormentas.",
-      "level": "amarillo",
-      "severity": "Moderate",
-      "effective": "2026-10-21T07:39:04+01:00",
-      "expires": "2026-10-21T23:59:59+01:00",
-      "areaDesc": "Cumbres de Gran Canaria"
-    },
-    {
-      "event": "Aviso de lluvias de nivel amarillo",
       "headline": "Aviso de lluvias de nivel amarillo. Este, sur y oeste de Gran Canaria",
-      "description": "Precipitación acumulada en una hora: 15 mm. Chubascos fuertes que pueden ir acompañados de tormentas.",
+      "description": "Precipitación acumulada en una hora: 15 mm. Chubascos fuertes que pueden ir acompañados de tormentas. Afectando a la vertiente E de GC.",
       "level": "amarillo",
       "severity": "Moderate",
-      "effective": "2026-10-21T07:39:04+01:00",
-      "expires": "2026-10-21T23:59:59+01:00",
+      "effective": "2026-10-22T01:37:34+01:00",
+      "expires": "2026-10-22T05:59:59+01:00",
       "areaDesc": "Este, sur y oeste de Gran Canaria"
     }
   ],
