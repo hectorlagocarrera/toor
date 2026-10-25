@@ -1,10 +1,10 @@
 {
-  "updated": "2026-10-25T11:44:05.151Z",
+  "updated": "2026-10-25T16:32:22.770Z",
   "avisos": [],
   "forecast": [
     {
       "fecha": "2026-10-25T00:00:00",
-      "tMax": 26,
+      "tMax": 25,
       "tMin": 22,
       "cielo": null,
       "probPrecip": 0
