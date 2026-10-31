@@ -1,20 +1,34 @@
 {
-  "updated": "2026-10-31T05:54:36.963Z",
-  "avisos": [],
-  "forecast": [
+  "updated": "2026-10-31T12:44:54.148Z",
+  "avisos": [
     {
-      "fecha": "2026-10-30T00:00:00",
-      "tMax": 25,
-      "tMin": 22,
-      "cielo": null,
-      "probPrecip": 0
+      "event": "Aviso de lluvias de nivel amarillo",
+      "headline": "Aviso de lluvias de nivel amarillo. Norte de Gran Canaria",
+      "description": "Precipitación acumulada en una hora: 15 mm.",
+      "level": "amarillo",
+      "severity": "Moderate",
+      "effective": "2026-10-31T10:28:27-00:00",
+      "expires": "2026-11-01T23:59:59-00:00",
+      "areaDesc": "Norte de Gran Canaria"
     },
+    {
+      "event": "Aviso de tormentas de nivel amarillo",
+      "headline": "Aviso de tormentas de nivel amarillo. Norte de Gran Canaria",
+      "description": "",
+      "level": "amarillo",
+      "severity": "Moderate",
+      "effective": "2026-10-31T10:28:27-00:00",
+      "expires": "2026-11-01T23:59:59-00:00",
+      "areaDesc": "Norte de Gran Canaria"
+    }
+  ],
+  "forecast": [
     {
       "fecha": "2026-10-31T00:00:00",
       "tMax": 26,
       "tMin": 22,
-      "cielo": "Muy nuboso con lluvia escasa",
-      "probPrecip": 65
+      "cielo": null,
+      "probPrecip": 0
     },
     {
       "fecha": "2026-11-01T00:00:00",
@@ -25,14 +39,21 @@
     },
     {
       "fecha": "2026-11-02T00:00:00",
-      "tMax": 26,
-      "tMin": 22,
+      "tMax": 27,
+      "tMin": 21,
       "cielo": "Intervalos nubosos con lluvia",
-      "probPrecip": 95
+      "probPrecip": 90
     },
     {
       "fecha": "2026-11-03T00:00:00",
-      "tMax": 26,
+      "tMax": 25,
+      "tMin": 21,
+      "cielo": "Intervalos nubosos con lluvia",
+      "probPrecip": 100
+    },
+    {
+      "fecha": "2026-11-04T00:00:00",
+      "tMax": 24,
       "tMin": 21,
       "cielo": "Intervalos nubosos con lluvia",
       "probPrecip": 100
