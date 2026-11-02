@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T20:35:20.477Z",
+  "updated": "2026-11-02T01:34:04.158Z",
   "avisos": [
     {
       "event": "Aviso de lluvias de nivel amarillo",
@@ -54,14 +54,14 @@
       "fecha": "2026-11-02T00:00:00",
       "tMax": 26,
       "tMin": 22,
-      "cielo": "Nuboso con lluvia escasa",
-      "probPrecip": 100
+      "cielo": "Intervalos nubosos con lluvia escasa",
+      "probPrecip": 90
     },
     {
       "fecha": "2026-11-03T00:00:00",
       "tMax": 25,
       "tMin": 21,
-      "cielo": "Intervalos nubosos con lluvia",
+      "cielo": "Nuboso con lluvia",
       "probPrecip": 100
     },
     {
