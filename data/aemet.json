@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T00:40:04.802Z",
+  "updated": "2026-11-04T09:27:00.845Z",
   "avisos": [
     {
       "event": "Aviso de lluvias de nivel amarillo",
@@ -64,39 +64,39 @@
   ],
   "forecast": [
     {
-      "fecha": "2026-11-03T00:00:00",
-      "tMax": 27,
-      "tMin": 21,
-      "cielo": null,
-      "probPrecip": 0
-    },
-    {
       "fecha": "2026-11-04T00:00:00",
       "tMax": 26,
       "tMin": 21,
-      "cielo": "Intervalos nubosos con lluvia",
-      "probPrecip": 100
+      "cielo": null,
+      "probPrecip": 0
     },
     {
       "fecha": "2026-11-05T00:00:00",
       "tMax": 26,
       "tMin": 21,
       "cielo": "Intervalos nubosos con lluvia escasa",
-      "probPrecip": 65
+      "probPrecip": 75
     },
     {
       "fecha": "2026-11-06T00:00:00",
       "tMax": 25,
       "tMin": 21,
-      "cielo": "Intervalos nubosos",
-      "probPrecip": 20
+      "cielo": "Intervalos nubosos con lluvia escasa",
+      "probPrecip": 50
     },
     {
       "fecha": "2026-11-07T00:00:00",
-      "tMax": 26,
-      "tMin": 20,
+      "tMax": 27,
+      "tMin": 21,
       "cielo": "Intervalos nubosos",
-      "probPrecip": 20
+      "probPrecip": 15
+    },
+    {
+      "fecha": "2026-11-08T00:00:00",
+      "tMax": 29,
+      "tMin": 24,
+      "cielo": "Muy nuboso con lluvia",
+      "probPrecip": 90
     }
   ],
   "errors": []
