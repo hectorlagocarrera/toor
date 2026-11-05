@@ -1,72 +1,41 @@
 {
-  "updated": "2026-11-05T06:58:34.795Z",
-  "avisos": [
-    {
-      "event": "Aviso de lluvias de nivel amarillo",
-      "headline": "Aviso de lluvias de nivel amarillo. Norte de Gran Canaria",
-      "description": "Precipitación acumulada en una hora: 15 mm. Afectando principalmente a zonas de interior.",
-      "level": "amarillo",
-      "severity": "Moderate",
-      "effective": "2026-11-03T10:27:59-00:00",
-      "expires": "2026-11-04T19:59:59-00:00",
-      "areaDesc": "Norte de Gran Canaria"
-    },
-    {
-      "event": "Aviso de lluvias de nivel amarillo",
-      "headline": "Aviso de lluvias de nivel amarillo. Cumbres de Gran Canaria",
-      "description": "Precipitación acumulada en una hora: 15 mm. Afectando principalmente a zonas de interior.",
-      "level": "amarillo",
-      "severity": "Moderate",
-      "effective": "2026-11-03T10:27:59-00:00",
-      "expires": "2026-11-04T19:59:59-00:00",
-      "areaDesc": "Cumbres de Gran Canaria"
-    },
-    {
-      "event": "Aviso de lluvias de nivel amarillo",
-      "headline": "Aviso de lluvias de nivel amarillo. Este, sur y oeste de Gran Canaria",
-      "description": "Precipitación acumulada en una hora: 15 mm. Afectando principalmente a zonas de interior.",
-      "level": "amarillo",
-      "severity": "Moderate",
-      "effective": "2026-11-03T10:27:59-00:00",
-      "expires": "2026-11-04T19:59:59-00:00",
-      "areaDesc": "Este, sur y oeste de Gran Canaria"
-    }
-  ],
+  "updated": "2026-11-05T16:31:42.961Z",
+  "avisos": [],
   "forecast": [
-    {
-      "fecha": "2026-11-04T00:00:00",
-      "tMax": 25,
-      "tMin": 20,
-      "cielo": null,
-      "probPrecip": 0
-    },
     {
       "fecha": "2026-11-05T00:00:00",
       "tMax": 23,
-      "tMin": 20,
-      "cielo": "Intervalos nubosos con lluvia escasa",
-      "probPrecip": 60
+      "tMin": 21,
+      "cielo": null,
+      "probPrecip": 0
     },
     {
       "fecha": "2026-11-06T00:00:00",
       "tMax": 25,
       "tMin": 20,
       "cielo": "Intervalos nubosos con lluvia escasa",
-      "probPrecip": 75
+      "probPrecip": 50
     },
     {
       "fecha": "2026-11-07T00:00:00",
-      "tMax": 27,
-      "tMin": 21,
+      "tMax": 28,
+      "tMin": 22,
       "cielo": "Nubes altas",
       "probPrecip": 0
     },
     {
       "fecha": "2026-11-08T00:00:00",
       "tMax": 29,
-      "tMin": 24,
+      "tMin": 23,
+      "cielo": "Intervalos nubosos con lluvia",
+      "probPrecip": 100
+    },
+    {
+      "fecha": "2026-11-09T00:00:00",
+      "tMax": 26,
+      "tMin": 22,
       "cielo": "Muy nuboso con lluvia",
-      "probPrecip": 90
+      "probPrecip": 100
     }
   ],
   "errors": []
