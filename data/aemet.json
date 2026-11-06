@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T23:41:36.682Z",
+  "updated": "2026-11-06T06:57:54.800Z",
   "avisos": [],
   "forecast": [
     {
@@ -38,5 +38,8 @@
       "probPrecip": 100
     }
   ],
-  "errors": []
+  "errors": [
+    "avisos: AEMET /api/avisos_cap/ultimoelaborado/area/esp -> HTTP 401: {\n  \"descripcion\" : \"La API Key ha expirado. Genere una nueva API Key\",\n  \"estado\" : 401\n}",
+    "forecast: AEMET /api/prediccion/especifica/municipio/diaria/35016 -> HTTP 401: {\n  \"descripcion\" : \"La API Key ha expirado. Genere una nueva API Key\",\n  \"estado\" : 401\n}"
+  ]
 }
